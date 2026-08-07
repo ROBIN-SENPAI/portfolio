@@ -67,15 +67,25 @@ const certifications = [
     level: "Foundation",
     description: "Human trafficking awareness, detection techniques, and preventive measures.",
   },
+  {
+    rank: 8,
+    title: "Certified LLM Security Expert",
+    acronym: "CLLMSE",
+    issuer: "Red Team Leaders",
+    href: "https://courses.redteamleaders.com/exam-completion/9b6a7262b25aa53c",
+    level: "Expert",
+    description: "Advanced LLM security, AI red teaming, and large language model attack surface exploitation.",
+  },
 ]
 
 const levelColors: Record<string, string> = {
+  Expert: "text-emerald-400 border-emerald-400/40 bg-emerald-400/10",
   Advanced: "text-accent border-accent/40 bg-accent/10",
   Intermediate: "text-amber-400 border-amber-400/40 bg-amber-400/10",
   Foundation: "text-blue-400 border-blue-400/40 bg-blue-400/10",
 }
 
-const levelOrder = ["Advanced", "Intermediate", "Foundation"]
+const levelOrder = ["Expert", "Advanced", "Intermediate", "Foundation"]
 
 export function Certifications() {
   return (
@@ -188,7 +198,7 @@ export function Certifications() {
       >
         {levelOrder.map((level) => (
           <div key={level} className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${level === "Advanced" ? "bg-accent" : level === "Intermediate" ? "bg-amber-400" : "bg-blue-400"}`} />
+            <span className={`w-2 h-2 rounded-full ${level === "Expert" ? "bg-emerald-400" : level === "Advanced" ? "bg-accent" : level === "Intermediate" ? "bg-amber-400" : "bg-blue-400"}`} />
             <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
               {certifications.filter((c) => c.level === level).length}x {level}
             </span>

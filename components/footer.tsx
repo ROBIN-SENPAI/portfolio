@@ -5,6 +5,7 @@ import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 
 const links = [
+  { label: "GitHub", href: "https://github.com/ROBIN-SENPAI" },
   { label: "Academy Website", href: "https://senpai-academy.netlify.app" },
   { label: "Academy Channel", href: "https://t.me/SENPAI_ACADMEY" },
   { label: "TryHackMe", href: "https://tryhackme.com/p/ROBiN" },

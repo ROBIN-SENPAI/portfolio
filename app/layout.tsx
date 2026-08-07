@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "Cybersecurity specialist focused on Active Directory, building educational platforms and high-quality Arabic content for cybersecurity students.",
   generator: "v0.app",
   icons: {
-    icon: "/badge.svg",
+    icon: "/portfolio/badge.svg",
   },
 }
 

@@ -52,7 +52,7 @@ export function Navbar() {
             }}
             className="group flex items-center gap-2"
           >
-            <img src="/badge.svg" alt="Logo" className="w-6 h-6" />
+            <img src="/portfolio/badge.svg" alt="Logo" className="w-6 h-6" />
             <span className="font-sans text-sm tracking-wider text-white/80">M.Baqir Firas</span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-150 transition-transform duration-300" />
           </a>

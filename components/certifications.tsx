@@ -76,6 +76,24 @@ const certifications = [
     level: "Foundation",
     description: "Human trafficking awareness, detection techniques, and preventive measures.",
   },
+  {
+    rank: 9,
+    title: "Certified Security Code Review Beginners",
+    acronym: "CSCRB",
+    issuer: "Red Team Leaders",
+    href: "https://courses.redteamleaders.com/exam-completion/592dd1205b5e4acd",
+    level: "Foundation",
+    description: "Foundations of secure code review, spotting vulnerabilities in source code.",
+  },
+  {
+    rank: 10,
+    title: "Certified Cybersecurity Foundations",
+    acronym: "CCF",
+    issuer: "Hackviser",
+    href: "https://hackviser.com/verify?id=HV-CORE-GO4EUP42",
+    level: "Foundation",
+    description: "Core cybersecurity foundations verified through Hackviser.",
+  },
 ]
 
 const levelColors: Record<string, string> = {
@@ -107,9 +125,9 @@ export function Certifications() {
         className="mb-16 md:mb-20 relative"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">05 — CERTIFICATIONS</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light italic mb-4">Verified Credentials</h2>
+        <h2 className="font-sans text-3xl md:text-5xl font-light mb-4">Verified Credentials</h2>
         <p className="max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
-          Industry-recognized certifications from Red Team Leaders, ranked by expertise level.
+          Industry-recognized certifications from Red Team Leaders and Hackviser, ranked by expertise level.
         </p>
       </motion.div>
 

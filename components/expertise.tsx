@@ -50,7 +50,7 @@ export function Expertise() {
         className="mb-16 md:mb-20 relative"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">04 — EXPERTISE</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light italic mb-4">Areas of Focus</h2>
+        <h2 className="font-sans text-3xl md:text-5xl font-light mb-4">Areas of Focus</h2>
         <p className="max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
           Where offensive insight meets defensive discipline — the domains I study, break, and teach.
         </p>

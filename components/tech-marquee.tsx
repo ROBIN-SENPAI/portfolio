@@ -98,7 +98,7 @@ export function TechMarquee() {
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <h2 className="font-sans text-3xl md:text-5xl font-light italic">
+              <h2 className="font-sans text-3xl md:text-5xl font-light">
                 Tools & <span className="text-white/70">Technologies</span>
               </h2>
               <p className="mt-4 max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">

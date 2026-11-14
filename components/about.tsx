@@ -4,7 +4,7 @@ import { useRef } from "react"
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 
 const stats = [
-  { value: "8+", label: "Platforms Launched" },
+  { value: "4", label: "Live Platforms" },
   { value: "1st", label: "Place — Technical Competitions" },
   { value: "AD", label: "Active Directory Specialist" },
   { value: "AR", label: "High-Quality Arabic Content" },
@@ -49,7 +49,7 @@ export function About() {
         className="px-8 md:px-12 mb-0 py-20 relative"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">03 — ABOUT ME</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light italic mb-8 text-balance">
+        <h2 className="font-sans text-3xl md:text-5xl font-light mb-8 text-balance">
           Turning complex security into clear learning
         </h2>
         <div className="max-w-4xl font-sans text-base md:text-lg font-light leading-relaxed text-white/80 text-pretty space-y-5">

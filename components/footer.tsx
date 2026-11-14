@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 
 const links = [
   { label: "GitHub", href: "https://github.com/ROBIN-SENPAI" },
-  { label: "Academy Website", href: "https://senpai-academy.netlify.app" },
+  { label: "Academy Website", href: "https://academysenpai.com" },
   { label: "Academy Channel", href: "https://t.me/SENPAI_ACADMEY" },
   { label: "TryHackMe", href: "https://tryhackme.com/p/ROBiN" },
 ]
@@ -68,7 +68,7 @@ export function Footer() {
                   08 — CONTACT
                 </p>
                 <h2 className="font-sans text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-none">
-                  Let&apos;s <span className="italic text-accent">Collaborate</span>
+                  Let&apos;s <span className="text-accent">Collaborate</span>
                 </h2>
                 <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted-foreground">
                   Building the future of Arabic cybersecurity education. Have an idea, a project, or a question? Reach

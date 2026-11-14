@@ -18,7 +18,7 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="relative h-[100svh] min-h-[600px] w-full overflow-hidden bg-[#050505]">
       {/* Network topology background */}
       <NetworkBg />
 
@@ -56,12 +56,13 @@ export function Hero() {
 
       {/* Background gradient overlay */}
       <div className="absolute inset-0 z-[5] pointer-events-none">
+        <div className="md:hidden absolute inset-0 bg-gradient-to-b from-black/70 via-black/10 to-black/75" />
         <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-gradient-to-br from-accent/[0.03] to-transparent" />
         <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-accent/[0.02] to-transparent" />
       </div>
 
       {/* Typography Overlay */}
-      <motion.div style={{ opacity, scale }} className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 md:px-12 md:py-20">
+      <motion.div style={{ opacity, scale }} className="relative z-10 h-full flex flex-col justify-between px-6 pt-24 pb-14 md:p-12 md:px-12 md:py-20">
         {/* Top Left */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -148,7 +149,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden md:block"
       >
         <motion.div
           animate={{ y: [0, 8, 0] }}

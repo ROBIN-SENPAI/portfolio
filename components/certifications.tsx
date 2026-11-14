@@ -164,7 +164,7 @@ export function Certifications() {
             {/* Content */}
             <div className="flex-1 min-w-0">
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3">
-                <h3 className="font-sans text-lg md:text-xl font-light tracking-tight group-hover:text-accent transition-colors duration-300 truncate">
+                <h3 className="font-sans text-lg md:text-xl font-light tracking-tight group-hover:text-accent transition-colors duration-300 sm:truncate">
                   {cert.title}
                 </h3>
                 <span className="font-mono text-[10px] tracking-widest text-muted-foreground shrink-0">
@@ -174,7 +174,7 @@ export function Certifications() {
                   <span className="font-mono text-[9px] tracking-widest px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">AI</span>
                 )}
               </div>
-              <p className="mt-1 font-mono text-xs text-muted-foreground/70 line-clamp-1">
+              <p className="mt-1 font-mono text-xs text-muted-foreground/70 line-clamp-2 sm:line-clamp-1">
                 {cert.description}
               </p>
             </div>

@@ -170,7 +170,7 @@ export function Footer() {
             </div>
 
             {/* Links */}
-            <div className="flex items-center gap-5 order-2">
+            <div className="flex flex-wrap justify-center items-center gap-x-5 gap-y-2 order-2">
               {links.map((link) => (
                 <a
                   key={link.label}

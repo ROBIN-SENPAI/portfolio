@@ -44,7 +44,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.6, delay: index * 0.08 }}
-      className="group relative flex flex-col justify-between min-h-[260px] overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.04]"
+      className="group relative flex flex-col justify-between min-h-[220px] md:min-h-[260px] overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 md:p-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:bg-white/[0.04]"
     >
       <div className="pointer-events-none absolute -top-24 -right-24 h-56 w-56 rounded-full bg-accent/[0.08] blur-3xl opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 

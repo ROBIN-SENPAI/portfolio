@@ -18,7 +18,7 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
   return (
-    <section ref={containerRef} className="hero-scan relative h-screen w-full overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
       {/* Network topology background */}
       <NetworkBg />
 

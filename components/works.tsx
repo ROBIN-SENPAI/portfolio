@@ -58,7 +58,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       </div>
 
       <div className="relative mt-10">
-        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">{project.title}</h3>
+        <h3 className="text-2xl md:text-3xl font-light tracking-tight text-white">{project.title}</h3>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
         <div className="mt-5 flex flex-wrap items-center gap-2">
           {project.tags.map((tag) => (
@@ -94,7 +94,7 @@ export function Works() {
             <div className="h-px w-8 bg-accent/40" />
             <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground">06 — PLATFORMS & PROJECTS</p>
           </div>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight">Platforms I built</h2>
+          <h2 className="text-3xl md:text-5xl font-light italic leading-tight">Platforms I built</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground text-pretty">
             Four live products — an academy, a typing platform and two Android apps.
           </p>

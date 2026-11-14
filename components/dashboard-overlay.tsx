@@ -38,7 +38,7 @@ export function DashboardOverlay() {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       // Horizontal scan lines
-      ctx.strokeStyle = "rgba(34,211,238, 0.015)"
+      ctx.strokeStyle = "rgba(249,115,22, 0.015)"
       ctx.lineWidth = 1
       for (let y = 0; y < canvas.height; y += 40) {
         ctx.beginPath()
@@ -59,9 +59,9 @@ export function DashboardOverlay() {
         if (p.x > canvas.width + p.length) p.x = -p.length
 
         const grad = ctx.createLinearGradient(p.x, p.y, p.x + p.length, p.y)
-        grad.addColorStop(0, `rgba(34,211,238, 0)`)
-        grad.addColorStop(0.5, `rgba(34,211,238, ${p.alpha})`)
-        grad.addColorStop(1, `rgba(34,211,238, 0)`)
+        grad.addColorStop(0, `rgba(249,115,22, 0)`)
+        grad.addColorStop(0.5, `rgba(249,115,22, ${p.alpha})`)
+        grad.addColorStop(1, `rgba(249,115,22, 0)`)
         ctx.beginPath()
         ctx.moveTo(p.x, p.y)
         ctx.lineTo(p.x + p.length, p.y)
@@ -72,13 +72,13 @@ export function DashboardOverlay() {
         const dotAlpha = Math.sin(time * 3 + p.x) * 0.2 + 0.3
         ctx.beginPath()
         ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(34,211,238, ${dotAlpha})`
+        ctx.fillStyle = `rgba(249,115,22, ${dotAlpha})`
         ctx.fill()
       }
 
       // Corner brackets
       const corner = (x: number, y: number, w: number, h: number) => {
-        ctx.strokeStyle = "rgba(34,211,238, 0.08)"
+        ctx.strokeStyle = "rgba(249,115,22, 0.08)"
         ctx.lineWidth = 1
         ctx.beginPath()
         ctx.moveTo(x, y + h)

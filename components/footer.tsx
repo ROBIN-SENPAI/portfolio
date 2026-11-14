@@ -40,15 +40,15 @@ export function Footer() {
         {/* Dot Grid Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute inset-0" style={{
-            backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.1) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.1) 1px, transparent 1px)",
             backgroundSize: "40px 40px",
           }} />
           <motion.div
             className="absolute inset-0"
             animate={{
               backgroundImage: isHovered
-                ? "radial-gradient(circle at 50% 50%, rgba(34,211,238,0.25) 0%, transparent 60%)"
-                : "radial-gradient(circle at 50% 100%, rgba(34,211,238,0) 0%, transparent 60%)",
+                ? "radial-gradient(circle at 50% 50%, rgba(249,115,22,0.25) 0%, transparent 60%)"
+                : "radial-gradient(circle at 50% 100%, rgba(249,115,22,0) 0%, transparent 60%)",
             }}
             transition={{ duration: 0.8 }}
           />
@@ -68,7 +68,7 @@ export function Footer() {
                   08 — CONTACT
                 </p>
                 <h2 className="font-sans text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-none">
-                  Let&apos;s <span className="text-accent">Collaborate</span>
+                  Let&apos;s <span className="italic text-accent">Collaborate</span>
                 </h2>
                 <p className="mt-6 max-w-md font-mono text-sm leading-relaxed text-muted-foreground">
                   Building the future of Arabic AI products and education. Have an idea, a project, or a question? Reach
@@ -96,7 +96,7 @@ export function Footer() {
                   <motion.span
                     className="absolute inset-0 border"
                     animate={{
-                      borderColor: isHovered ? "#22d3ee" : "rgba(255,255,255,0.15)",
+                      borderColor: isHovered ? "#f97316" : "rgba(255,255,255,0.15)",
                     }}
                     transition={{ duration: 0.4 }}
                   />
@@ -104,7 +104,7 @@ export function Footer() {
                     className="absolute inset-0"
                     animate={{
                       background: isHovered
-                        ? "linear-gradient(135deg, rgba(34,211,238,0.1), transparent)"
+                        ? "linear-gradient(135deg, rgba(249,115,22,0.1), transparent)"
                         : "transparent",
                     }}
                     transition={{ duration: 0.4 }}
@@ -113,13 +113,13 @@ export function Footer() {
                     <span className="relative flex h-3 w-3">
                       <motion.span
                         className="absolute inline-flex h-full w-full rounded-full"
-                        animate={{ backgroundColor: isHovered ? "#22d3ee" : "rgba(255,255,255,0.3)" }}
+                        animate={{ backgroundColor: isHovered ? "#f97316" : "rgba(255,255,255,0.3)" }}
                         transition={{ duration: 0.3 }}
                       />
                       <motion.span
                         className="absolute inline-flex h-full w-full rounded-full"
                         animate={{
-                          backgroundColor: isHovered ? "#22d3ee" : "rgba(255,255,255,0.3)",
+                          backgroundColor: isHovered ? "#f97316" : "rgba(255,255,255,0.3)",
                           scale: isHovered ? [1, 2, 1] : 1,
                           opacity: isHovered ? [0.5, 0, 0.5] : 0.5,
                         }}
@@ -128,7 +128,7 @@ export function Footer() {
                     </span>
                     <span className="relative font-mono text-sm tracking-[0.2em] uppercase">
                       <motion.span
-                        animate={{ color: isHovered ? "#22d3ee" : "#fafafa" }}
+                        animate={{ color: isHovered ? "#f97316" : "#fafafa" }}
                         transition={{ duration: 0.3 }}
                       >
                         Message on Telegram

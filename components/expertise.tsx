@@ -35,7 +35,7 @@ export function Expertise() {
       {/* Dot Grid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.08) 1px, transparent 1px)",
           backgroundSize: "50px 50px",
         }} />
         <div className="absolute top-20 right-10 w-80 h-80 rounded-full bg-accent/[0.03] blur-[100px]" />
@@ -50,7 +50,7 @@ export function Expertise() {
         className="mb-16 md:mb-20 relative"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">04 — EXPERTISE</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light mb-4">Areas of Focus</h2>
+        <h2 className="font-sans text-3xl md:text-5xl font-light italic mb-4">Areas of Focus</h2>
         <p className="max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
           Where artificial intelligence meets security — the domains I build, test, and teach.
         </p>

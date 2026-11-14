@@ -34,7 +34,7 @@ export function About() {
       {/* Dot Grid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.08) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }} />
         <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-accent/[0.03] blur-[120px]" />
@@ -49,7 +49,7 @@ export function About() {
         className="px-8 md:px-12 mb-0 py-20 relative"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">03 — ABOUT ME</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light mb-8 text-balance">
+        <h2 className="font-sans text-3xl md:text-5xl font-light italic mb-8 text-balance">
           Building with AI, securing what it builds
         </h2>
         <div className="max-w-4xl font-sans text-base md:text-lg font-light leading-relaxed text-white/80 text-pretty space-y-5">

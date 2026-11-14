@@ -84,7 +84,7 @@ export function Hero() {
           >
             <span className="inline-block">M. BAQIR</span>
             <br />
-            <span className="text-neural inline-block mt-1">FIRAS</span>
+            <span className="italic text-accent inline-block mt-1">FIRAS</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -98,7 +98,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
-            className="mt-3 max-w-xs font-sans text-lg md:text-xl font-light text-white/70 text-pretty leading-relaxed"
+            className="mt-3 max-w-xs font-sans text-lg md:text-xl font-light italic text-white/70 text-pretty leading-relaxed"
           >
             &ldquo;Building intelligent systems — and learning how to secure them.&rdquo;
           </motion.p>
@@ -127,7 +127,7 @@ export function Hero() {
           >
             <span className="inline-block">ARTIFICIAL</span>
             <br />
-            <span className="text-neural inline-block mt-1">INTELLIGENCE</span>
+            <span className="italic text-accent inline-block mt-1">INTELLIGENCE</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}

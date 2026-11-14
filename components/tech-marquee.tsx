@@ -48,7 +48,7 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#22d3ee"
+              e.currentTarget.style.color = "#f97316"
               e.currentTarget.style.WebkitTextStroke = "none"
             }}
             onMouseLeave={(e) => {
@@ -71,7 +71,7 @@ export function TechMarquee() {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.06) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.06) 1px, transparent 1px)",
           backgroundSize: "50px 50px",
         }} />
         <div className="absolute top-1/2 left-1/3 w-96 h-96 rounded-full bg-accent/[0.03] blur-[120px]" />
@@ -92,7 +92,7 @@ export function TechMarquee() {
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <h2 className="font-sans text-3xl md:text-5xl font-light">
+              <h2 className="font-sans text-3xl md:text-5xl font-light italic">
                 Tools & <span className="text-white/70">Technologies</span>
               </h2>
               <p className="mt-4 max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">

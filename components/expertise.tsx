@@ -5,27 +5,27 @@ import { motion } from "framer-motion"
 const areas = [
   {
     index: "01",
-    title: "Active Directory Security",
+    title: "AI-Powered Apps",
     description:
-      "Deep specialization in Active Directory environments — enumeration, attack paths, and defensive hardening for enterprise networks.",
+      "Designing and shipping products that put AI to work — voice translation, study assistants, and Arabic-first experiences.",
   },
   {
     index: "02",
-    title: "Cybersecurity Education",
+    title: "LLM & AI Security",
     description:
-      "Designing structured learning paths, certification study guides, and hands-on references that simplify the road into security.",
+      "Prompt injection, AI red teaming and guardrails — understanding how language models fail so they can be deployed safely.",
   },
   {
     index: "03",
-    title: "Platform Development",
+    title: "Cybersecurity Foundations",
     description:
-      "Building and shipping educational web platforms end-to-end — from concept and content to a live product used by students.",
+      "A solid base in Active Directory, red teaming and secure code review that informs every system I design.",
   },
   {
     index: "04",
-    title: "Privacy & Awareness",
+    title: "Education & Platforms",
     description:
-      "Creating awareness-driven content that helps everyday users protect their digital identity and understand real threats.",
+      "Building Senpai Academy and Arabic learning resources that turn complex topics into clear paths for students.",
   },
 ]
 
@@ -35,7 +35,7 @@ export function Expertise() {
       {/* Dot Grid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.08) 1px, transparent 1px)",
           backgroundSize: "50px 50px",
         }} />
         <div className="absolute top-20 right-10 w-80 h-80 rounded-full bg-accent/[0.03] blur-[100px]" />
@@ -52,7 +52,7 @@ export function Expertise() {
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">04 — EXPERTISE</p>
         <h2 className="font-sans text-3xl md:text-5xl font-light mb-4">Areas of Focus</h2>
         <p className="max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
-          Where offensive insight meets defensive discipline — the domains I study, break, and teach.
+          Where artificial intelligence meets security — the domains I build, test, and teach.
         </p>
       </motion.div>
 

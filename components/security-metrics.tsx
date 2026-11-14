@@ -4,14 +4,14 @@ import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 
 const labels = [
-  "DOMAIN CONTROLLERS",
-  "TRUST RELATIONS",
-  "KERBEROS TGT/s",
-  "SMB PIPES",
-  "LDAP QUERIES",
-  "DNS ZONES",
-  "GPO LINKS",
-  "SID FILTERING",
+  "ACTIVE MODELS",
+  "AGENTS RUNNING",
+  "TOKENS / SEC",
+  "CONTEXT WINDOWS",
+  "TOOL CALLS",
+  "EMBEDDINGS",
+  "GUARDRAILS",
+  "PROMPTS BLOCKED",
 ]
 
 function MetricLine({ label, initial }: { label: string; initial: number }) {
@@ -62,7 +62,7 @@ export function SecurityMetrics() {
         <MetricLine label={labels[7]} initial={3} />
       </div>
       <div className="mt-2 font-mono text-[9px] tracking-[0.2em] text-muted-foreground/40 uppercase">
-        [ live telemetry ]
+        [ neural telemetry ]
       </div>
     </motion.div>
   )

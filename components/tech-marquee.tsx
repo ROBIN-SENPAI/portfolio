@@ -3,36 +3,30 @@
 import { motion } from "framer-motion"
 
 const techItems = [
-  "ACTIVE DIRECTORY",
-  "RED TEAM",
-  "BLOODHOUND",
-  "SHARPHOUND",
-  "RUBEUS",
-  "MIMIKATZ",
-  "CERTIPY",
-  "CERTIFY",
-  "POWERVIEW",
-  "IMPACKET",
-  "NETEXEC",
-  "EVIL-WINRM",
-  "KERBEROS",
-  "LDAP",
-  "NTLM",
-  "SMB",
+  "LLMS",
+  "AI AGENTS",
+  "PROMPT ENGINEERING",
+  "RAG",
+  "MCP",
+  "EMBEDDINGS",
+  "VOICE AI",
+  "NEXT.JS",
+  "TYPESCRIPT",
+  "PYTHON",
+  "ANDROID",
+  "REACT",
 ]
 
 const concepts = [
-  "DCSYNC",
-  "KERBEROASTING",
-  "SHADOW CREDENTIALS",
-  "PASS-THE-HASH",
-  "GOLDEN TICKET",
-  "AD CS",
-  "ATTACK PATHS",
-  "LATERAL MOVEMENT",
-  "PRIVILEGE ESCALATION",
-  "DEFENSE EVASION",
-  "ENTERPRISE SECURITY",
+  "PROMPT INJECTION",
+  "AI RED TEAMING",
+  "JAILBREAKS",
+  "GUARDRAILS",
+  "ACTIVE DIRECTORY",
+  "RED TEAM",
+  "SECURE CODE REVIEW",
+  "CRYPTOGRAPHY",
+  "THREAT INTELLIGENCE",
 ]
 
 function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?: "left" | "right" }) {
@@ -54,7 +48,7 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
               transition: "all 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#f97316"
+              e.currentTarget.style.color = "#22d3ee"
               e.currentTarget.style.WebkitTextStroke = "none"
             }}
             onMouseLeave={(e) => {
@@ -77,7 +71,7 @@ export function TechMarquee() {
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.06) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.06) 1px, transparent 1px)",
           backgroundSize: "50px 50px",
         }} />
         <div className="absolute top-1/2 left-1/3 w-96 h-96 rounded-full bg-accent/[0.03] blur-[120px]" />
@@ -94,7 +88,7 @@ export function TechMarquee() {
         >
           <div className="flex items-center gap-4 mb-5">
             <div className="h-px w-8 bg-accent/40" />
-            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground">07 — TECHNICAL ARSENAL</p>
+            <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground">07 — TECH STACK</p>
           </div>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
@@ -102,8 +96,7 @@ export function TechMarquee() {
                 Tools & <span className="text-white/70">Technologies</span>
               </h2>
               <p className="mt-4 max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
-                The core technologies, protocols, and offensive security tools I work with daily in Active Directory
-                environments and red team operations.
+                The AI technologies I build with, and the security concepts I use to stress-test them.
               </p>
             </div>
             <span className="font-mono text-xs tracking-widest text-muted-foreground shrink-0">
@@ -122,7 +115,7 @@ export function TechMarquee() {
             viewport={{ once: true }}
             className="font-mono text-[10px] tracking-[0.3em] text-accent/60 uppercase"
           >
-            Domains &amp; Protocols
+            AI &amp; Development
           </motion.span>
           <motion.span
             initial={{ opacity: 0 }}
@@ -131,7 +124,7 @@ export function TechMarquee() {
             transition={{ delay: 0.2 }}
             className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground/40 uppercase"
           >
-            Security Tools &amp; Techniques
+            AI Security &amp; Offensive Concepts
           </motion.span>
         </div>
       </div>

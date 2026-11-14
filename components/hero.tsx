@@ -18,7 +18,7 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="hero-scan relative h-screen w-full overflow-hidden bg-[#050505]">
       {/* Network topology background */}
       <NetworkBg />
 
@@ -84,7 +84,7 @@ export function Hero() {
           >
             <span className="inline-block">M. BAQIR</span>
             <br />
-            <span className="text-accent inline-block mt-1">FIRAS</span>
+            <span className="text-neural inline-block mt-1">FIRAS</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -92,7 +92,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="mt-4 font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase"
           >
-            Cybersecurity Specialist — Active Directory
+            AI Builder × Cybersecurity
           </motion.p>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -100,7 +100,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-3 max-w-xs font-sans text-lg md:text-xl font-light text-white/70 text-pretty leading-relaxed"
           >
-            &ldquo;I break systems to understand them, and teach others to defend them.&rdquo;
+            &ldquo;Building intelligent systems — and learning how to secure them.&rdquo;
           </motion.p>
         </motion.div>
 
@@ -117,7 +117,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 1 }}
             className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2"
           >
-            02 — MISSION
+            02 — FOCUS
           </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: -20 }}
@@ -125,9 +125,9 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 1.1 }}
             className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance"
           >
-            <span className="inline-block">SENPAI</span>
+            <span className="inline-block">ARTIFICIAL</span>
             <br />
-            <span className="text-accent inline-block mt-1">ACADEMY</span>
+            <span className="text-neural inline-block mt-1">INTELLIGENCE</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
@@ -135,7 +135,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 1.3 }}
             className="mt-4 font-mono text-xs tracking-[0.2em] text-muted-foreground uppercase"
           >
-            Founder — Educational Platforms
+            LLMs · Agents · AI Security
           </motion.p>
         </motion.div>
       </motion.div>

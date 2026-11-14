@@ -5,17 +5,17 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 
 const stats = [
   { value: "4", label: "Live Platforms" },
+  { value: "AI", label: "Current Focus" },
+  { value: "2", label: "LLM Security Certifications" },
   { value: "1st", label: "Place — Technical Competitions" },
-  { value: "AD", label: "Active Directory Specialist" },
-  { value: "AR", label: "High-Quality Arabic Content" },
 ]
 
 const statements = [
-  "Security is a discipline, not a product.",
-  "Active Directory is my battlefield.",
+  "Intelligence is the new attack surface.",
+  "Build with AI, then break it.",
+  "Agents need guardrails.",
   "Knowledge should speak Arabic too.",
-  "Every learner deserves a clear path.",
-  "Curiosity is the first exploit.",
+  "Curiosity is the first prompt.",
   "I build what I wish I had learned from.",
 ]
 
@@ -34,7 +34,7 @@ export function About() {
       {/* Dot Grid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.08) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }} />
         <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-accent/[0.03] blur-[120px]" />
@@ -50,27 +50,24 @@ export function About() {
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">03 — ABOUT ME</p>
         <h2 className="font-sans text-3xl md:text-5xl font-light mb-8 text-balance">
-          Turning complex security into clear learning
+          Building with AI, securing what it builds
         </h2>
         <div className="max-w-4xl font-sans text-base md:text-lg font-light leading-relaxed text-white/80 text-pretty space-y-5">
           <p>
             I&apos;m <span className="text-white font-normal">Mohammed Baqir Firas</span> — a{" "}
-            <span className="text-accent font-normal">software developer</span>,{" "}
-            <span className="text-accent font-normal">cybersecurity practitioner</span>, and founder of{" "}
-            <span className="text-white font-normal">Senpai Academy</span>. My work centers on{" "}
-            <span className="text-accent font-normal">Active Directory</span> security, where I explore{" "}
-            <span className="text-white/90">offensive techniques</span>,{" "}
-            <span className="text-white/90">defensive strategies</span>, and the architecture of secure enterprise
-            environments.
+            <span className="text-accent font-normal">software developer</span> deeply focused on{" "}
+            <span className="text-accent font-normal">artificial intelligence</span> right now: LLMs, agents, and
+            AI-powered apps. My cybersecurity background — certified in{" "}
+            <span className="text-accent font-normal">LLM security</span> and rooted in{" "}
+            <span className="text-white/90">Active Directory</span> — shapes how I build: every intelligent system
+            should be <span className="text-white/90">useful</span> and <span className="text-white/90">safe</span>.
+            I am also the founder of <span className="text-white font-normal">Senpai Academy</span>.
           </p>
           <p>
-            Driven by a passion for knowledge sharing, I create{" "}
-            <span className="text-accent font-normal">high-quality Arabic educational content</span> that makes
-            advanced cybersecurity concepts <span className="text-white/90">practical</span>,{" "}
-            <span className="text-white/90">accessible</span>, and{" "}
-            <span className="text-white/90">applicable</span>. Through{" "}
-            <span className="text-white/90">research</span>, hands-on experience, and continuous learning, I aim to
-            empower aspiring professionals and strengthen the cybersecurity community.
+            Driven by a passion for knowledge sharing, I ship{" "}
+            <span className="text-accent font-normal">Arabic-first products and educational content</span> — from
+            voice translation to student productivity — that make advanced technology{" "}
+            <span className="text-white/90">practical</span> and <span className="text-white/90">accessible</span>.
           </p>
           <p>
             My contributions have been recognized by several Iraqi universities, and I have been awarded{" "}

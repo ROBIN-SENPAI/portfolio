@@ -88,7 +88,7 @@ export function NetworkBg() {
           ctx.beginPath()
           ctx.moveTo(from.x, from.y)
           ctx.lineTo(to.x, to.y)
-          ctx.strokeStyle = `rgba(249, 115, 22, ${alpha})`
+          ctx.strokeStyle = `rgba(34,211,238, ${alpha})`
           ctx.lineWidth = 0.5
           ctx.stroke()
         }
@@ -99,7 +99,7 @@ export function NetworkBg() {
         const pulse = Math.sin(time * 2 + i) * 0.5 + 0.5
         ctx.beginPath()
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(249, 115, 22, ${0.3 + pulse * 0.4})`
+        ctx.fillStyle = i % 3 === 0 ? `rgba(168,139,250, ${0.3 + pulse * 0.4})` : `rgba(34,211,238, ${0.3 + pulse * 0.4})`
         ctx.fill()
       }
 

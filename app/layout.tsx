@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "M.Baqir Firas",
   description:
-    "Cybersecurity specialist focused on Active Directory, building educational platforms and high-quality Arabic content for cybersecurity students.",
+    "AI builder and cybersecurity practitioner — building AI-powered apps and Arabic educational platforms, with a focus on LLM security.",
   generator: "v0.app",
   icons: {
     icon: "/portfolio/badge.svg",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#050505",
 }
 
 export default function RootLayout({

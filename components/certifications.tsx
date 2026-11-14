@@ -98,7 +98,7 @@ const certifications = [
 
 const levelColors: Record<string, string> = {
   Advanced: "text-accent border-accent/40 bg-accent/10",
-  Intermediate: "text-amber-400 border-amber-400/40 bg-amber-400/10",
+  Intermediate: "text-violet-400 border-violet-400/40 bg-violet-400/10",
   Foundation: "text-blue-400 border-blue-400/40 bg-blue-400/10",
 }
 
@@ -110,7 +110,7 @@ export function Certifications() {
       {/* Dot Grid Background */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, rgba(249,115,22,0.08) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, rgba(34,211,238,0.08) 1px, transparent 1px)",
           backgroundSize: "45px 45px",
         }} />
         <div className="absolute bottom-10 left-10 w-80 h-80 rounded-full bg-accent/[0.03] blur-[100px]" />
@@ -127,7 +127,7 @@ export function Certifications() {
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">05 — CERTIFICATIONS</p>
         <h2 className="font-sans text-3xl md:text-5xl font-light mb-4">Verified Credentials</h2>
         <p className="max-w-xl font-mono text-xs md:text-sm leading-relaxed text-muted-foreground text-pretty">
-          Industry-recognized certifications from Red Team Leaders and Hackviser, ranked by expertise level.
+          Industry-recognized certifications, including LLM security, from Red Team Leaders and Hackviser, ranked by expertise level.
         </p>
       </motion.div>
 
@@ -170,6 +170,9 @@ export function Certifications() {
                 <span className="font-mono text-[10px] tracking-widest text-muted-foreground shrink-0">
                   {cert.acronym}
                 </span>
+                {cert.acronym.startsWith("CLLMS") && (
+                  <span className="font-mono text-[9px] tracking-widest px-2 py-0.5 rounded-full bg-accent/15 text-accent border border-accent/30">AI</span>
+                )}
               </div>
               <p className="mt-1 font-mono text-xs text-muted-foreground/70 line-clamp-1">
                 {cert.description}
@@ -215,7 +218,7 @@ export function Certifications() {
       >
         {levelOrder.map((level) => (
           <div key={level} className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${level === "Advanced" ? "bg-accent" : level === "Intermediate" ? "bg-amber-400" : "bg-blue-400"}`} />
+            <span className={`w-2 h-2 rounded-full ${level === "Advanced" ? "bg-accent" : level === "Intermediate" ? "bg-violet-400" : "bg-blue-400"}`} />
             <span className="font-mono text-[10px] tracking-wider text-muted-foreground">
               {certifications.filter((c) => c.level === level).length}x {level}
             </span>

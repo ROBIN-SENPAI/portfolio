@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
-import { ReactLenis } from "lenis/react"
+import { ReactLenis, useLenis } from "lenis/react"
 import { ParticleName } from "./particles"
 import { DustCanvas } from "./dust"
 import { Note, Sticker, Wavy, GuideLines, CursorRing } from "./extras"
@@ -259,6 +259,55 @@ function Tag({ children }: { children: React.ReactNode }) {
   )
 }
 
+const navLinks = [
+  ["About", "about"],
+  ["Work", "work"],
+  ["Academy", "academy"],
+  ["Credentials", "credentials"],
+  ["Skills", "skills"],
+  ["Story", "story"],
+]
+
+function Nav() {
+  const lenis = useLenis()
+  const [active, setActive] = useState("")
+  useEffect(() => {
+    const els = navLinks.map(([, id]) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) if (e.isIntersecting) setActive(e.target.id)
+      },
+      { rootMargin: "-40% 0px -55% 0px" },
+    )
+    els.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
+  const go = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (!el) return
+    if (lenis) lenis.scrollTo(el, { offset: -64, duration: 1.4 })
+    else el.scrollIntoView({ behavior: "smooth" })
+  }
+  return (
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-4 md:px-10">
+      <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ mixBlendMode: "difference", color: "#fff" }}>
+        MBF<span style={{ color: CORAL }}>.</span>
+      </a>
+      <nav className="pointer-events-auto hidden items-center gap-1 rounded-full px-2 py-1.5 backdrop-blur-md md:flex" style={{ background: `${PAPER}d9`, border: `1px solid ${INK}22`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
+        {navLinks.map(([label, id]) => (
+          <a key={id} href={`#${id}`} onClick={go(id)} className="relative rounded-full px-4 py-2 text-sm font-medium transition-colors" style={{ color: active === id ? PAPER : INK, background: active === id ? INK : "transparent" }}>
+            {label}
+          </a>
+        ))}
+      </nav>
+      <a href="#contact" onClick={go("contact")} className="pointer-events-auto rounded-full px-5 py-2.5 text-sm font-semibold transition-transform hover:scale-105" style={{ background: INK, color: PAPER, boxShadow: `0 10px 24px -14px ${INK}` }}>
+        Let&apos;s talk
+      </a>
+    </header>
+  )
+}
+
 export default function V2() {
   const { scrollYProgress, scrollY } = useScroll()
   const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
@@ -308,6 +357,7 @@ export default function V2() {
 
       <CursorRing />
       <GuideLines />
+      <Nav />
       <motion.div className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left" style={{ scaleX: bar, background: CORAL }} />
 
       <AnimatePresence>
@@ -329,10 +379,6 @@ export default function V2() {
         <motion.div className="absolute inset-0" style={{ y: heroY, opacity: heroOpacity }}>
           <ParticleName text="BAQIR" />
         </motion.div>
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
-          <span>MBF / PORTFOLIO</span>
-          <span>STATUS: LEARNING AI</span>
-        </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-5 md:p-8">
           <div className="font-mono text-[10px] tracking-[0.2em] md:text-[11px]">
             <p>
@@ -476,7 +522,7 @@ export default function V2() {
               </blockquote>
             </figure>
 
-            <div className="grid grid-cols-2 gap-6 pt-10 font-mono text-[10px] tracking-[0.2em] sm:grid-cols-4 md:text-xs">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 pt-10 font-mono text-[10px] tracking-[0.2em] md:text-xs">
               {[
                 [2, "", "LLM SECURITY CERTS"],
                 [4, "", "LIVE PLATFORMS"],
@@ -517,7 +563,7 @@ export default function V2() {
                     {c.no}
                   </p>
                   <Frame caption={c.cap}>{c.fig}</Frame>
-                  <h3 className="text-3xl font-bold tracking-tight">{c.title}</h3>
+                  <h3 className="text-3xl font-bold tracking-tight md:min-h-[2.45em]">{c.title}</h3>
                   <p className="leading-relaxed opacity-70">{c.body}</p>
                   <div className="flex flex-wrap gap-2">
                     {c.tags.map((t) => (
@@ -546,7 +592,7 @@ export default function V2() {
       </div>
 
       {/* WORK */}
-      <section className="px-5 py-20 md:px-12 md:py-32">
+      <section id="work" className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="relative">
             <Head no="03" label="SELECTED WORK" ar="الأَعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
@@ -657,7 +703,7 @@ export default function V2() {
                       <p className="font-mono text-[11px] tracking-[0.25em]" style={{ color: CORAL }}>
                         IN DEVELOPMENT
                       </p>
-                      <h3 className="mt-3 text-2xl font-bold tracking-tight md:text-3xl">{p.name}</h3>
+                      <h3 className="mt-3 text-2xl font-bold tracking-tight md:min-h-[2.45em] md:text-3xl">{p.name}</h3>
                       <p className="mt-3 leading-relaxed opacity-70">{p.body}</p>
                     </div>
                   </div>
@@ -725,7 +771,7 @@ export default function V2() {
       </section>
 
       {/* CREDENTIALS */}
-      <section className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
+      <section id="credentials" className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
         <div className="mx-auto max-w-6xl">
           <Head no="05" label="CREDENTIALS" ar="الشَهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
           <div className="relative mb-16 grid items-center gap-6 md:grid-cols-[1.1fr_1fr]">
@@ -754,7 +800,14 @@ export default function V2() {
                   <span className="font-mono text-xs tracking-[0.2em] md:text-sm" style={{ color: CORAL }}>
                     {ac}
                   </span>
-                  <span className="text-base font-medium leading-snug transition-transform duration-300 group-hover:translate-x-1 md:text-xl">{title}</span>
+                  <span className="text-base font-medium leading-snug transition-transform duration-300 group-hover:translate-x-1 md:text-xl">
+                    {title}
+                    {ac.startsWith("CLLMS") && (
+                      <span className="ml-3 inline-block rounded-full px-2 py-0.5 align-middle font-mono text-[9px] font-bold tracking-widest" style={{ background: CORAL, color: "#fff" }}>
+                        AI
+                      </span>
+                    )}
+                  </span>
                   <span className="hidden font-mono text-[11px] tracking-[0.15em] opacity-50 md:block">{issuer.toUpperCase()}</span>
                   <ArrowUpRight className="h-5 w-5 opacity-50 transition-opacity group-hover:opacity-100" />
                 </a>
@@ -799,7 +852,7 @@ export default function V2() {
       </section>
 
       {/* STORY */}
-      <section className="px-5 py-20 md:px-12 md:py-32">
+      <section id="story" className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Head no="07" label="STORY" ar="القِصّة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>

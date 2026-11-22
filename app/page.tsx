@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
+import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
@@ -128,7 +128,55 @@ const links = [
   ["TRYHACKME", "ROBiN", "https://tryhackme.com/p/ROBiN"],
 ]
 
-const marquee = ["AI", "LLMs", "Android", "Voice AI", "LLM Security", "Red Teaming", "Active Directory", "Arabic-first", "Education"]
+const marquee = ["AI", "ذكاء اصطناعي", "LLMs", "Android", "تطبيقات", "Voice AI", "LLM Security", "أمن", "Red Teaming", "Active Directory", "Arabic-first", "تعليم", "Education"]
+
+function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, margin: "-40px" })
+  const [n, setN] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    const start = performance.now()
+    let raf = 0
+    const tick = (t: number) => {
+      const p = Math.min((t - start) / 1200, 1)
+      setN(Math.round((1 - Math.pow(1 - p, 3)) * value))
+      if (p < 1) raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [inView, value])
+  return (
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
+  )
+}
+
+function Tilt({ children }: { children: React.ReactNode }) {
+  const rx = useMotionValue(0)
+  const ry = useMotionValue(0)
+  const sx = useSpring(rx, { stiffness: 140, damping: 18 })
+  const sy = useSpring(ry, { stiffness: 140, damping: 18 })
+  return (
+    <motion.div
+      style={{ rotateX: sx, rotateY: sy, transformPerspective: 1100 }}
+      onPointerMove={(e) => {
+        if (e.pointerType !== "mouse") return
+        const r = e.currentTarget.getBoundingClientRect()
+        ry.set(((e.clientX - r.left) / r.width - 0.5) * 5)
+        rx.set(-((e.clientY - r.top) / r.height - 0.5) * 5)
+      }}
+      onPointerLeave={() => {
+        rx.set(0)
+        ry.set(0)
+      }}
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 const IT = "font-[family-name:var(--font-serif)] italic font-normal tracking-normal text-[1.1em]"
 
@@ -186,6 +234,10 @@ function Tag({ children }: { children: React.ReactNode }) {
 }
 
 export default function V2() {
+  const { scrollYProgress, scrollY } = useScroll()
+  const bar = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
+  const heroY = useTransform(scrollY, [0, 700], [0, 140])
+  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.15])
   const [loaded, setLoaded] = useState(false)
   const [count, setCount] = useState(0)
   const [epoch, setEpoch] = useState(0)
@@ -228,6 +280,8 @@ export default function V2() {
     >
       <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff} a:focus-visible,button:focus-visible{outline:2px solid ${CORAL};outline-offset:4px} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important}}`}</style>
 
+      <motion.div className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left" style={{ scaleX: bar, background: CORAL }} />
+
       <AnimatePresence>
         {!loaded && (
           <motion.div
@@ -244,7 +298,9 @@ export default function V2() {
 
       {/* HERO */}
       <header className="relative h-[100svh] min-h-[560px]">
-        <ParticleName text="BAQIR" />
+        <motion.div className="absolute inset-0" style={{ y: heroY, opacity: heroOpacity }}>
+          <ParticleName text="BAQIR" />
+        </motion.div>
         <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
           <span>MBF / PORTFOLIO</span>
           <span>STATUS: LEARNING AI</span>
@@ -321,13 +377,13 @@ export default function V2() {
             </p>
             <div className="grid grid-cols-3 gap-4 pt-6 font-mono text-[10px] tracking-[0.2em] md:text-xs">
               {[
-                ["4", "LIVE PLATFORMS"],
-                ["10", "CERTIFICATIONS"],
-                ["1ST", "PLACE · COMPETITIONS"],
-              ].map(([v, l]) => (
-                <div key={l}>
+                [4, "", "LIVE PLATFORMS"],
+                [10, "", "CERTIFICATIONS"],
+                [1, "ST", "PLACE · COMPETITIONS"],
+              ].map(([v, suf, l]) => (
+                <div key={String(l)}>
                   <p className="text-4xl font-bold md:text-5xl" style={{ color: CORAL }}>
-                    {v}
+                    <CountUp value={v as number} suffix={suf as string} />
                   </p>
                   <p className="mt-2 opacity-60">{l}</p>
                 </div>
@@ -379,7 +435,7 @@ export default function V2() {
       <div className="overflow-hidden py-6 font-mono text-sm tracking-[0.25em]" style={{ borderBlock: `1px solid ${INK}22` }}>
         <div className="flex w-max animate-[v2marquee_30s_linear_infinite] gap-10 whitespace-nowrap">
           {[...marquee, ...marquee, ...marquee].map((m, i) => (
-            <span key={i}>
+            <span key={i} className={/[\u0600-\u06FF]/.test(m) ? "font-ar text-base font-bold tracking-normal" : undefined} dir={/[\u0600-\u06FF]/.test(m) ? "rtl" : undefined}>
               {m.toUpperCase()} <span style={{ color: CORAL }}>/</span>
             </span>
           ))}
@@ -395,6 +451,7 @@ export default function V2() {
           <div className="space-y-6">
             {work.map((w) => (
               <Reveal key={w.name}>
+                <Tilt>
                 <a
                   href={w.href}
                   target="_blank"
@@ -430,6 +487,7 @@ export default function V2() {
                   </dl>
                   </div>
                 </a>
+                </Tilt>
               </Reveal>
             ))}
 

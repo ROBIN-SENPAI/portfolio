@@ -372,20 +372,12 @@ export default function V2() {
                     <span style={{ color: CORAL }}>● ACTIVE</span>
                   </div>
                   <div className="p-7 md:p-8">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسم / NAME</p>
-                        <p dir="ltr" lang="ar" className="font-ar-display mt-3 text-4xl font-bold leading-tight md:text-5xl" style={{ color: CORAL }}>
-                          محمد باقر فراس
-                        </p>
-                        <p className="mt-1 font-[family-name:var(--font-serif)] text-2xl italic opacity-80">Mohammed Baqir Firas</p>
-                      </div>
-                      <div
-                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-[family-name:var(--font-serif)] text-2xl italic"
-                        style={{ border: `1.5px solid ${CORAL}`, color: CORAL }}
-                      >
-                        MBF
-                      </div>
+                    <div className="relative text-center">
+                      <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسم / NAME</p>
+                      <p dir="rtl" lang="ar" className="font-ar-display mt-3 text-5xl font-bold leading-tight md:text-6xl" style={{ color: CORAL }}>
+                        محمد باقر
+                      </p>
+                      <p className="mt-1 font-[family-name:var(--font-serif)] text-3xl italic opacity-80">Mohammed Baqir</p>
                     </div>
                     <dl className="mt-7 text-sm">
                       {[
@@ -394,9 +386,9 @@ export default function V2() {
                         ["Founder", "Senpai Academy"],
                         ["Focus", "AI · LLMs · agents"],
                       ].map(([k, v]) => (
-                        <div key={k} className="flex items-baseline justify-between gap-4 py-3" style={{ borderTop: `1px dashed ${INK}33` }}>
+                        <div key={k} className="flex flex-row-reverse items-baseline justify-between gap-4 py-3" style={{ borderTop: `1px dashed ${INK}33` }}>
                           <dt className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">{k}</dt>
-                          <dd className="text-right font-medium">{v}</dd>
+                          <dd className="text-left font-medium">{v}</dd>
                         </div>
                       ))}
                     </dl>
@@ -405,7 +397,7 @@ export default function V2() {
                         <span key={i} style={{ width: [1, 2, 1, 3, 1, 2, 4, 1][i % 8], background: INK, opacity: 0.8 }} />
                       ))}
                     </div>
-                    <p className="mt-3 overflow-hidden whitespace-nowrap font-mono text-[10px] tracking-[0.2em] opacity-45">MBF&lt;&lt;BAQIR&lt;&lt;FIRAS&lt;&lt;&lt;AI&lt;&lt;SEC&lt;&lt;EDU&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+                    <p className="mt-3 overflow-hidden whitespace-nowrap font-mono text-[10px] tracking-[0.2em] opacity-45">MBF&lt;&lt;BAQIR&lt;&lt;&lt;&lt;AI&lt;&lt;SEC&lt;&lt;EDU&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
                   </div>
                 </div>
               </Tilt>

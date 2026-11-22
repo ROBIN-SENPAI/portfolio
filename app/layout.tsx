@@ -1,13 +1,14 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Cairo, Geist_Mono, Inter } from "next/font/google"
+import { Instrument_Serif, Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const cairo = Cairo({
-  subsets: ["arabic", "latin"],
-  weight: ["600", "800"],
-  variable: "--font-ar",
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+  variable: "--font-serif",
 })
 
 const inter = Inter({
@@ -55,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${cairo.variable} ${geistMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${serif.variable} ${geistMono.variable} ${inter.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
+import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple } from "./figures"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
@@ -14,19 +16,37 @@ const disciplines = ["AI & Apps", "LLM Security", "Education"]
 const capabilities = [
   {
     no: "01 / AI & APPS",
-    title: "Apps that listen.",
+    fig: <FigApps />,
+    cap: "FIG. 2 — VOICE BECOMES TEXT",
+    title: (
+      <>
+        Apps that <It>listen.</It>
+      </>
+    ),
     body: "Android products where AI does the heavy lifting quietly — instant voice translation, study companions and Arabic-first experiences that feel native.",
     tags: ["ANDROID", "VOICE AI", "LLMS"],
   },
   {
     no: "02 / LLM SECURITY",
-    title: "Models that hold up.",
+    fig: <FigShield />,
+    cap: "FIG. 3 — A GUARDRAIL SCANS EVERY PROMPT",
+    title: (
+      <>
+        Models that <It>hold up.</It>
+      </>
+    ),
     body: "Prompt injection, jailbreaks and guardrails. Learning how language models fail so the systems built on them can be trusted.",
     tags: ["PROMPT INJECTION", "AI RED TEAMING", "GUARDRAILS"],
   },
   {
     no: "03 / SECURITY FOUNDATIONS",
-    title: "A base that doesn't crack.",
+    fig: <FigGraph />,
+    cap: "FIG. 4 — ONE DIRECTORY, MANY PATHS",
+    title: (
+      <>
+        A base that <It>doesn&apos;t crack.</It>
+      </>
+    ),
     body: "Active Directory, red teaming and secure code review — the offensive habits that shape how I design every product.",
     tags: ["ACTIVE DIRECTORY", "RED TEAM", "CODE REVIEW"],
   },
@@ -35,6 +55,7 @@ const capabilities = [
 const work = [
   {
     kind: "FEATURED · ANDROID",
+    fig: <FigApps />,
     name: "Tarjuman",
     ar: "تُرجُمَان",
     sub: "Instant voice translation in your ear",
@@ -50,6 +71,7 @@ const work = [
   },
   {
     kind: "ANDROID",
+    fig: <FigStudy />,
     name: "Murshidi",
     ar: "مُرشدي",
     sub: "Organize your study, focus more",
@@ -66,12 +88,14 @@ const work = [
 const platforms = [
   {
     name: "Senpai Academy",
+    fig: <FigAcademy />,
     body: "The main educational hub for cybersecurity students — guides, roadmaps and Arabic study resources.",
     href: "https://academysenpai.com/",
     tags: ["EDUCATION", "HUB"],
   },
   {
     name: "Senpai Type",
+    fig: <FigKeys />,
     body: "A clean typing practice platform built for the community.",
     href: "https://senpai-type.pages.dev/",
     tags: ["WEB", "PRACTICE"],
@@ -106,6 +130,12 @@ const links = [
 
 const marquee = ["AI", "LLMs", "Android", "Voice AI", "LLM Security", "Red Teaming", "Active Directory", "Arabic-first", "Education"]
 
+const IT = "font-[family-name:var(--font-serif)] italic font-normal tracking-normal text-[1.1em]"
+
+function It({ children }: { children: React.ReactNode }) {
+  return <em className={IT}>{children}</em>
+}
+
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div
@@ -120,13 +150,28 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
   )
 }
 
-function Head({ no, label, title, sub }: { no: string; label: string; title: string; sub?: string }) {
+function Head({ no, label, ar, title, sub }: { no: string; label: string; ar?: string; title: React.ReactNode; sub?: string }) {
   return (
     <Reveal className="mb-12 md:mb-16">
-      <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">
-        {no} <span className="mx-2">/</span> {label}
+      <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
+        <span>
+          {no} <span className="mx-2">/</span> {label}
+        </span>
+        {ar && (
+          <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
+            {ar}
+          </span>
+        )}
       </p>
       <h2 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">{title}</h2>
+      <motion.span
+        className="mt-6 block h-[3px] w-24 origin-left"
+        style={{ background: CORAL }}
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      />
       {sub && <p className="mt-5 max-w-xl text-base leading-relaxed opacity-70 md:text-lg">{sub}</p>}
     </Reveal>
   )
@@ -176,6 +221,7 @@ export default function V2() {
   }, [])
 
   return (
+    <ReactLenis root options={{ lerp: 0.09, wheelMultiplier: 0.95 }}>
     <div
       className="relative min-h-screen overflow-x-hidden font-[family-name:var(--font-v2)]"
       style={{ background: PAPER, color: INK, scrollBehavior: "smooth" }}
@@ -222,11 +268,15 @@ export default function V2() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <h1 className="text-5xl font-bold leading-[1.02] tracking-tight md:text-8xl">
-              Hi, I&apos;m Mohammed<span style={{ color: CORAL }}>.</span>
+              Hi, I&apos;m <It>Mohammed</It>
+              <span style={{ color: CORAL }}>.</span>
             </h1>
+            <p className="font-ar-display mt-5 text-2xl font-bold md:text-4xl" dir="rtl" style={{ color: CORAL }}>
+              مرحباً، أنا محمد باقر
+            </p>
             <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75 md:text-2xl">
-              A developer building AI-powered Arabic apps and educational platforms — and learning how to keep
-              intelligent systems secure.
+              A developer building AI-powered <It>Arabic</It> apps and educational platforms — and learning how to keep
+              intelligent systems <It>secure.</It>
             </p>
           </Reveal>
           <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-6 font-mono text-xs tracking-[0.2em] md:text-sm">
@@ -243,8 +293,21 @@ export default function V2() {
       <section className="px-5 py-20 md:px-12 md:py-32" style={{ borderTop: `1px solid ${INK}22` }}>
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.4fr]">
           <Reveal>
-            <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">01 / MISSION</p>
-            <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">Make technology speak our language.</h2>
+            <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
+              <span>01 / MISSION</span>
+              <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
+                المهمة
+              </span>
+            </p>
+            <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
+              Make technology speak <It>our language.</It>
+            </h2>
+            <p className="font-ar-display mt-4 text-xl font-bold md:text-2xl" dir="rtl" style={{ color: CORAL }}>
+              لتتكلّم التقنية لغتنا
+            </p>
+            <Frame className="mt-10" caption="FIG. 1 — ENGLISH ⇄ ARABIC">
+              <FigBridge />
+            </Frame>
           </Reveal>
           <Reveal delay={0.1} className="space-y-6 text-lg leading-relaxed opacity-80 md:text-xl">
             <p>
@@ -280,7 +343,12 @@ export default function V2() {
           <Head
             no="02"
             label="CAPABILITIES"
-            title="Three disciplines. One standard."
+            ar="المجالات"
+            title={
+              <>
+                Three disciplines. <It>One standard.</It>
+              </>
+            }
             sub="Where intelligence, product and security meet — every detail treated like it matters."
           />
           <div className="grid gap-px md:grid-cols-3" style={{ background: `${PAPER}22` }}>
@@ -290,6 +358,7 @@ export default function V2() {
                   <p className="font-mono text-[11px] tracking-[0.2em]" style={{ color: CORAL }}>
                     {c.no}
                   </p>
+                  <Frame caption={c.cap}>{c.fig}</Frame>
                   <h3 className="text-3xl font-bold tracking-tight">{c.title}</h3>
                   <p className="leading-relaxed opacity-70">{c.body}</p>
                   <div className="flex flex-wrap gap-2">
@@ -321,7 +390,7 @@ export default function V2() {
       {/* WORK */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="03" label="SELECTED WORK" title="Things I've built." sub="Two Android apps and the platforms behind the academy." />
+          <Head no="03" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
 
           <div className="space-y-6">
             {work.map((w) => (
@@ -339,7 +408,7 @@ export default function V2() {
                     </p>
                     <h3 className="mt-4 flex flex-wrap items-baseline gap-x-4 text-5xl font-bold tracking-tight md:text-7xl">
                       {w.name}
-                      <span className="font-[family-name:var(--font-ar)] text-3xl font-extrabold opacity-60 md:text-5xl" dir="rtl">
+                      <span className="font-ar-display text-3xl font-bold md:text-5xl" dir="rtl" style={{ color: CORAL }}>
                         {w.ar}
                       </span>
                     </h3>
@@ -349,7 +418,9 @@ export default function V2() {
                       {w.cta.toUpperCase()} <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
-                  <dl className="self-end font-mono text-[11px] tracking-[0.15em]">
+                  <div className="flex flex-col justify-end gap-6">
+                  <Frame>{w.fig}</Frame>
+                  <dl className="font-mono text-[11px] tracking-[0.15em]">
                     {w.rows.map(([k, v]) => (
                       <div key={k} className="flex flex-col gap-1 py-4 sm:flex-row sm:justify-between" style={{ borderTop: `1px solid ${INK}22` }}>
                         <dt className="opacity-50">{k}</dt>
@@ -357,6 +428,7 @@ export default function V2() {
                       </div>
                     ))}
                   </dl>
+                  </div>
                 </a>
               </Reveal>
             ))}
@@ -371,6 +443,7 @@ export default function V2() {
                     className="group flex h-full flex-col justify-between gap-8 rounded-3xl p-7 transition-transform duration-500 hover:-translate-y-1 md:p-9"
                     style={{ border: `1px solid ${INK}33` }}
                   >
+                    <Frame>{p.fig}</Frame>
                     <div className="flex items-start justify-between gap-4">
                       <h3 className="text-3xl font-bold tracking-tight md:text-4xl">{p.name}</h3>
                       <ArrowUpRight className="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" style={{ color: CORAL }} />
@@ -394,7 +467,12 @@ export default function V2() {
       {/* CREDENTIALS */}
       <section className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
         <div className="mx-auto max-w-6xl">
-          <Head no="04" label="CREDENTIALS" title="Verified, not just claimed." sub="Ten certifications — each one links to its verification page." />
+          <div className="relative">
+            <div className="pointer-events-none absolute -top-4 right-0 w-28 md:w-44">
+              <FigSeal />
+            </div>
+            <Head no="04" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+          </div>
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
               <Reveal key={ac} delay={Math.min(i, 5) * 0.03}>
@@ -422,14 +500,17 @@ export default function V2() {
       {/* STORY */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="05" label="STORY" title="Learned by building." sub="Security first, then teaching, then shipping — now AI." />
+          <Head no="05" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>
             {story.map(([n, t, b], i) => (
               <Reveal key={n} delay={i * 0.08}>
                 <div className="flex h-full flex-col gap-4 p-7" style={{ background: PAPER }}>
-                  <p className="text-5xl font-bold" style={{ color: i === 3 ? CORAL : `${INK}33` }}>
-                    {n}
-                  </p>
+                  <div className="flex items-center justify-between">
+                    <p className="text-5xl font-bold" style={{ color: i === 3 ? CORAL : `${INK}33` }}>
+                      {n}
+                    </p>
+                    <StepIcon kind={(["break", "teach", "ship", "now"] as const)[i]} />
+                  </div>
                   <h3 className="text-2xl font-bold">{t}</h3>
                   <p className="text-sm leading-relaxed opacity-70">{b}</p>
                 </div>
@@ -442,10 +523,19 @@ export default function V2() {
       {/* CONTACT */}
       <footer className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
         <div className="mx-auto max-w-6xl">
-          <Reveal>
-            <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">06 / CONTACT</p>
-            <h2 className="mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-8xl">
-              Let&apos;s build something that matters<span style={{ color: CORAL }}>.</span>
+          <Reveal className="relative">
+            <div className="pointer-events-none absolute -top-10 right-0 w-40 opacity-80 md:w-72">
+              <FigRipple />
+            </div>
+            <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
+              <span>06 / CONTACT</span>
+              <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
+                تواصل معي
+              </span>
+            </p>
+            <h2 className="relative mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-8xl">
+              Let&apos;s build something that <It>matters</It>
+              <span style={{ color: CORAL }}>.</span>
             </h2>
             <p className="mt-6 max-w-xl text-lg opacity-70">Have an idea, a project or a question about AI, apps or security? Reach out.</p>
           </Reveal>
@@ -475,5 +565,6 @@ export default function V2() {
         </div>
       </footer>
     </div>
+    </ReactLenis>
   )
 }

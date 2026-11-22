@@ -1,24 +1,18 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Anton, Space_Grotesk, Geist_Mono, Cairo } from "next/font/google"
+import { Geist_Mono, Inter, Cairo } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
-
-const anton = Anton({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-display",
-})
-
-const grotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-body",
-})
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
   weight: ["600", "800"],
   variable: "--font-ar",
+})
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-v2",
 })
 
 const geistMono = Geist_Mono({
@@ -37,7 +31,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#f1ece1",
 }
 
 export default function RootLayout({
@@ -46,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${anton.variable} ${grotesk.variable} ${cairo.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${cairo.variable} ${geistMono.variable} ${inter.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

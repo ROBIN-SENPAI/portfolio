@@ -5,13 +5,13 @@ import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView,
 import { ArrowUpRight } from "lucide-react"
 import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
-import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple } from "./figures"
+import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigOrbit, FigTrain, FigTerm } from "./figures"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
 const CORAL = "#e4572e"
 
-const disciplines = ["AI & Apps", "LLM Security", "Education"]
+const disciplines = ["AI Development", "Cybersecurity", "Academic Research"]
 
 const capabilities = [
   {
@@ -329,8 +329,8 @@ export default function V2() {
                 <span style={{ color: CORAL }}>.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75 md:text-2xl">
-                A developer building AI-powered <It>Arabic</It> apps and educational platforms — and learning how to keep
-                intelligent systems <It>secure.</It>
+                Building with <It>AI.</It> Securing what <It>it builds.</It> Software developer, cybersecurity practitioner and
+                researcher — making advanced technology accessible in Arabic.
               </p>
             </Reveal>
             <Reveal delay={0.15}>
@@ -347,8 +347,9 @@ export default function V2() {
                 <dl className="mt-6 font-mono text-[11px] tracking-[0.15em]">
                   {[
                     ["ROLE", "Software developer"],
+                    ["ALSO", "Cybersecurity researcher"],
                     ["FOUNDER", "Senpai Academy"],
-                    ["FOCUS", "AI · LLM security"],
+                    ["FOCUS", "AI · LLMs · agents"],
                   ].map(([k, v]) => (
                     <div key={k} className="flex items-center justify-between gap-4 py-3" style={{ borderTop: `1px solid ${INK}22` }}>
                       <dt className="opacity-50">{k}</dt>
@@ -370,13 +371,13 @@ export default function V2() {
       </section>
 
       {/* MISSION */}
-      <section className="px-5 py-20 md:px-12 md:py-32" style={{ borderTop: `1px solid ${INK}22` }}>
+      <section id="about" className="px-5 py-20 md:px-12 md:py-32" style={{ borderTop: `1px solid ${INK}22` }}>
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.4fr]">
           <Reveal>
             <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
-              <span>01 / MISSION</span>
+              <span>01 / ABOUT</span>
               <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
-                المهمة
+                نبذة
               </span>
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
@@ -391,16 +392,21 @@ export default function V2() {
           </Reveal>
           <Reveal delay={0.1} className="space-y-6 text-lg leading-relaxed opacity-80 md:text-xl">
             <p>
-              I build products and knowledge in Arabic that make advanced technology practical and accessible.
-              I&apos;m the founder of <strong>Senpai Academy</strong>, and my work has been recognized by several Iraqi
-              universities, with first place in multiple technical competitions.
+              I&apos;m <strong>Mohammed Baqir Firas</strong> — a software developer, AI enthusiast, cybersecurity practitioner and
+              founder of <strong>Senpai Academy</strong>. My focus right now is artificial intelligence: large language models,
+              AI-powered applications, intelligent agents, and model training and evaluation.
             </p>
             <p>
-              Today my focus is artificial intelligence: shipping apps that use it well, and understanding how it can be
-              attacked so it can be defended.
+              With a background in cybersecurity — Active Directory and LLM security — I approach technology from both sides:
+              building it and securing it. Beyond development I do academic research, technical writing and build educational
+              platforms for Arabic-speaking learners.
             </p>
-            <div className="grid grid-cols-3 gap-4 pt-6 font-mono text-[10px] tracking-[0.2em] md:text-xs">
+            <p className="opacity-90">
+              <It>Long-term goal:</It> contribute to intelligent, reliable and secure AI systems.
+            </p>
+            <div className="grid grid-cols-2 gap-6 pt-6 font-mono text-[10px] tracking-[0.2em] sm:grid-cols-4 md:text-xs">
               {[
+                [1, "", "ACCEPTED PAPER · IMDC-IST 2026"],
                 [4, "", "LIVE PLATFORMS"],
                 [10, "", "CERTIFICATIONS"],
                 [1, "ST", "PLACE · COMPETITIONS"],
@@ -455,6 +461,67 @@ export default function V2() {
         </div>
       </section>
 
+      {/* RESEARCH */}
+      <section id="research" className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
+        <div className="mx-auto max-w-6xl">
+          <Head
+            no="03"
+            label="RESEARCH & PUBLICATIONS"
+            ar="الأبحاث"
+            title={
+              <>
+                Research that <It>reaches</It> the sky.
+              </>
+            }
+            sub="Academic work alongside development. More publications will be added here as they are accepted."
+          />
+          <Reveal>
+            <div className="grid gap-10 rounded-3xl p-7 md:grid-cols-[1.2fr_1fr] md:p-12" style={{ background: "#fffaf0", border: `1px solid ${INK}22` }}>
+              <div>
+                <p className="font-mono text-[11px] tracking-[0.25em]" style={{ color: CORAL }}>
+                  ACCEPTED PAPER · IMDC-IST 2026
+                </p>
+                <h3 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-5xl">Direct-To-Device 5G Non-Terrestrial Network Coverage Over Iraq</h3>
+                <ul className="mt-6 space-y-3 text-base leading-relaxed opacity-80 md:text-lg">
+                  {[
+                    "Research on 5G non-terrestrial networks (NTN).",
+                    "A study of satellite coverage over Iraq.",
+                    "Built on real orbital data from Starlink and OneWeb.",
+                    "Analysis of coverage, satellite behavior and Doppler rates.",
+                  ].map((t) => (
+                    <li key={t} className="flex gap-3">
+                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: CORAL }} />
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+                <dl className="mt-8 font-mono text-[11px] tracking-[0.15em]">
+                  {[
+                    ["STATUS", "Accepted"],
+                    ["PAPER ID", "#1571373387"],
+                    ["FIRST AUTHOR", "Firas Al-Fadhli"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex items-center justify-between gap-4 py-3" style={{ borderTop: `1px solid ${INK}22` }}>
+                      <dt className="opacity-50">{k}</dt>
+                      <dd className="text-right">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <Frame className="self-center" caption="FIG. 5 — SATELLITE COVERAGE OVER A GROUND POINT">
+                <FigOrbit />
+              </Frame>
+            </div>
+          </Reveal>
+          <Reveal className="mt-5" delay={0.1}>
+            <div className="flex items-center justify-between gap-4 rounded-3xl border-2 border-dashed p-7 font-mono text-[11px] tracking-[0.2em] opacity-60" style={{ borderColor: `${INK}44` }}>
+              <span>NEXT PUBLICATION</span>
+              <span>COMING SOON</span>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* MARQUEE */}
       <div className="overflow-hidden py-6 font-mono text-sm tracking-[0.25em]" style={{ borderBlock: `1px solid ${INK}22` }}>
         <div className="flex w-max animate-[v2marquee_30s_linear_infinite] gap-10 whitespace-nowrap">
@@ -470,7 +537,7 @@ export default function V2() {
       {/* WORK */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="03" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
+          <Head no="04" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
 
           <div className="space-y-6">
             {work.map((w) => (
@@ -542,7 +609,82 @@ export default function V2() {
                 </Reveal>
               ))}
             </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                {
+                  name: "AI Model Training & Evaluation",
+                  body: "Training and evaluating language models, and testing ways to improve the quality of AI-generated text.",
+                  fig: <FigTrain />,
+                },
+                {
+                  name: "Cybersecurity Tools & Automation",
+                  body: "Tools and scripts that automate technical tasks and help analyze security environments.",
+                  fig: <FigTerm />,
+                },
+              ].map((p) => (
+                <Reveal key={p.name}>
+                  <div className="flex h-full flex-col justify-between gap-8 rounded-3xl p-7 md:p-9" style={{ border: `1px dashed ${INK}55` }}>
+                    <Frame>{p.fig}</Frame>
+                    <div>
+                      <p className="font-mono text-[11px] tracking-[0.25em]" style={{ color: CORAL }}>
+                        IN DEVELOPMENT
+                      </p>
+                      <h3 className="mt-3 text-2xl font-bold tracking-tight md:text-3xl">{p.name}</h3>
+                      <p className="mt-3 leading-relaxed opacity-70">{p.body}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* ACADEMY */}
+      <section id="academy" className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
+        <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.3fr_1fr]">
+          <div>
+            <Head
+              no="05"
+              label="SENPAI ACADEMY"
+              ar="أكاديمية سينباي"
+              title={
+                <>
+                  Founder, <It>Senpai Academy.</It>
+                </>
+              }
+            />
+            <Reveal className="-mt-6 space-y-5 text-lg leading-relaxed opacity-80">
+              <p>
+                An Arabic educational initiative focused on cybersecurity, technical learning and developer resources. I design the
+                platforms, build interactive tools and organize learning resources so complex subjects become easier to approach.
+              </p>
+              <p>
+                <It>Core mission:</It> make technical knowledge accessible, practical and structured for the next generation of
+                Arabic-speaking developers and cybersecurity professionals.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-2">
+                {["PLATFORM DESIGN", "INTERACTIVE TOOLS", "LEARNING RESOURCES"].map((t) => (
+                  <span key={t} className="rounded-full border px-3 py-1 font-mono text-[10px] tracking-wider" style={{ borderColor: `${PAPER}44` }}>
+                    {t}
+                  </span>
+                ))}
+              </div>
+              <a
+                href="https://academysenpai.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 font-mono text-xs tracking-[0.2em] transition-colors hover:opacity-90"
+                style={{ background: CORAL, color: INK }}
+              >
+                VISIT THE ACADEMY <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </Reveal>
+          </div>
+          <Frame caption="FIG. 6 — LEARNING, LAYER BY LAYER">
+            <FigAcademy />
+          </Frame>
         </div>
       </section>
 
@@ -553,7 +695,7 @@ export default function V2() {
             <div className="pointer-events-none absolute -top-4 right-0 w-28 md:w-44">
               <FigSeal />
             </div>
-            <Head no="04" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+            <Head no="06" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
           </div>
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
@@ -579,10 +721,43 @@ export default function V2() {
         </div>
       </section>
 
+      {/* SKILLS */}
+      <section id="skills" className="px-5 py-20 md:px-12 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <Head no="07" label="TECHNICAL ARSENAL" ar="المهارات" title={<>Four domains. <It>One toolbox.</It></>} sub="Grouped by field instead of a long list." />
+          <div style={{ borderTop: `1px solid ${INK}33` }}>
+            {[
+              ["Artificial Intelligence", ["LLMs", "Transformers", "Model Training", "Model Evaluation", "AI Agents"]],
+              ["Cybersecurity", ["Active Directory", "Web Security", "OSINT", "LLM Security"]],
+              ["Development", ["Python", "C++", "JavaScript", "Web Development", "API Integration"]],
+              ["Research", ["Scientific Writing", "Technical Research", "Data Analysis", "Academic Publishing"]],
+            ].map(([d, items], i) => (
+              <Reveal key={d as string} delay={i * 0.05}>
+                <div className="grid gap-4 py-7 md:grid-cols-[260px_1fr] md:items-center md:gap-10" style={{ borderBottom: `1px solid ${INK}33` }}>
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-xs" style={{ color: CORAL }}>
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-2xl font-bold tracking-tight">{d as string}</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {(items as string[]).map((t) => (
+                      <span key={t} className="rounded-full border px-4 py-2 font-mono text-[11px] tracking-wider transition-colors hover:bg-[#14213d] hover:text-[#f1ece1]" style={{ borderColor: `${INK}44` }}>
+                        {t.toUpperCase()}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* STORY */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="05" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
+          <Head no="08" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>
             {story.map(([n, t, b], i) => (
               <Reveal key={n} delay={i * 0.08}>
@@ -608,7 +783,7 @@ export default function V2() {
           <div className="grid items-center gap-12 md:grid-cols-[1.7fr_1fr]">
             <Reveal>
               <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
-                <span>06 / CONTACT</span>
+                <span>09 / CONTACT</span>
                 <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
                   تواصل معي
                 </span>

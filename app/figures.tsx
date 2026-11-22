@@ -320,3 +320,90 @@ export function FigRipple() {
     </svg>
   )
 }
+
+/** Research: satellites over a curved horizon, with coverage cones to one ground point. */
+export function FigOrbit() {
+  const orbit = "M10 128 Q200 28 390 128"
+  return (
+    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Satellites in orbit covering a point on the ground">
+      <path d="M-40 260 A 260 260 0 0 1 440 260" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".7" transform="translate(0 -62)" />
+      <path d={orbit} fill="none" stroke="currentColor" strokeWidth="1.2" className="fig-dash" opacity=".55" />
+      {[
+        [96, 88],
+        [200, 70],
+        [304, 88],
+      ].map(([x, y], i) => (
+        <g key={i}>
+          <path d={`M${x} ${y} L172 196 L228 196 Z`} fill={CORAL} opacity=".1" />
+          <rect x={x - 7} y={y - 5} width="14" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          <path d={`M${x - 16} ${y} H${x - 7} M${x + 7} ${y} H${x + 16}`} stroke="currentColor" strokeWidth="1.5" />
+        </g>
+      ))}
+      <circle r="5" fill={CORAL}>
+        <animateMotion dur="9s" repeatCount="indefinite" path={orbit} />
+      </circle>
+      <g fill="none" stroke={CORAL} strokeWidth="1.4">
+        <path d="M118 112 q6 -7 0 -14 M126 116 q9 -11 0 -22" className="fig-blink" />
+        <circle cx="200" cy="196" r="9" className="fig-pulse" />
+      </g>
+      <circle cx="200" cy="196" r="4.5" fill={CORAL} />
+      <text x="200" y="214" textAnchor="middle" fontSize="9" fill="currentColor" opacity=".6" fontFamily="var(--font-geist-mono), monospace" letterSpacing="2">
+        IRAQ
+      </text>
+    </svg>
+  )
+}
+
+/** Lab: loss and evaluation curves while training. */
+export function FigTrain() {
+  return (
+    <svg viewBox="0 0 400 200" className="block w-full" role="img" aria-label="Training loss and evaluation curves going down">
+      <g stroke="currentColor" strokeWidth="1" opacity=".3">
+        <path d="M34 20 V170 H380" fill="none" />
+        {[60, 100, 140].map((y) => (
+          <path key={y} d={`M34 ${y} H380`} strokeDasharray="2 6" />
+        ))}
+      </g>
+      <motion.path d="M34 40 C 90 46, 112 120, 176 142 S 300 160, 380 164" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" {...draw} />
+      <motion.path d="M34 52 C 96 62, 120 128, 190 146 S 310 166, 380 170" fill="none" stroke={CORAL} strokeWidth="2" strokeLinecap="round" strokeDasharray="5 5" {...draw} />
+      <circle r="5" fill={CORAL}>
+        <animateMotion dur="5s" repeatCount="indefinite" path="M34 52 C 96 62, 120 128, 190 146 S 310 166, 380 170" />
+      </circle>
+      <text x="40" y="14" fontSize="9" fill="currentColor" opacity=".6" fontFamily="var(--font-geist-mono), monospace" letterSpacing="2">
+        LOSS
+      </text>
+      <text x="380" y="190" textAnchor="end" fontSize="9" fill="currentColor" opacity=".6" fontFamily="var(--font-geist-mono), monospace" letterSpacing="2">
+        STEPS →
+      </text>
+    </svg>
+  )
+}
+
+/** Lab: a terminal window running an automation. */
+export function FigTerm() {
+  const mono = "var(--font-geist-mono), monospace"
+  return (
+    <svg viewBox="0 0 400 200" className="block w-full" role="img" aria-label="Terminal running an automation script">
+      <rect x="40" y="26" width="320" height="150" rx="12" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".7" />
+      <path d="M40 54 H360" stroke="currentColor" strokeWidth="1" opacity=".3" />
+      {[58, 74, 90].map((x, i) => (
+        <circle key={x} cx={x} cy="40" r="4" fill={i === 0 ? CORAL : "currentColor"} opacity={i === 0 ? 1 : 0.3} />
+      ))}
+      <g fontFamily={mono} fontSize="11" fill="currentColor">
+        <text x="60" y="80">
+          <tspan fill={CORAL}>$</tspan> scan --env lab
+        </text>
+        <text x="60" y="100" opacity=".65">
+          ✓ 12 hosts enumerated
+        </text>
+        <text x="60" y="120" opacity=".65">
+          ✓ 3 findings flagged
+        </text>
+        <text x="60" y="140" opacity=".65">
+          ✓ report.md written
+        </text>
+      </g>
+      <rect x="60" y="150" width="8" height="13" fill={CORAL} className="fig-blink" />
+    </svg>
+  )
+}

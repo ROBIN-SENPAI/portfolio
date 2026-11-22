@@ -4,21 +4,81 @@ import { useEffect, useRef } from "react"
 
 type P = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; c: string; r: number }
 
-export function ParticleName({ text, colors = ["#14213d", "#e4572e"] }: { text: string; colors?: [string, string] }) {
+const ARABIC = /[؀-ۿ]/
+
+/**
+ * Particles that assemble a word and react to the pointer.
+ * Pass `texts` to morph between several words (for example 313 and ٣١٣).
+ */
+export function ParticleName({
+  text,
+  texts,
+  interval = 5200,
+  colors = ["#14213d", "#e4572e"],
+}: {
+  text?: string
+  texts?: string[]
+  interval?: number
+  colors?: [string, string]
+}) {
   const ref = useRef<HTMLCanvasElement>(null)
+  const listKey = (texts ?? [text ?? ""]).join("|")
 
   useEffect(() => {
     const canvas = ref.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+    const list = listKey.split("|")
 
     let w = 0
     let h = 0
     let raf = 0
+    let timer: ReturnType<typeof setInterval> | undefined
+    let cancelled = false
+    let idx = 0
+    let visible = true
     let particles: P[] = []
     const pointer = { x: -9999, y: -9999, active: false }
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
+    const sample = (str: string): [number, number][] => {
+      const off = document.createElement("canvas")
+      off.width = w
+      off.height = h
+      const o = off.getContext("2d")!
+      const family = ARABIC.test(str) ? '"Thmanyah Sans", Inter, system-ui, sans-serif' : "Inter, system-ui, sans-serif"
+      let size = Math.min(w * 0.5, h * 0.55)
+      o.font = `800 ${size}px ${family}`
+      while (o.measureText(str).width > w * 0.9 && size > 20) {
+        size -= 4
+        o.font = `800 ${size}px ${family}`
+      }
+      o.textAlign = "center"
+      o.textBaseline = "middle"
+      o.fillText(str, w / 2, h * 0.46)
+      const data = o.getImageData(0, 0, w, h).data
+      const gap = w < 600 ? 4 : 6
+      const out: [number, number][] = []
+      for (let y = 0; y < h; y += gap) {
+        for (let x = 0; x < w; x += gap) {
+          if (data[(y * w + x) * 4 + 3] > 128) out.push([x, y])
+        }
+      }
+      return out
+    }
+
+    const make = (tx: number, ty: number, i: number, scatter = true): P => ({
+      x: scatter ? Math.random() * w : tx,
+      y: scatter ? Math.random() * h : ty,
+      tx,
+      ty,
+      vx: 0,
+      vy: 0,
+      c: i % 9 === 0 ? colors[1] : colors[0],
+      r: w < 600 ? 1.1 : 1.7,
+    })
 
     const build = () => {
       const rect = canvas.getBoundingClientRect()
@@ -27,42 +87,35 @@ export function ParticleName({ text, colors = ["#14213d", "#e4572e"] }: { text: 
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-
-      // sample the word into target points
-      const off = document.createElement("canvas")
-      off.width = w
-      off.height = h
-      const o = off.getContext("2d")!
-      let size = Math.min(w * 0.5, h * 0.55)
-      o.font = `800 ${size}px Inter, system-ui, sans-serif`
-      while (o.measureText(text).width > w * 0.9 && size > 20) {
-        size -= 4
-        o.font = `800 ${size}px Inter, system-ui, sans-serif`
-      }
-      o.textAlign = "center"
-      o.textBaseline = "middle"
-      o.fillText(text, w / 2, h * 0.46)
-      const data = o.getImageData(0, 0, w, h).data
-      const gap = w < 600 ? 4 : 6
-      const targets: [number, number][] = []
-      for (let y = 0; y < h; y += gap) {
-        for (let x = 0; x < w; x += gap) {
-          if (data[(y * w + x) * 4 + 3] > 128) targets.push([x, y])
-        }
-      }
-      particles = targets.map(([tx, ty], i) => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        tx,
-        ty,
-        vx: 0,
-        vy: 0,
-        c: i % 9 === 0 ? colors[1] : colors[0],
-        r: w < 600 ? 1.1 : 1.7,
-      }))
+      particles = sample(list[idx]).map(([tx, ty], i) => make(tx, ty, i))
     }
 
-    let visible = true
+    const retarget = () => {
+      if (!visible || document.hidden) return
+      idx = (idx + 1) % list.length
+      const targets = sample(list[idx])
+      for (let i = targets.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[targets[i], targets[j]] = [targets[j], targets[i]]
+      }
+      for (let i = 0; i < targets.length; i++) {
+        const [tx, ty] = targets[i]
+        if (particles[i]) {
+          particles[i].tx = tx
+          particles[i].ty = ty
+        } else {
+          const src = particles[i % Math.max(particles.length, 1)]
+          const p = make(tx, ty, i)
+          if (src) {
+            p.x = src.x
+            p.y = src.y
+          }
+          particles.push(p)
+        }
+      }
+      particles.length = targets.length
+    }
+
     const tick = () => {
       if (!visible) {
         raf = requestAnimationFrame(tick)
@@ -103,28 +156,48 @@ export function ParticleName({ text, colors = ["#14213d", "#e4572e"] }: { text: 
     const leave = () => {
       pointer.active = false
     }
+    const click = () => {
+      if (list.length > 1) retarget()
+    }
 
     const io = new IntersectionObserver(([e]) => {
       visible = e.isIntersecting
     })
     io.observe(canvas)
-    build()
-    tick()
+
+    const start = () => {
+      if (cancelled) return
+      build()
+      tick()
+      if (list.length > 1 && !reduce) timer = setInterval(retarget, interval)
+    }
+    const needsArabic = list.some((t) => ARABIC.test(t))
+    if (needsArabic && document.fonts?.load) {
+      document.fonts.load('800 80px "Thmanyah Sans"', "٣١٣").then(start, start)
+    } else {
+      start()
+    }
+
     window.addEventListener("resize", build)
     canvas.addEventListener("pointermove", move)
     canvas.addEventListener("pointerdown", move)
     canvas.addEventListener("pointerleave", leave)
     canvas.addEventListener("pointerup", leave)
+    canvas.addEventListener("click", click)
     return () => {
+      cancelled = true
       cancelAnimationFrame(raf)
+      if (timer) clearInterval(timer)
       io.disconnect()
       window.removeEventListener("resize", build)
       canvas.removeEventListener("pointermove", move)
       canvas.removeEventListener("pointerdown", move)
       canvas.removeEventListener("pointerleave", leave)
       canvas.removeEventListener("pointerup", leave)
+      canvas.removeEventListener("click", click)
     }
-  }, [text, colors[0], colors[1]])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [listKey, colors[0], colors[1], interval])
 
-  return <canvas ref={ref} className="absolute inset-0 h-full w-full touch-pan-y" aria-label={text} />
+  return <canvas ref={ref} className="absolute inset-0 h-full w-full touch-pan-y" aria-label={listKey.split("|")[0]} />
 }

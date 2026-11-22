@@ -32,30 +32,126 @@ const draw = {
   transition: { duration: 1.4, ease: "easeInOut" as const },
 }
 
-/** English <-> Arabic bridge: the mission. */
+/** English <-> Arabic: words pass through a translation core in both directions. */
 export function FigBridge() {
+  const mono = "var(--font-geist-mono), monospace"
+  const lane = (y: number) => `M118 ${y} H176`
   return (
-    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="English and Arabic connected by a signal">
-      <g stroke="currentColor" fill="none" strokeWidth="1.5">
-        <circle cx="70" cy="110" r="42" opacity=".9" />
-        <circle cx="330" cy="110" r="42" opacity=".9" />
-        <motion.path d="M112 110 C 160 40, 240 40, 288 110" {...draw} />
-        <motion.path d="M112 110 C 160 180, 240 180, 288 110" {...draw} opacity=".5" />
-        <path d="M112 110 L288 110" className="fig-dash" opacity=".4" />
+    <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="English and Arabic words flowing through a translation core">
+      {/* endpoints */}
+      <g fill="none" stroke="currentColor" strokeWidth="1.5">
+        <rect x="14" y="78" width="104" height="74" rx="16" />
+        <rect x="282" y="78" width="104" height="74" rx="16" />
       </g>
-      <text x="70" y="124" textAnchor="middle" fontSize="40" fontWeight="700" fill="currentColor" fontFamily="Inter, sans-serif">
-        A
+      <text x="66" y="124" textAnchor="middle" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="var(--font-serif), serif" fontStyle="italic">
+        Hello
       </text>
-      <text x="330" y="126" textAnchor="middle" fontSize="44" fontWeight="800" fill="currentColor" className="font-ar">
-        ع
+      <text x="334" y="127" textAnchor="middle" fontSize="30" fill="currentColor" className="font-ar-display" fontWeight="700">
+        مرحباً
       </text>
-      <circle r="5" fill={CORAL}>
-        <animateMotion dur="3.2s" repeatCount="indefinite" path="M112 110 C 160 40, 240 40, 288 110" />
+      <text x="66" y="70" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+        ENGLISH
+      </text>
+      <text x="334" y="70" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+        ARABIC
+      </text>
+      {/* lanes */}
+      <g stroke="currentColor" strokeWidth="1.3" fill="none" opacity=".6">
+        <path d="M118 104 H178" className="fig-dash" />
+        <path d="M222 104 H282" className="fig-dash" />
+        <path d="M282 128 H222" className="fig-dash" style={{ animationDirection: "reverse" }} />
+        <path d="M178 128 H118" className="fig-dash" style={{ animationDirection: "reverse" }} />
+      </g>
+      {/* tokens */}
+      {[0, 1, 2].map((i) => (
+        <g key={i}>
+          <circle r="3.5" fill={CORAL}>
+            <animateMotion dur="2.4s" begin={`${i * 0.8}s`} repeatCount="indefinite" path="M118 104 H282" />
+          </circle>
+          <circle r="3.5" fill="currentColor" opacity=".7">
+            <animateMotion dur="2.4s" begin={`${i * 0.8 + 0.4}s`} repeatCount="indefinite" path="M282 128 H118" />
+          </circle>
+        </g>
+      ))}
+      {/* core */}
+      <polygon points="200,60 232,78 232,114 200,132 168,114 168,78" fill="none" stroke={CORAL} strokeWidth="1.8" transform="translate(0 13)" />
+      <polygon points="200,60 232,78 232,114 200,132 168,114 168,78" fill="none" stroke={CORAL} strokeWidth="1.8" className="fig-pulse" transform="translate(0 13)" />
+      <text x="200" y="121" textAnchor="middle" fontSize="14" fontWeight="800" fill={CORAL} fontFamily={mono}>
+        AI
+      </text>
+      <text x="200" y="196" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+        TRANSLATION CORE
+      </text>
+      <path d="M40 172 H360" stroke="currentColor" strokeWidth="1" opacity=".18" strokeDasharray="2 6" />
+      <text x="360" y="214" textAnchor="end" fontSize="10" fill={CORAL} className="font-ar" fontWeight="700">
+        لغة واحدة، فهم واحد
+      </text>
+    </svg>
+  )
+}
+
+/** Academy: from basics to building — a staircase with a climbing marker. */
+export function FigAcademy() {
+  const mono = "var(--font-geist-mono), monospace"
+  const steps = [
+    { x: 34, y: 150, h: 46, n: "01", en: "BASICS", ar: "الأساس" },
+    { x: 138, y: 112, h: 84, n: "02", en: "PRACTICE", ar: "التطبيق" },
+    { x: 242, y: 74, h: 122, n: "03", en: "BUILD", ar: "الإتقان" },
+  ]
+  const climb = "M34 150 H138 V112 H242 V74 H346"
+  return (
+    <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="Learning path from basics to practice to building">
+      {steps.map((s, i) => (
+        <g key={s.n}>
+          <rect x={s.x} y={s.y} width="104" height={s.h} rx="6" fill={i === 2 ? CORAL : "none"} fillOpacity={i === 2 ? 0.14 : 0} stroke={i === 2 ? CORAL : "currentColor"} strokeWidth="1.5" />
+          <text x={s.x + 12} y={s.y + 22} fontSize="10" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
+            {s.n}
+          </text>
+          <text x={s.x + 12} y={s.y + s.h - 26} fontSize="9" letterSpacing="2" fill="currentColor" opacity=".7" fontFamily={mono}>
+            {s.en}
+          </text>
+          <text x={s.x + 12} y={s.y + s.h - 8} fontSize="14" fill="currentColor" className="font-ar" fontWeight="700">
+            {s.ar}
+          </text>
+        </g>
+      ))}
+      <path d={climb} fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 5" opacity=".5" />
+      <circle r="6" fill={CORAL}>
+        <animateMotion dur="6s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
       </circle>
-      <circle r="5" fill={CORAL} opacity=".6">
-        <animateMotion dur="3.2s" begin="1.6s" repeatCount="indefinite" path="M288 110 C 240 180, 160 180, 112 110" />
-      </circle>
-      <circle cx="200" cy="110" r="3" fill={CORAL} className="fig-blink" />
+      <g transform="translate(346 74)">
+        <path d="M0 0 V-30" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M0 -30 L22 -22 L0 -14 Z" fill={CORAL} />
+      </g>
+    </svg>
+  )
+}
+
+/** Closing dial: rotating ring of the three roles with tick marks. */
+export function FigDial() {
+  const ticks = Array.from({ length: 72 })
+  const word = "BUILD · SECURE · TEACH · "
+  return (
+    <svg viewBox="0 0 600 600" className="block w-full" role="presentation" aria-hidden="true">
+      <defs>
+        <path id="dial-ring" d="M300 300 m-250 0 a250 250 0 1 1 500 0 a250 250 0 1 1 -500 0" />
+      </defs>
+      <g stroke="currentColor" fill="none" opacity=".35">
+        <circle cx="300" cy="300" r="292" strokeWidth="1" />
+        <circle cx="300" cy="300" r="212" strokeWidth="1" strokeDasharray="2 8" />
+      </g>
+      <g className="fig-spin" style={{ animationDuration: "120s" }} stroke="currentColor" opacity=".4">
+        {ticks.map((_, i) => (
+          <line key={i} x1="300" y1="14" x2="300" y2={i % 6 === 0 ? 34 : 24} transform={`rotate(${i * 5} 300 300)`} strokeWidth={i % 6 === 0 ? 2 : 1} />
+        ))}
+      </g>
+      <g className="fig-spin" style={{ animationDuration: "70s", animationDirection: "reverse" }}>
+        <text fontSize="15" fontWeight="600" fill="currentColor" opacity=".7" fontFamily="var(--font-geist-mono), monospace">
+          <textPath href="#dial-ring" textLength="1560" lengthAdjust="spacing">
+            {word.repeat(6)}
+          </textPath>
+        </text>
+      </g>
     </svg>
   )
 }
@@ -197,23 +293,6 @@ export function FigStudy() {
       <text x="318" y="118" textAnchor="middle" fontSize="24" fontWeight="700" fill="currentColor" fontFamily="Inter, sans-serif">
         25:00
       </text>
-    </svg>
-  )
-}
-
-/** Senpai Academy: stacked learning layers. */
-export function FigAcademy() {
-  return (
-    <svg viewBox="0 0 400 200" className="block w-full" role="img" aria-label="Stacked learning layers">
-      <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        {[0, 1, 2].map((i) => (
-          <g key={i} className="fig-float" style={{ animationDelay: `${i * 0.35}s` }}>
-            <path d={`M110 ${120 - i * 34} L200 ${86 - i * 34} L290 ${120 - i * 34} L200 ${154 - i * 34} Z`} fill={i === 2 ? CORAL : "none"} stroke={i === 2 ? CORAL : "currentColor"} opacity={i === 2 ? 1 : 0.8} />
-          </g>
-        ))}
-        <path d="M200 20 V40" strokeLinecap="round" />
-        <circle cx="200" cy="14" r="5" fill="currentColor" stroke="none" />
-      </g>
     </svg>
   )
 }

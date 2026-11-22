@@ -5,7 +5,8 @@ import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView,
 import { ArrowUpRight } from "lucide-react"
 import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
-import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
+import { Github, Send, ShieldCheck } from "lucide-react"
+import { Frame, FigDial, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
@@ -151,6 +152,29 @@ function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
       {n}
       {suffix}
     </span>
+  )
+}
+
+function ScrollWord({ w, it, i, n, progress }: { w: string; it: boolean; i: number; n: number; progress: ReturnType<typeof useScroll>["scrollYProgress"] }) {
+  const start = (i / n) * 0.85
+  const op = useTransform(progress, [start, start + 0.15], [0.16, 1])
+  return (
+    <motion.span style={{ opacity: op, color: it ? CORAL : undefined }} className={it ? "italic" : undefined}>
+      {w}{" "}
+    </motion.span>
+  )
+}
+
+function ScrollWords({ parts, className = "" }: { parts: [string, boolean][]; className?: string }) {
+  const ref = useRef<HTMLParagraphElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "start 0.3"] })
+  const words = parts.flatMap(([t, it]) => t.split(" ").filter(Boolean).map((w) => ({ w, it })))
+  return (
+    <p ref={ref} className={className}>
+      {words.map((x, i) => (
+        <ScrollWord key={i} w={x.w} it={x.it} i={i} n={words.length} progress={scrollYProgress} />
+      ))}
+    </p>
   )
 }
 
@@ -328,36 +352,63 @@ export default function V2() {
                 Hi, I&apos;m <It>Mohammed</It>
                 <span style={{ color: CORAL }}>.</span>
               </h1>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75 md:text-2xl">
-                Building with <It>AI.</It> Securing what <It>it builds.</It> Software developer, cybersecurity practitioner and
-                researcher — making advanced technology accessible in Arabic.
-              </p>
+              <ScrollWords
+                className="mt-8 max-w-2xl font-[family-name:var(--font-serif)] text-3xl leading-[1.12] md:text-5xl"
+                parts={[
+                  ["Building with", false],
+                  ["AI.", true],
+                  ["Securing what", false],
+                  ["it builds.", true],
+                  ["Developer, security practitioner and researcher — making advanced technology accessible in", false],
+                  ["Arabic.", true],
+                ]}
+              />
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="rounded-3xl p-7 md:p-8" style={{ background: "#fffaf0", border: `1px solid ${INK}22` }}>
-                <p className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em] opacity-60">
-                  <span>PROFILE</span>
-                  <span className="font-ar text-sm tracking-normal" dir="rtl">
-                    الملف
-                  </span>
-                </p>
-                <p dir="ltr" lang="ar" className="font-ar-display mt-5 text-4xl font-bold leading-tight md:text-5xl" style={{ color: CORAL }}>
-                  محمد باقر فراس
-                </p>
-                <dl className="mt-6 font-mono text-[11px] tracking-[0.15em]">
-                  {[
-                    ["ROLE", "Software developer"],
-                    ["ALSO", "Cybersecurity researcher"],
-                    ["FOUNDER", "Senpai Academy"],
-                    ["FOCUS", "AI · LLMs · agents"],
-                  ].map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between gap-4 py-3" style={{ borderTop: `1px solid ${INK}22` }}>
-                      <dt className="opacity-50">{k}</dt>
-                      <dd className="text-right">{v}</dd>
+              <Tilt>
+                <div className="relative overflow-hidden rounded-3xl" style={{ background: "#fffaf0", border: `1px solid ${INK}22`, boxShadow: `0 30px 60px -40px ${INK}66` }}>
+                  <div className="flex items-center justify-between px-7 py-3 font-mono text-[10px] tracking-[0.25em]" style={{ background: INK, color: PAPER }}>
+                    <span>IDENTITY CARD</span>
+                    <span style={{ color: CORAL }}>● ACTIVE</span>
+                  </div>
+                  <div className="p-7 md:p-8">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسم / NAME</p>
+                        <p dir="ltr" lang="ar" className="font-ar-display mt-3 text-4xl font-bold leading-tight md:text-5xl" style={{ color: CORAL }}>
+                          محمد باقر فراس
+                        </p>
+                        <p className="mt-1 font-[family-name:var(--font-serif)] text-2xl italic opacity-80">Mohammed Baqir Firas</p>
+                      </div>
+                      <div
+                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-[family-name:var(--font-serif)] text-2xl italic"
+                        style={{ border: `1.5px solid ${CORAL}`, color: CORAL }}
+                      >
+                        MBF
+                      </div>
                     </div>
-                  ))}
-                </dl>
-              </div>
+                    <dl className="mt-7 text-sm">
+                      {[
+                        ["Role", "Software developer"],
+                        ["Also", "Cybersecurity researcher"],
+                        ["Founder", "Senpai Academy"],
+                        ["Focus", "AI · LLMs · agents"],
+                      ].map(([k, v]) => (
+                        <div key={k} className="flex items-baseline justify-between gap-4 py-3" style={{ borderTop: `1px dashed ${INK}33` }}>
+                          <dt className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">{k}</dt>
+                          <dd className="text-right font-medium">{v}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <div className="mt-5 flex h-8 items-stretch gap-[2px]" aria-hidden="true">
+                      {Array.from({ length: 46 }).map((_, i) => (
+                        <span key={i} style={{ width: [1, 2, 1, 3, 1, 2, 4, 1][i % 8], background: INK, opacity: 0.8 }} />
+                      ))}
+                    </div>
+                    <p className="mt-3 overflow-hidden whitespace-nowrap font-mono text-[10px] tracking-[0.2em] opacity-45">MBF&lt;&lt;BAQIR&lt;&lt;FIRAS&lt;&lt;&lt;AI&lt;&lt;SEC&lt;&lt;EDU&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+                  </div>
+                </div>
+              </Tilt>
             </Reveal>
           </div>
           <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-6 font-mono text-xs tracking-[0.2em] md:text-sm">
@@ -390,21 +441,43 @@ export default function V2() {
               <FigBridge />
             </Frame>
           </Reveal>
-          <Reveal delay={0.1} className="space-y-6 text-lg leading-relaxed opacity-80 md:text-xl">
-            <p>
-              I&apos;m <strong>Mohammed Baqir Firas</strong> — a software developer, AI enthusiast, cybersecurity practitioner and
-              founder of <strong>Senpai Academy</strong>. My focus right now is artificial intelligence: large language models,
-              AI-powered applications, intelligent agents, and model training and evaluation.
+          <Reveal delay={0.1}>
+            <p className="max-w-2xl text-lg leading-relaxed opacity-80 md:text-xl">
+              I&apos;m <strong>Mohammed Baqir Firas</strong> — software developer, AI enthusiast and founder of{" "}
+              <strong>Senpai Academy</strong>. Three things drive my work:
             </p>
-            <p>
-              With a background in cybersecurity — Active Directory and LLM security — I approach technology from both sides:
-              building it and securing it. Beyond development I do academic research, technical writing and build educational
-              platforms for Arabic-speaking learners.
-            </p>
-            <p className="opacity-90">
-              <It>Long-term goal:</It> contribute to intelligent, reliable and secure AI systems.
-            </p>
-            <div className="grid grid-cols-2 gap-6 pt-6 font-mono text-[10px] tracking-[0.2em] sm:grid-cols-4 md:text-xs">
+            <div className="mt-8" style={{ borderTop: `1px solid ${INK}33` }}>
+              {[
+                ["01", "Build", "بناء", "AI-powered apps, LLM applications and intelligent agents — plus model training and evaluation."],
+                ["02", "Secure", "حماية", "A cybersecurity background — Active Directory and LLM security — so what I build is made to hold."],
+                ["03", "Teach", "تعليم", "Technical writing, research and Arabic educational platforms that make hard topics approachable."],
+              ].map(([no, en, ar, body]) => (
+                <div key={no} className="grid grid-cols-[48px_1fr] gap-4 py-7 md:grid-cols-[48px_220px_1fr] md:items-baseline md:gap-8" style={{ borderBottom: `1px solid ${INK}33` }}>
+                  <span className="font-mono text-xs" style={{ color: CORAL }}>
+                    {no}
+                  </span>
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-[family-name:var(--font-serif)] text-5xl italic leading-none md:text-6xl">{en}</span>
+                    <span className="font-ar-display text-xl font-bold" style={{ color: CORAL }} dir="rtl">
+                      {ar}
+                    </span>
+                  </div>
+                  <p className="col-span-2 leading-relaxed opacity-75 md:col-span-1">{body}</p>
+                </div>
+              ))}
+            </div>
+
+            <figure className="relative mt-10 rounded-3xl p-7 md:p-10" style={{ background: INK, color: PAPER }}>
+              <span className="absolute left-6 top-2 font-[family-name:var(--font-serif)] text-8xl leading-none" style={{ color: CORAL }} aria-hidden="true">
+                &ldquo;
+              </span>
+              <figcaption className="font-mono text-[10px] tracking-[0.25em] opacity-60">LONG-TERM GOAL</figcaption>
+              <blockquote className="mt-4 font-[family-name:var(--font-serif)] text-3xl italic leading-[1.1] md:text-5xl">
+                Intelligent, reliable and secure AI systems.
+              </blockquote>
+            </figure>
+
+            <div className="grid grid-cols-2 gap-6 pt-10 font-mono text-[10px] tracking-[0.2em] sm:grid-cols-4 md:text-xs">
               {[
                 [2, "", "LLM SECURITY CERTS"],
                 [4, "", "LIVE PLATFORMS"],
@@ -582,48 +655,57 @@ export default function V2() {
 
       {/* ACADEMY */}
       <section id="academy" className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
-        <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.3fr_1fr]">
-          <div>
-            <Head
-              no="04"
-              label="SENPAI ACADEMY"
-              ar="أكاديمية سينباي"
-              title={
-                <>
-                  Founder, <It>Senpai Academy.</It>
-                </>
-              }
-            />
-            <Reveal className="-mt-6 space-y-5 text-lg leading-relaxed opacity-80">
-              <p>
-                An Arabic educational initiative focused on cybersecurity, technical learning and developer resources. I design the
-                platforms, build interactive tools and organize learning resources so complex subjects become easier to approach.
-              </p>
-              <p>
-                <It>Core mission:</It> make technical knowledge accessible, practical and structured for the next generation of
-                Arabic-speaking developers and cybersecurity professionals.
-              </p>
-              <div className="flex flex-wrap gap-2 pt-2">
-                {["PLATFORM DESIGN", "INTERACTIVE TOOLS", "LEARNING RESOURCES"].map((t) => (
-                  <span key={t} className="rounded-full border px-3 py-1 font-mono text-[10px] tracking-wider" style={{ borderColor: `${PAPER}44` }}>
-                    {t}
+        <div className="mx-auto grid max-w-6xl items-center gap-14 md:grid-cols-[1.15fr_1fr]">
+          <Reveal>
+            <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
+              <span>04 / FOUNDER</span>
+              <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
+                أكاديمية سينباي
+              </span>
+            </p>
+            <h2 className="mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-7xl">
+              Senpai <It>Academy.</It>
+            </h2>
+            <p dir="ltr" lang="ar" className="font-ar-display mt-4 text-2xl font-bold md:text-3xl" style={{ color: CORAL }}>
+              من الفهم إلى التطبيق
+            </p>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-75">
+              An Arabic educational initiative focused on cybersecurity, technical learning and developer resources — structured so
+              complex subjects become easy to approach.
+            </p>
+            <div className="mt-8" style={{ borderTop: `1px solid ${PAPER}33` }}>
+              {[
+                ["01", "Design platforms", "Clear, fast learning sites built for students."],
+                ["02", "Build interactive tools", "Small tools that make practice hands-on."],
+                ["03", "Organize resources", "Roadmaps and guides in a sensible order."],
+              ].map(([no, t, d]) => (
+                <div key={no} className="grid grid-cols-[40px_1fr] gap-3 py-4 md:grid-cols-[40px_220px_1fr] md:items-baseline" style={{ borderBottom: `1px solid ${PAPER}33` }}>
+                  <span className="font-mono text-xs" style={{ color: CORAL }}>
+                    {no}
                   </span>
-                ))}
-              </div>
-              <a
-                href="https://academysenpai.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 font-mono text-xs tracking-[0.2em] transition-colors hover:opacity-90"
-                style={{ background: CORAL, color: INK }}
-              >
-                VISIT THE ACADEMY <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </Reveal>
+                  <span className="font-[family-name:var(--font-serif)] text-2xl italic">{t}</span>
+                  <span className="col-span-2 text-sm opacity-65 md:col-span-1">{d}</span>
+                </div>
+              ))}
+            </div>
+            <a
+              href="https://academysenpai.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 font-mono text-xs tracking-[0.2em] transition-opacity hover:opacity-90"
+              style={{ background: CORAL, color: INK }}
+            >
+              VISIT THE ACADEMY <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </Reveal>
+          <div>
+            <Frame caption="FIG. 6 — FROM BASICS TO BUILDING">
+              <FigAcademy />
+            </Frame>
+            <p className="mt-6 font-[family-name:var(--font-serif)] text-2xl italic leading-snug opacity-80 md:text-3xl">
+              Making technical knowledge accessible, practical and structured.
+            </p>
           </div>
-          <Frame caption="FIG. 6 — LEARNING, LAYER BY LAYER">
-            <FigAcademy />
-          </Frame>
         </div>
       </section>
 
@@ -738,37 +820,54 @@ export default function V2() {
             </Reveal>
           </div>
 
-          <div className="mt-16" style={{ borderTop: `1px solid ${PAPER}22` }}>
-            {links.map(([k, v, href]) => (
-              <a
-                key={k}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group grid grid-cols-[96px_1fr_auto] items-center gap-4 py-7 transition-all duration-300 hover:bg-white/[0.04] md:grid-cols-[160px_1fr_auto] md:px-0 md:hover:px-5"
-                style={{ borderBottom: `1px solid ${PAPER}22` }}
-              >
-                <span className="font-mono text-[11px] tracking-[0.25em] opacity-55 md:text-xs">{k}</span>
-                <span className="text-xl font-medium tracking-tight md:text-4xl">{v}</span>
-                <span
-                  className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 group-hover:bg-[#e4572e] group-hover:text-[#14213d] md:h-12 md:w-12"
-                  style={{ borderColor: CORAL, color: CORAL }}
+          <div className="mt-16" style={{ borderTop: `1px solid ${PAPER}33` }}>
+            {[
+              ["01", "GitHub", "@ROBIN-SENPAI", "https://github.com/ROBIN-SENPAI", Github],
+              ["02", "Telegram", "Senpai Academy channel", "https://t.me/SENPAI_ACADMEY", Send],
+              ["03", "TryHackMe", "ROBiN", "https://tryhackme.com/p/ROBiN", ShieldCheck],
+            ].map(([no, k, v, href, Icon]) => {
+              const I = Icon as typeof Github
+              return (
+                <a
+                  key={String(k)}
+                  href={href as string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative grid grid-cols-[auto_1fr_auto] items-center gap-5 overflow-hidden py-7 md:grid-cols-[48px_56px_1fr_auto] md:gap-8 md:px-4"
+                  style={{ borderBottom: `1px solid ${PAPER}33` }}
                 >
-                  <ArrowUpRight className="h-5 w-5" />
-                </span>
-              </a>
-            ))}
+                  <span className="absolute inset-0 origin-bottom scale-y-0 transition-transform duration-500 ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-y-100" style={{ background: CORAL }} />
+                  <span className="relative hidden font-mono text-xs opacity-50 transition-colors group-hover:text-[#14213d] md:block">{no as string}</span>
+                  <span className="relative flex h-12 w-12 items-center justify-center rounded-full border transition-colors group-hover:border-[#14213d] group-hover:text-[#14213d]" style={{ borderColor: `${PAPER}55` }}>
+                    <I className="h-5 w-5" />
+                  </span>
+                  <span className="relative min-w-0 transition-colors group-hover:text-[#14213d]">
+                    <span className="block font-mono text-[10px] uppercase tracking-[0.25em] opacity-55">{k as string}</span>
+                    <span className="mt-1 block truncate font-[family-name:var(--font-serif)] text-3xl italic md:text-5xl">{v as string}</span>
+                  </span>
+                  <ArrowUpRight className="relative h-7 w-7 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#14213d]" style={{ color: CORAL }} />
+                </a>
+              )
+            })}
           </div>
         </div>
       </footer>
 
       {/* THE END — same particle treatment as the opening */}
-      <section aria-label="313" className="relative h-[80svh] min-h-[460px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
-        <ParticleName text="313" colors={[PAPER, CORAL]} />
+      <section aria-label="313" className="relative h-[88svh] min-h-[520px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div className="w-[min(130vh,96vw)] opacity-80" style={{ color: PAPER }}>
+            <FigDial />
+          </div>
+        </div>
+        <ParticleName texts={["313", "٣١٣"]} colors={[PAPER, CORAL]} />
         <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] opacity-60 md:p-8 md:text-[11px]">
           <span>MBF / END</span>
-          <span>TOUCH THE PARTICLES</span>
+          <span>TOUCH · TAP TO SWITCH 313 ⇄ ٣١٣</span>
         </div>
+        <p className="pointer-events-none absolute inset-x-0 bottom-20 text-center font-[family-name:var(--font-serif)] text-2xl italic opacity-80 md:bottom-24 md:text-4xl">
+          build · secure · teach
+        </p>
         <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
           <span className="opacity-60">© {new Date().getFullYear()} MOHAMMED BAQIR FIRAS</span>
           <a

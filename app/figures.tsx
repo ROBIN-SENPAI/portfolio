@@ -84,16 +84,6 @@ export function FigBridge() {
         <path d="M132 126 L124 132 L132 138" />
       </g>
 
-      {/* core */}
-      <g transform="translate(200 115)">
-        <polygon points={hex(40)} fill="none" stroke={CORAL} strokeWidth="1.2" className="fig-pulse" />
-        <polygon points={hex(40)} fill="#f1ece1" stroke={CORAL} strokeWidth="1.8" />
-        <polygon points={hex(27)} fill="none" stroke={CORAL} strokeWidth="1" strokeDasharray="2 4" className="fig-spin" />
-        <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill={CORAL} fontFamily={mono}>
-          AI
-        </text>
-      </g>
-
       {/* chips: EN -> core -> AR on top lane, AR -> core -> EN below */}
       <Chip text="Thanks" path={up} begin={0} />
       <Chip text="Welcome" path={up} begin={1.2} />
@@ -103,6 +93,16 @@ export function FigBridge() {
       <Chip text="سَلام" ar path={upR} begin={3.84} />
       <Chip text="كيف الحال" ar path={dn} begin={0.6} />
       <Chip text="How are you" path={dnL} begin={2.04} />
+
+      {/* core */}
+      <g transform="translate(200 115)">
+        <polygon points={hex(40)} fill="none" stroke={CORAL} strokeWidth="1.2" className="fig-pulse" />
+        <polygon points={hex(40)} fill="#f1ece1" stroke={CORAL} strokeWidth="1.8" />
+        <polygon points={hex(27)} fill="none" stroke={CORAL} strokeWidth="1" strokeDasharray="2 4" className="fig-spin" />
+        <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill={CORAL} fontFamily={mono}>
+          AI
+        </text>
+      </g>
 
       <path d="M30 188 H370" stroke="currentColor" strokeWidth="1" opacity=".2" strokeDasharray="2 6" />
       <text x="30" y="212" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>

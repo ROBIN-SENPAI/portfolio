@@ -253,7 +253,7 @@ function Head({ no, label, ar, title, sub }: { no: string; label: string; ar?: s
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full border px-3 py-1 font-mono text-[10px] tracking-wider" style={{ borderColor: `${INK}33` }}>
+    <span className="rounded-full border px-3 py-1 font-mono text-[11px] tracking-wider" style={{ borderColor: `${INK}33` }}>
       {children}
     </span>
   )
@@ -379,7 +379,7 @@ export default function V2() {
           <ParticleName text="BAQIR" />
         </motion.div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-5 md:p-8">
-          <div className="font-mono text-[10px] tracking-[0.2em] md:text-[11px]">
+          <div className="font-mono text-[11px] tracking-[0.2em] md:text-[11px]">
             <p>
               <span style={{ color: CORAL }}>●</span> BUILDING · SHIPPING · SECURING
             </p>
@@ -419,13 +419,13 @@ export default function V2() {
               </Note>
               <Tilt>
                 <div className="relative overflow-hidden rounded-3xl" style={{ background: "#fffaf0", border: `1px solid ${INK}22`, boxShadow: `0 30px 60px -40px ${INK}66` }}>
-                  <div className="flex items-center justify-between px-7 py-3 font-mono text-[10px] tracking-[0.25em]" style={{ background: INK, color: PAPER }}>
+                  <div className="flex items-center justify-between px-7 py-3 font-mono text-[11px] tracking-[0.25em]" style={{ background: INK, color: PAPER }}>
                     <span>IDENTITY CARD</span>
                     <span style={{ color: CORAL }}>● ACTIVE</span>
                   </div>
                   <div className="p-7 md:p-8">
                     <div className="relative text-center">
-                      <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسْم / NAME</p>
+                      <p className="font-mono text-[11px] tracking-[0.25em] opacity-50">الاسْم / NAME</p>
                       <p dir="rtl" lang="ar" className="font-ar-display mt-3 text-5xl font-bold leading-tight md:text-6xl" style={{ color: CORAL }}>
                         مُحَمَّد باقِر
                       </p>
@@ -439,7 +439,7 @@ export default function V2() {
                         ["Focus", "AI · LLMs · agents"],
                       ].map(([k, v]) => (
                         <div key={k} className="flex flex-row-reverse items-baseline justify-between gap-4 py-3" style={{ borderTop: `1px dashed ${INK}33` }}>
-                          <dt className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-50">{k}</dt>
+                          <dt className="font-mono text-[11px] uppercase tracking-[0.2em] opacity-50">{k}</dt>
                           <dd className="text-left font-medium">{v}</dd>
                         </div>
                       ))}
@@ -449,7 +449,7 @@ export default function V2() {
                         <span key={i} style={{ width: [1, 2, 1, 3, 1, 2, 4, 1][i % 8], background: INK, opacity: 0.8 }} />
                       ))}
                     </div>
-                    <p className="mt-3 overflow-hidden whitespace-nowrap font-mono text-[10px] tracking-[0.2em] opacity-45">MBF&lt;&lt;BAQIR&lt;&lt;&lt;&lt;AI&lt;&lt;SEC&lt;&lt;EDU&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
+                    <p className="mt-3 overflow-hidden whitespace-nowrap font-mono text-[11px] tracking-[0.2em] opacity-45">MBF&lt;&lt;BAQIR&lt;&lt;&lt;&lt;AI&lt;&lt;SEC&lt;&lt;EDU&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</p>
                   </div>
                 </div>
               </Tilt>
@@ -515,13 +515,13 @@ export default function V2() {
               <span className="absolute left-6 top-2 font-[family-name:var(--font-serif)] text-8xl leading-none" style={{ color: CORAL }} aria-hidden="true">
                 &ldquo;
               </span>
-              <figcaption className="font-mono text-[10px] tracking-[0.25em] opacity-60">LONG-TERM GOAL</figcaption>
+              <figcaption className="font-mono text-[11px] tracking-[0.25em] opacity-60">LONG-TERM GOAL</figcaption>
               <blockquote className="mt-4 font-[family-name:var(--font-serif)] text-3xl italic leading-[1.1] md:text-5xl">
                 Intelligent, reliable and secure AI systems.
               </blockquote>
             </figure>
 
-            <div className="grid grid-cols-2 gap-x-6 gap-y-8 pt-10 font-mono text-[10px] tracking-[0.2em] md:text-xs">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 pt-10 font-mono text-[11px] tracking-[0.2em] md:text-xs">
               {[
                 [2, "", "LLM SECURITY CERTS"],
                 [4, "", "LIVE PLATFORMS"],
@@ -566,7 +566,7 @@ export default function V2() {
                   <p className="leading-relaxed opacity-70">{c.body}</p>
                   <div className="flex flex-wrap gap-2">
                     {c.tags.map((t) => (
-                      <span key={t} className="rounded-full border px-3 py-1 font-mono text-[10px] tracking-wider" style={{ borderColor: `${PAPER}33` }}>
+                      <span key={t} className="rounded-full border px-3 py-1 font-mono text-[11px] tracking-wider" style={{ borderColor: `${PAPER}33` }}>
                         {t}
                       </span>
                     ))}
@@ -598,7 +598,7 @@ export default function V2() {
             <div className="absolute -top-8 right-0 hidden h-[260px] w-[46%] md:block">
               <DustCanvas kind="text" text="تُرجُمَان" />
             </div>
-            <Note arrow="down" className="absolute -bottom-10 left-0 hidden md:flex">
+            <Note arrow="down" className="absolute left-0 top-[calc(100%+0.5rem)] hidden md:flex">
               tap a card to open it
             </Note>
           </div>
@@ -745,7 +745,7 @@ export default function V2() {
                   <span className="font-mono text-xs" style={{ color: CORAL }}>
                     {no}
                   </span>
-                  <span className="font-[family-name:var(--font-serif)] text-2xl italic">{t}</span>
+                  <span className="font-[family-name:var(--font-serif)] text-3xl italic tracking-[0.015em]">{t}</span>
                   <span className="col-span-2 text-sm opacity-65 md:col-span-1">{d}</span>
                 </div>
               ))}
@@ -764,7 +764,7 @@ export default function V2() {
             <Frame caption="FIG. 6 — FROM BASICS TO BUILDING">
               <FigAcademy />
             </Frame>
-            <p className="mt-6 font-[family-name:var(--font-serif)] text-2xl italic leading-snug opacity-80 md:text-3xl">
+            <p className="mt-6 font-[family-name:var(--font-serif)] text-3xl italic leading-snug tracking-[0.012em] opacity-85 md:text-4xl">
               Making technical knowledge accessible, practical and structured.
             </p>
           </div>
@@ -922,7 +922,7 @@ export default function V2() {
                     <I className="h-5 w-5" />
                   </span>
                   <span className="relative min-w-0 transition-colors group-hover:text-[#14213d]">
-                    <span className="block font-mono text-[10px] uppercase tracking-[0.25em] opacity-55">{k as string}</span>
+                    <span className="block font-mono text-[11px] uppercase tracking-[0.25em] opacity-55">{k as string}</span>
                     <span className="mt-1 block truncate font-[family-name:var(--font-serif)] text-3xl italic md:text-5xl">{v as string}</span>
                   </span>
                   <ArrowUpRight className="relative h-7 w-7 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#14213d]" style={{ color: CORAL }} />
@@ -936,19 +936,19 @@ export default function V2() {
       {/* THE END — same particle treatment as the opening */}
       <section aria-label="313" className="relative h-[88svh] min-h-[520px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="w-[min(130vh,96vw)] opacity-80" style={{ color: PAPER }}>
+          <div className="w-[min(80svh,94vw)] opacity-80" style={{ color: PAPER }}>
             <FigDial />
           </div>
         </div>
-        <ParticleName texts={["313", "٣١٣"]} colors={[PAPER, CORAL]} />
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] opacity-60 md:p-8 md:text-[11px]">
+        <ParticleName texts={["313", "٣١٣"]} colors={[PAPER, CORAL]} scale={0.6} />
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[11px] tracking-[0.2em] opacity-60 md:p-8 md:text-[11px]">
           <span>MBF / END</span>
           <span>TOUCH · TAP TO SWITCH 313 ⇄ ٣١٣</span>
         </div>
         <p className="pointer-events-none absolute inset-x-0 bottom-20 text-center font-[family-name:var(--font-serif)] text-2xl italic opacity-80 md:bottom-24 md:text-4xl">
           build · secure · teach
         </p>
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[11px] tracking-[0.2em] md:p-8 md:text-[11px]">
           <span className="opacity-60">© {new Date().getFullYear()} MOHAMMED BAQIR FIRAS</span>
           <a
             href="#"

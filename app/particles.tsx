@@ -15,11 +15,13 @@ export function ParticleName({
   texts,
   interval = 5200,
   colors = ["#14213d", "#e4572e"],
+  scale = 1,
 }: {
   text?: string
   texts?: string[]
   interval?: number
   colors?: [string, string]
+  scale?: number
 }) {
   const ref = useRef<HTMLCanvasElement>(null)
   const listKey = (texts ?? [text ?? ""]).join("|")
@@ -49,7 +51,7 @@ export function ParticleName({
       off.height = h
       const o = off.getContext("2d")!
       const family = ARABIC.test(str) ? '"Thmanyah Sans", Inter, system-ui, sans-serif' : "Inter, system-ui, sans-serif"
-      let size = Math.min(w * 0.5, h * 0.55)
+      let size = Math.min(w * 0.5, h * 0.55) * scale
       o.font = `800 ${size}px ${family}`
       while (o.measureText(str).width > w * 0.9 && size > 20) {
         size -= 4
@@ -197,7 +199,7 @@ export function ParticleName({
       canvas.removeEventListener("click", click)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listKey, colors[0], colors[1], interval])
+  }, [listKey, colors[0], colors[1], interval, scale])
 
   return <canvas ref={ref} className="absolute inset-0 h-full w-full touch-pan-y" aria-label={listKey.split("|")[0]} />
 }

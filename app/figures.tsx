@@ -32,17 +32,17 @@ const draw = {
   transition: { duration: 1.4, ease: "easeInOut" as const },
 }
 
-/** English <-> Arabic: word chips travel through a translation core in both directions. */
-function Chip({ text, ar = false, path, begin, dur = 3.6 }: { text: string; ar?: boolean; path: string; begin: number; dur?: number }) {
-  const w = ar ? 54 : 58
+/** English <-> Arabic: words arc over and under a translation core, changing language on the way. */
+function Chip({ text, ar = false, path, begin, dur = 4 }: { text: string; ar?: boolean; path: string; begin: number; dur?: number }) {
+  const w = ar ? 56 : 62
   return (
     <g opacity="0">
       <rect x={-w / 2} y="-11" width={w} height="22" rx="11" fill="#f1ece1" stroke={ar ? CORAL : "currentColor"} strokeWidth="1.4" />
-      <text x="0" y="4" textAnchor="middle" fontSize={ar ? 13 : 11} fontWeight={ar ? 700 : 600} fill={ar ? CORAL : "#14213d"} className={ar ? "font-ar" : undefined} fontFamily={ar ? undefined : "var(--font-geist-mono), monospace"}>
+      <text x="0" y={ar ? 5 : 4} textAnchor="middle" fontSize={ar ? 14 : 11} fontWeight={ar ? 700 : 600} fill={ar ? CORAL : "#14213d"} className={ar ? "font-ar" : undefined} fontFamily={ar ? undefined : "var(--font-geist-mono), monospace"}>
         {text}
       </text>
-      <animateMotion dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" path={path} keyPoints="0;1;1" keyTimes="0;0.4;1" calcMode="linear" />
-      <animate attributeName="opacity" dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.06;0.34;0.4;1" />
+      <animateMotion dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" path={path} keyPoints="0;1;1" keyTimes="0;0.38;1" calcMode="linear" />
+      <animate attributeName="opacity" dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.08;0.3;0.38;1" />
     </g>
   )
 }
@@ -50,65 +50,66 @@ function Chip({ text, ar = false, path, begin, dur = 3.6 }: { text: string; ar?:
 export function FigBridge() {
   const mono = "var(--font-geist-mono), monospace"
   const hex = (r: number) => Array.from({ length: 6 }, (_, i) => `${Math.cos((Math.PI / 3) * i - Math.PI / 2) * r},${Math.sin((Math.PI / 3) * i - Math.PI / 2) * r}`).join(" ")
-  const up = "M126 98 H174"
-  const upR = "M226 98 H274"
-  const dn = "M274 132 H226"
-  const dnL = "M174 132 H126"
+  // top arc: English -> Arabic, bottom arc: Arabic -> English
+  const topL = "M60 92 Q130 36 200 36"
+  const topR = "M200 36 Q270 36 340 92"
+  const botR = "M340 168 Q270 224 200 224"
+  const botL = "M200 224 Q130 224 60 168"
+  const D = 4
+  const half = D * 0.38
   return (
-    <svg viewBox="0 0 400 240" className="block w-full" role="img" aria-label="English and Arabic words flowing through a translation core in both directions">
-      {/* endpoints */}
-      <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="12" y="70" width="108" height="90" rx="18" />
-        <rect x="280" y="70" width="108" height="90" rx="18" />
+    <svg viewBox="0 0 400 262" className="block w-full" role="img" aria-label="English and Arabic words arcing over and under a translation core">
+      {/* arcs */}
+      <g stroke="currentColor" strokeWidth="1.2" fill="none" opacity=".4" strokeLinecap="round">
+        <path d="M60 92 Q200 -20 340 92" className="fig-dash" />
+        <path d="M340 168 Q200 280 60 168" className="fig-dash" style={{ animationDirection: "reverse" }} />
+        <path d="M200 40 V92 M200 168 V220" strokeDasharray="2 5" />
       </g>
-      <text x="66" y="124" textAnchor="middle" fontSize="28" fill="currentColor" fontFamily="var(--font-serif), serif" fontStyle="italic">
-        Hello
-      </text>
-      <text x="334" y="128" textAnchor="middle" fontSize="32" fill="currentColor" className="font-ar-display" fontWeight="700">
-        مرحباً
-      </text>
-      <text x="66" y="60" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+
+      {/* chips travel first in English, then in Arabic */}
+      <Chip text="Thanks" path={topL} begin={0} />
+      <Chip text="شُكراً" ar path={topR} begin={half} />
+      <Chip text="Welcome" path={topL} begin={1.3} />
+      <Chip text="أهلاً" ar path={topR} begin={1.3 + half} />
+      <Chip text="Peace" path={topL} begin={2.6} />
+      <Chip text="سَلام" ar path={topR} begin={2.6 + half} />
+      <Chip text="كيف الحال" ar path={botR} begin={0.6} />
+      <Chip text="How are you" path={botL} begin={0.6 + half} />
+      <Chip text="شكراً لك" ar path={botR} begin={2.2} />
+      <Chip text="Thank you" path={botL} begin={2.2 + half} />
+
+      {/* endpoints */}
+      <g fill="#f1ece1" stroke="currentColor" strokeWidth="1.6">
+        <rect x="12" y="92" width="96" height="76" rx="18" />
+        <rect x="292" y="92" width="96" height="76" rx="18" />
+      </g>
+      <text x="60" y="108" textAnchor="middle" fontSize="8" letterSpacing="2.5" fill="currentColor" opacity=".55" fontFamily={mono}>
         ENGLISH
       </text>
-      <text x="334" y="60" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+      <text x="60" y="144" textAnchor="middle" fontSize="27" fill="currentColor" fontFamily="var(--font-serif), serif" fontStyle="italic">
+        Hello
+      </text>
+      <text x="340" y="108" textAnchor="middle" fontSize="8" letterSpacing="2.5" fill="currentColor" opacity=".55" fontFamily={mono}>
         ARABIC
       </text>
-
-      {/* lanes with arrowheads */}
-      <g stroke="currentColor" strokeWidth="1.3" fill="none" opacity=".55" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M122 98 H178" className="fig-dash" />
-        <path d="M222 98 H278" className="fig-dash" />
-        <path d="M278 132 H222" className="fig-dash" style={{ animationDirection: "reverse" }} />
-        <path d="M178 132 H122" className="fig-dash" style={{ animationDirection: "reverse" }} />
-        <path d="M268 92 L276 98 L268 104" />
-        <path d="M132 126 L124 132 L132 138" />
-      </g>
-
-      {/* chips: EN -> core -> AR on top lane, AR -> core -> EN below */}
-      <Chip text="Thanks" path={up} begin={0} />
-      <Chip text="Welcome" path={up} begin={1.2} />
-      <Chip text="Peace" path={up} begin={2.4} />
-      <Chip text="شُكراً" ar path={upR} begin={1.44} />
-      <Chip text="أهلاً" ar path={upR} begin={2.64} />
-      <Chip text="سَلام" ar path={upR} begin={3.84} />
-      <Chip text="كيف الحال" ar path={dn} begin={0.6} />
-      <Chip text="How are you" path={dnL} begin={2.04} />
+      <text x="340" y="148" textAnchor="middle" fontSize="30" fill="currentColor" className="font-ar-display" fontWeight="700">
+        مرحباً
+      </text>
 
       {/* core */}
-      <g transform="translate(200 115)">
-        <polygon points={hex(40)} fill="none" stroke={CORAL} strokeWidth="1.2" className="fig-pulse" />
-        <polygon points={hex(40)} fill="#f1ece1" stroke={CORAL} strokeWidth="1.8" />
-        <polygon points={hex(27)} fill="none" stroke={CORAL} strokeWidth="1" strokeDasharray="2 4" className="fig-spin" />
+      <g transform="translate(200 130)">
+        <polygon points={hex(36)} fill="none" stroke={CORAL} strokeWidth="1.2" className="fig-pulse" />
+        <polygon points={hex(36)} fill="#f1ece1" stroke={CORAL} strokeWidth="1.8" />
+        <polygon points={hex(24)} fill="none" stroke={CORAL} strokeWidth="1" strokeDasharray="2 4" className="fig-spin" />
         <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill={CORAL} fontFamily={mono}>
           AI
         </text>
       </g>
 
-      <path d="M30 188 H370" stroke="currentColor" strokeWidth="1" opacity=".2" strokeDasharray="2 6" />
-      <text x="30" y="212" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+      <text x="14" y="256" fontSize="8" letterSpacing="2.5" fill="currentColor" opacity=".55" fontFamily={mono}>
         TRANSLATION CORE
       </text>
-      <text x="370" y="214" textAnchor="end" fontSize="13" fill={CORAL} className="font-ar-display" fontWeight="700">
+      <text x="386" y="256" textAnchor="end" fontSize="13" fill={CORAL} className="font-ar-display" fontWeight="700">
         لُغة واحدة، فَهم واحد
       </text>
     </svg>

@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Playfair_Display, Geist_Mono } from "next/font/google"
+import { Playfair_Display, Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -9,13 +9,18 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
 })
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-v2",
+})
+
 const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
 })
 
 export const metadata: Metadata = {
-  title: "M.Baqir Firas",
+  title: "M. Baqir Firas — AI, Apps & Security",
   description:
     "AI builder and cybersecurity practitioner — building AI-powered apps and Arabic educational platforms, with a focus on LLM security.",
   generator: "v0.app",
@@ -25,7 +30,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#f1ece1",
 }
 
 export default function RootLayout({
@@ -34,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${geistMono.variable} ${inter.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

@@ -44,17 +44,19 @@ export function Note({
 /** A paper card held with a strip of tape. */
 export function Sticker({ children, className = "", rotate = -3 }: { children: React.ReactNode; className?: string; rotate?: number }) {
   return (
-    <motion.div
-      className={`relative inline-block px-6 pb-5 pt-7 ${className}`}
-      style={{ background: "#fffaf0", rotate, boxShadow: "0 18px 30px -18px rgba(20,33,61,.45), 0 1px 0 rgba(20,33,61,.08)", border: "1px solid rgba(20,33,61,.1)" }}
-      initial={{ opacity: 0, y: 24, rotate: rotate - 6 }}
-      whileInView={{ opacity: 1, y: 0, rotate }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <span className="absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 rotate-2" style={{ background: "rgba(232,200,114,.78)", boxShadow: "0 1px 2px rgba(0,0,0,.12)" }} />
-      {children}
-    </motion.div>
+    <div className={`w-max ${className}`}>
+      <motion.div
+        className="relative px-6 pb-5 pt-7"
+        style={{ background: "#fffaf0", rotate, boxShadow: "0 18px 30px -18px rgba(20,33,61,.45), 0 1px 0 rgba(20,33,61,.08)", border: "1px solid rgba(20,33,61,.1)" }}
+        initial={{ opacity: 0, y: 24, rotate: rotate - 6 }}
+        whileInView={{ opacity: 1, y: 0, rotate }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <span className="absolute -top-3 left-1/2 h-6 w-24 -translate-x-1/2 rotate-2" style={{ background: "rgba(232,200,114,.78)", boxShadow: "0 1px 2px rgba(0,0,0,.12)" }} />
+        {children}
+      </motion.div>
+    </div>
   )
 }
 

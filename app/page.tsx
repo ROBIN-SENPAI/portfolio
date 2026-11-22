@@ -5,7 +5,7 @@ import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView,
 import { ArrowUpRight } from "lucide-react"
 import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
-import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigOrbit, FigTrain, FigTerm } from "./figures"
+import { Frame, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
@@ -406,7 +406,7 @@ export default function V2() {
             </p>
             <div className="grid grid-cols-2 gap-6 pt-6 font-mono text-[10px] tracking-[0.2em] sm:grid-cols-4 md:text-xs">
               {[
-                [1, "", "ACCEPTED PAPER · IMDC-IST 2026"],
+                [2, "", "LLM SECURITY CERTS"],
                 [4, "", "LIVE PLATFORMS"],
                 [10, "", "CERTIFICATIONS"],
                 [1, "ST", "PLACE · COMPETITIONS"],
@@ -461,67 +461,6 @@ export default function V2() {
         </div>
       </section>
 
-      {/* RESEARCH */}
-      <section id="research" className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
-        <div className="mx-auto max-w-6xl">
-          <Head
-            no="03"
-            label="RESEARCH & PUBLICATIONS"
-            ar="الأبحاث"
-            title={
-              <>
-                Research that <It>reaches</It> the sky.
-              </>
-            }
-            sub="Academic work alongside development. More publications will be added here as they are accepted."
-          />
-          <Reveal>
-            <div className="grid gap-10 rounded-3xl p-7 md:grid-cols-[1.2fr_1fr] md:p-12" style={{ background: "#fffaf0", border: `1px solid ${INK}22` }}>
-              <div>
-                <p className="font-mono text-[11px] tracking-[0.25em]" style={{ color: CORAL }}>
-                  ACCEPTED PAPER · IMDC-IST 2026
-                </p>
-                <h3 className="mt-4 text-3xl font-bold leading-tight tracking-tight md:text-5xl">Direct-To-Device 5G Non-Terrestrial Network Coverage Over Iraq</h3>
-                <ul className="mt-6 space-y-3 text-base leading-relaxed opacity-80 md:text-lg">
-                  {[
-                    "Research on 5G non-terrestrial networks (NTN).",
-                    "A study of satellite coverage over Iraq.",
-                    "Built on real orbital data from Starlink and OneWeb.",
-                    "Analysis of coverage, satellite behavior and Doppler rates.",
-                  ].map((t) => (
-                    <li key={t} className="flex gap-3">
-                      <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: CORAL }} />
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <dl className="mt-8 font-mono text-[11px] tracking-[0.15em]">
-                  {[
-                    ["STATUS", "Accepted"],
-                    ["PAPER ID", "#1571373387"],
-                    ["FIRST AUTHOR", "Firas Al-Fadhli"],
-                  ].map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between gap-4 py-3" style={{ borderTop: `1px solid ${INK}22` }}>
-                      <dt className="opacity-50">{k}</dt>
-                      <dd className="text-right">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-              <Frame className="self-center" caption="FIG. 5 — SATELLITE COVERAGE OVER A GROUND POINT">
-                <FigOrbit />
-              </Frame>
-            </div>
-          </Reveal>
-          <Reveal className="mt-5" delay={0.1}>
-            <div className="flex items-center justify-between gap-4 rounded-3xl border-2 border-dashed p-7 font-mono text-[11px] tracking-[0.2em] opacity-60" style={{ borderColor: `${INK}44` }}>
-              <span>NEXT PUBLICATION</span>
-              <span>COMING SOON</span>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       {/* MARQUEE */}
       <div className="overflow-hidden py-6 font-mono text-sm tracking-[0.25em]" style={{ borderBlock: `1px solid ${INK}22` }}>
         <div className="flex w-max animate-[v2marquee_30s_linear_infinite] gap-10 whitespace-nowrap">
@@ -537,7 +476,7 @@ export default function V2() {
       {/* WORK */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="04" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
+          <Head no="03" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
 
           <div className="space-y-6">
             {work.map((w) => (
@@ -646,7 +585,7 @@ export default function V2() {
         <div className="mx-auto grid max-w-6xl items-center gap-12 md:grid-cols-[1.3fr_1fr]">
           <div>
             <Head
-              no="05"
+              no="04"
               label="SENPAI ACADEMY"
               ar="أكاديمية سينباي"
               title={
@@ -695,7 +634,7 @@ export default function V2() {
             <div className="pointer-events-none absolute -top-4 right-0 w-28 md:w-44">
               <FigSeal />
             </div>
-            <Head no="06" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+            <Head no="05" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
           </div>
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
@@ -724,7 +663,7 @@ export default function V2() {
       {/* SKILLS */}
       <section id="skills" className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="07" label="TECHNICAL ARSENAL" ar="المهارات" title={<>Four domains. <It>One toolbox.</It></>} sub="Grouped by field instead of a long list." />
+          <Head no="06" label="TECHNICAL ARSENAL" ar="المهارات" title={<>Four domains. <It>One toolbox.</It></>} sub="Grouped by field instead of a long list." />
           <div style={{ borderTop: `1px solid ${INK}33` }}>
             {[
               ["Artificial Intelligence", ["LLMs", "Transformers", "Model Training", "Model Evaluation", "AI Agents"]],
@@ -757,7 +696,7 @@ export default function V2() {
       {/* STORY */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="08" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
+          <Head no="07" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>
             {story.map(([n, t, b], i) => (
               <Reveal key={n} delay={i * 0.08}>
@@ -783,7 +722,7 @@ export default function V2() {
           <div className="grid items-center gap-12 md:grid-cols-[1.7fr_1fr]">
             <Reveal>
               <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
-                <span>09 / CONTACT</span>
+                <span>08 / CONTACT</span>
                 <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
                   تواصل معي
                 </span>

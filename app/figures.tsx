@@ -321,39 +321,6 @@ export function FigRipple() {
   )
 }
 
-/** Research: satellites over a curved horizon, with coverage cones to one ground point. */
-export function FigOrbit() {
-  const orbit = "M10 128 Q200 28 390 128"
-  return (
-    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Satellites in orbit covering a point on the ground">
-      <path d="M-40 260 A 260 260 0 0 1 440 260" fill="none" stroke="currentColor" strokeWidth="1.6" opacity=".7" transform="translate(0 -62)" />
-      <path d={orbit} fill="none" stroke="currentColor" strokeWidth="1.2" className="fig-dash" opacity=".55" />
-      {[
-        [96, 88],
-        [200, 70],
-        [304, 88],
-      ].map(([x, y], i) => (
-        <g key={i}>
-          <path d={`M${x} ${y} L172 196 L228 196 Z`} fill={CORAL} opacity=".1" />
-          <rect x={x - 7} y={y - 5} width="14" height="10" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <path d={`M${x - 16} ${y} H${x - 7} M${x + 7} ${y} H${x + 16}`} stroke="currentColor" strokeWidth="1.5" />
-        </g>
-      ))}
-      <circle r="5" fill={CORAL}>
-        <animateMotion dur="9s" repeatCount="indefinite" path={orbit} />
-      </circle>
-      <g fill="none" stroke={CORAL} strokeWidth="1.4">
-        <path d="M118 112 q6 -7 0 -14 M126 116 q9 -11 0 -22" className="fig-blink" />
-        <circle cx="200" cy="196" r="9" className="fig-pulse" />
-      </g>
-      <circle cx="200" cy="196" r="4.5" fill={CORAL} />
-      <text x="200" y="214" textAnchor="middle" fontSize="9" fill="currentColor" opacity=".6" fontFamily="var(--font-geist-mono), monospace" letterSpacing="2">
-        IRAQ
-      </text>
-    </svg>
-  )
-}
-
 /** Lab: loss and evaluation curves while training. */
 export function FigTrain() {
   return (

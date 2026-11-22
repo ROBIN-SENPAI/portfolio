@@ -24,7 +24,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "M. Baqir Firas — AI, Apps & Security",
   description:
-    "Building with AI. Securing what it builds. Software developer, cybersecurity researcher and founder of Senpai Academy — accepted paper at IMDC-IST 2026.",
+    "Building with AI. Securing what it builds. Software developer, cybersecurity researcher and founder of Senpai Academy.",
   generator: "v0.app",
   metadataBase: new URL("https://robin-senpai.github.io"),
   openGraph: {

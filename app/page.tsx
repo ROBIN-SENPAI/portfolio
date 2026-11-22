@@ -893,7 +893,7 @@ export default function V2() {
               <p className="mt-6 max-w-xl text-lg opacity-70">Have an idea, a project or a question about AI, apps or security? Reach out.</p>
             </Reveal>
             <Reveal delay={0.1} className="mx-auto aspect-square w-full max-w-[300px] md:max-w-[400px]">
-              <DustCanvas kind="knot" dark />
+              <DustCanvas kind="chat" dark />
             </Reveal>
           </div>
 

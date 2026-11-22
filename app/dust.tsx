@@ -19,7 +19,7 @@ export function DustCanvas({
   count,
   className = "",
 }: {
-  kind: "knot" | "shield" | "text"
+  kind: "knot" | "shield" | "text" | "chat"
   text?: string
   dark?: boolean
   count?: number
@@ -89,6 +89,41 @@ export function DustCanvas({
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       if (kind === "knot") buildKnot()
+      else if (kind === "chat")
+        buildRaster((o) => {
+          // two speech bubbles: English "A" and Arabic "ع" talking to each other
+          const sc = Math.min(w, h) / 104
+          o.translate((w - 100 * sc) / 2, (h - 100 * sc) / 2)
+          o.scale(sc, sc)
+          const bubble1 = new Path2D()
+          bubble1.roundRect(4, 10, 58, 42, 13)
+          bubble1.moveTo(14, 50)
+          bubble1.lineTo(10, 70)
+          bubble1.lineTo(32, 52)
+          bubble1.closePath()
+          const bubble2 = new Path2D()
+          bubble2.roundRect(38, 46, 58, 42, 13)
+          bubble2.moveTo(86, 86)
+          bubble2.lineTo(92, 100)
+          bubble2.lineTo(70, 88)
+          bubble2.closePath()
+          o.fill(bubble1)
+          // carve a clean gap around the second bubble, then fill it
+          o.globalCompositeOperation = "destination-out"
+          o.lineWidth = 6
+          o.stroke(bubble2)
+          o.fill(bubble2)
+          o.globalCompositeOperation = "source-over"
+          o.fill(bubble2)
+          // letters cut out of the bubbles
+          o.globalCompositeOperation = "destination-out"
+          o.textAlign = "center"
+          o.textBaseline = "middle"
+          o.font = '800 34px Inter, sans-serif'
+          o.fillText("A", 33, 33)
+          o.font = '800 38px "Thmanyah Sans", Inter, sans-serif'
+          o.fillText("ع", 67, 68)
+        })
       else if (kind === "shield")
         buildRaster((o) => {
           const s = Math.min(w, h) / 104
@@ -184,6 +219,8 @@ export function DustCanvas({
     }
     if (kind === "text" && ARABIC.test(text) && document.fonts?.load) {
       document.fonts.load('800 60px "Thmanyah Serif Display"', text).then(start, start)
+    } else if (kind === "chat" && document.fonts?.load) {
+      document.fonts.load('800 60px "Thmanyah Sans"', "ع").then(start, start)
     } else start()
 
     const move = (e: PointerEvent) => {

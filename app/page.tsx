@@ -6,9 +6,9 @@ import { ArrowUpRight } from "lucide-react"
 import { ReactLenis, useLenis } from "lenis/react"
 import { ParticleName } from "./particles"
 import { DustCanvas } from "./dust"
-import { Note, Sticker, Wavy, GuideLines, CursorRing } from "./extras"
+import { Note, Sticker, Wavy, CursorRing } from "./extras"
 import { Github, Send, ShieldCheck } from "lucide-react"
-import { Frame, FigDial, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
+import { Frame, FigDial, FigBook, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
@@ -91,7 +91,7 @@ const work = [
 const platforms = [
   {
     name: "Senpai Academy",
-    fig: <FigAcademy />,
+    fig: <FigBook />,
     body: "The main educational hub for cybersecurity students — guides, roadmaps and Arabic study resources.",
     href: "https://academysenpai.com/",
     tags: ["EDUCATION", "HUB"],
@@ -356,7 +356,6 @@ export default function V2() {
       <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff} a:focus-visible,button:focus-visible{outline:2px solid ${CORAL};outline-offset:4px} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important}}`}</style>
 
       <CursorRing />
-      <GuideLines />
       <Nav />
       <motion.div className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left" style={{ scaleX: bar, background: CORAL }} />
 
@@ -599,14 +598,6 @@ export default function V2() {
             <div className="absolute -top-8 right-0 hidden h-[260px] w-[46%] md:block">
               <DustCanvas kind="text" text="تُرجُمَان" />
             </div>
-            <Sticker className="absolute -bottom-2 right-6 hidden md:block" rotate={3}>
-              <p className="font-ar-display text-3xl font-bold" style={{ color: CORAL }} dir="rtl">
-                تُرجُمَان
-              </p>
-              <p className="mt-1 font-[family-name:var(--font-hand)] text-xl" style={{ color: INK }}>
-                live voice translation
-              </p>
-            </Sticker>
             <Note arrow="down" className="absolute -bottom-10 left-0 hidden md:flex">
               tap a card to open it
             </Note>
@@ -614,7 +605,17 @@ export default function V2() {
 
           <div className="space-y-6">
             {work.map((w) => (
-              <Reveal key={w.name}>
+              <Reveal key={w.name} className="relative">
+                {w.name === "Tarjuman" && (
+                  <Sticker className="absolute -top-9 right-8 z-10 hidden md:block" rotate={3}>
+                    <p className="font-ar-display text-3xl font-bold" style={{ color: CORAL }} dir="rtl">
+                      تُرجُمَان
+                    </p>
+                    <p className="mt-1 font-[family-name:var(--font-hand)] text-xl" style={{ color: INK }}>
+                      live voice translation
+                    </p>
+                  </Sticker>
+                )}
                 <Tilt>
                 <a
                   href={w.href}

@@ -115,21 +115,80 @@ export function FigBridge() {
   )
 }
 
+/** Academy card: knowledge rising from an open book into a network. */
+export function FigBook() {
+  const mono = "var(--font-geist-mono), monospace"
+  const nodes: [number, number][] = [
+    [120, 26],
+    [200, 14],
+    [280, 26],
+    [160, 44],
+    [240, 44],
+  ]
+  return (
+    <svg viewBox="0 0 400 210" className="block w-full" role="img" aria-label="An open book sending knowledge up into a network">
+      {/* rising lines */}
+      <g stroke="currentColor" strokeWidth="1.1" opacity=".5" fill="none">
+        {nodes.map(([x, y], i) => (
+          <path key={i} d={`M200 92 L${x} ${y}`} className="fig-dash" style={{ animationDelay: `${i * 0.25}s` }} />
+        ))}
+        <path d="M120 26 L160 44 L200 14 L240 44 L280 26" opacity=".6" />
+      </g>
+      {nodes.map(([x, y], i) => (
+        <g key={`n${i}`}>
+          <circle cx={x} cy={y} r={i === 1 ? 7 : 5} fill={i === 1 ? CORAL : "#f1ece1"} stroke={i === 1 ? CORAL : "currentColor"} strokeWidth="1.4" />
+          <circle r="2.6" fill={CORAL}>
+            <animateMotion dur={`${2.4 + i * 0.35}s`} begin={`${i * 0.5}s`} repeatCount="indefinite" path={`M200 92 L${x} ${y}`} />
+          </circle>
+        </g>
+      ))}
+
+      {/* open book */}
+      <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round">
+        <path d="M200 176 C 160 160, 104 160, 62 174 V 98 C 104 84, 160 84, 200 100 Z" fill="#f1ece1" />
+        <path d="M200 176 C 240 160, 296 160, 338 174 V 98 C 296 84, 240 84, 200 100 Z" fill="#f1ece1" />
+        <path d="M62 174 C 104 160, 160 160, 200 176 C 240 160, 296 160, 338 174" opacity=".5" transform="translate(0 7)" />
+      </g>
+      <path d="M200 100 V176" stroke="currentColor" strokeWidth="1.4" />
+      <path d="M190 100 V128 L196 122 L202 128 V100" fill={CORAL} stroke={CORAL} strokeWidth="1" />
+
+      {/* left page: Arabic lines */}
+      <g fill="currentColor" opacity=".7">
+        <rect x="116" y="112" width="64" height="5" rx="2.5" />
+        <rect x="100" y="124" width="80" height="5" rx="2.5" />
+        <rect x="124" y="136" width="56" height="5" rx="2.5" />
+      </g>
+      <text x="168" y="158" textAnchor="end" fontSize="15" fill={CORAL} className="font-ar-display" fontWeight="700">
+        عِلم
+      </text>
+      {/* right page: code */}
+      <text x="222" y="125" fontSize="13" fontWeight="700" fill={CORAL} fontFamily={mono}>
+        {"</>"}
+      </text>
+      <g fill="currentColor" opacity=".7">
+        <rect x="222" y="134" width="70" height="5" rx="2.5" />
+        <rect x="222" y="146" width="48" height="5" rx="2.5" />
+        <rect x="222" y="158" width="62" height="5" rx="2.5" />
+      </g>
+    </svg>
+  )
+}
+
 /** Academy: from basics to building — a staircase with a climbing marker. */
 export function FigAcademy() {
   const mono = "var(--font-geist-mono), monospace"
   const steps = [
-    { x: 34, y: 150, h: 46, n: "01", en: "BASICS", ar: "الأَساس" },
-    { x: 138, y: 112, h: 84, n: "02", en: "PRACTICE", ar: "التَطبيق" },
-    { x: 242, y: 74, h: 122, n: "03", en: "BUILD", ar: "الإتْقان" },
+    { x: 34, y: 134, h: 64, n: "01", en: "BASICS", ar: "الأَساس" },
+    { x: 138, y: 100, h: 98, n: "02", en: "PRACTICE", ar: "التَطبيق" },
+    { x: 242, y: 64, h: 134, n: "03", en: "BUILD", ar: "الإتْقان" },
   ]
-  const climb = "M34 150 H138 V112 H242 V74 H346"
+  const climb = "M34 134 H138 V100 H242 V64 H346"
   return (
     <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="Learning path from basics to practice to building">
       {steps.map((s, i) => (
         <g key={s.n}>
           <rect x={s.x} y={s.y} width="104" height={s.h} rx="6" fill={i === 2 ? CORAL : "none"} fillOpacity={i === 2 ? 0.14 : 0} stroke={i === 2 ? CORAL : "currentColor"} strokeWidth="1.5" />
-          <text x={s.x + 12} y={s.y + 22} fontSize="10" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
+          <text x={s.x + 12} y={s.y + 20} fontSize="10" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
             {s.n}
           </text>
           <text x={s.x + 12} y={s.y + s.h - 26} fontSize="9" letterSpacing="2" fill="currentColor" opacity=".7" fontFamily={mono}>
@@ -144,7 +203,7 @@ export function FigAcademy() {
       <circle r="6" fill={CORAL}>
         <animateMotion dur="6s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
       </circle>
-      <g transform="translate(346 74)">
+      <g transform="translate(346 64)">
         <path d="M0 0 V-30" stroke="currentColor" strokeWidth="1.5" />
         <path d="M0 -30 L22 -22 L0 -14 Z" fill={CORAL} />
       </g>

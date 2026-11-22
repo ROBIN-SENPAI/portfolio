@@ -32,59 +32,84 @@ const draw = {
   transition: { duration: 1.4, ease: "easeInOut" as const },
 }
 
-/** English <-> Arabic: words pass through a translation core in both directions. */
+/** English <-> Arabic: word chips travel through a translation core in both directions. */
+function Chip({ text, ar = false, path, begin, dur = 3.6 }: { text: string; ar?: boolean; path: string; begin: number; dur?: number }) {
+  const w = ar ? 54 : 58
+  return (
+    <g opacity="0">
+      <rect x={-w / 2} y="-11" width={w} height="22" rx="11" fill="#f1ece1" stroke={ar ? CORAL : "currentColor"} strokeWidth="1.4" />
+      <text x="0" y="4" textAnchor="middle" fontSize={ar ? 13 : 11} fontWeight={ar ? 700 : 600} fill={ar ? CORAL : "#14213d"} className={ar ? "font-ar" : undefined} fontFamily={ar ? undefined : "var(--font-geist-mono), monospace"}>
+        {text}
+      </text>
+      <animateMotion dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" path={path} keyPoints="0;1;1" keyTimes="0;0.4;1" calcMode="linear" />
+      <animate attributeName="opacity" dur={`${dur}s`} begin={`${begin}s`} repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.06;0.34;0.4;1" />
+    </g>
+  )
+}
+
 export function FigBridge() {
   const mono = "var(--font-geist-mono), monospace"
-  const lane = (y: number) => `M118 ${y} H176`
+  const hex = (r: number) => Array.from({ length: 6 }, (_, i) => `${Math.cos((Math.PI / 3) * i - Math.PI / 2) * r},${Math.sin((Math.PI / 3) * i - Math.PI / 2) * r}`).join(" ")
+  const up = "M126 98 H174"
+  const upR = "M226 98 H274"
+  const dn = "M274 132 H226"
+  const dnL = "M174 132 H126"
   return (
-    <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="English and Arabic words flowing through a translation core">
+    <svg viewBox="0 0 400 240" className="block w-full" role="img" aria-label="English and Arabic words flowing through a translation core in both directions">
       {/* endpoints */}
       <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="14" y="78" width="104" height="74" rx="16" />
-        <rect x="282" y="78" width="104" height="74" rx="16" />
+        <rect x="12" y="70" width="108" height="90" rx="18" />
+        <rect x="280" y="70" width="108" height="90" rx="18" />
       </g>
-      <text x="66" y="124" textAnchor="middle" fontSize="26" fontWeight="700" fill="currentColor" fontFamily="var(--font-serif), serif" fontStyle="italic">
+      <text x="66" y="124" textAnchor="middle" fontSize="28" fill="currentColor" fontFamily="var(--font-serif), serif" fontStyle="italic">
         Hello
       </text>
-      <text x="334" y="127" textAnchor="middle" fontSize="30" fill="currentColor" className="font-ar-display" fontWeight="700">
+      <text x="334" y="128" textAnchor="middle" fontSize="32" fill="currentColor" className="font-ar-display" fontWeight="700">
         مرحباً
       </text>
-      <text x="66" y="70" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+      <text x="66" y="60" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
         ENGLISH
       </text>
-      <text x="334" y="70" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+      <text x="334" y="60" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
         ARABIC
       </text>
-      {/* lanes */}
-      <g stroke="currentColor" strokeWidth="1.3" fill="none" opacity=".6">
-        <path d="M118 104 H178" className="fig-dash" />
-        <path d="M222 104 H282" className="fig-dash" />
-        <path d="M282 128 H222" className="fig-dash" style={{ animationDirection: "reverse" }} />
-        <path d="M178 128 H118" className="fig-dash" style={{ animationDirection: "reverse" }} />
+
+      {/* lanes with arrowheads */}
+      <g stroke="currentColor" strokeWidth="1.3" fill="none" opacity=".55" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M122 98 H178" className="fig-dash" />
+        <path d="M222 98 H278" className="fig-dash" />
+        <path d="M278 132 H222" className="fig-dash" style={{ animationDirection: "reverse" }} />
+        <path d="M178 132 H122" className="fig-dash" style={{ animationDirection: "reverse" }} />
+        <path d="M268 92 L276 98 L268 104" />
+        <path d="M132 126 L124 132 L132 138" />
       </g>
-      {/* tokens */}
-      {[0, 1, 2].map((i) => (
-        <g key={i}>
-          <circle r="3.5" fill={CORAL}>
-            <animateMotion dur="2.4s" begin={`${i * 0.8}s`} repeatCount="indefinite" path="M118 104 H282" />
-          </circle>
-          <circle r="3.5" fill="currentColor" opacity=".7">
-            <animateMotion dur="2.4s" begin={`${i * 0.8 + 0.4}s`} repeatCount="indefinite" path="M282 128 H118" />
-          </circle>
-        </g>
-      ))}
+
       {/* core */}
-      <polygon points="200,60 232,78 232,114 200,132 168,114 168,78" fill="none" stroke={CORAL} strokeWidth="1.8" transform="translate(0 13)" />
-      <polygon points="200,60 232,78 232,114 200,132 168,114 168,78" fill="none" stroke={CORAL} strokeWidth="1.8" className="fig-pulse" transform="translate(0 13)" />
-      <text x="200" y="121" textAnchor="middle" fontSize="14" fontWeight="800" fill={CORAL} fontFamily={mono}>
-        AI
-      </text>
-      <text x="200" y="196" textAnchor="middle" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+      <g transform="translate(200 115)">
+        <polygon points={hex(40)} fill="none" stroke={CORAL} strokeWidth="1.2" className="fig-pulse" />
+        <polygon points={hex(40)} fill="#f1ece1" stroke={CORAL} strokeWidth="1.8" />
+        <polygon points={hex(27)} fill="none" stroke={CORAL} strokeWidth="1" strokeDasharray="2 4" className="fig-spin" />
+        <text x="0" y="5" textAnchor="middle" fontSize="15" fontWeight="800" fill={CORAL} fontFamily={mono}>
+          AI
+        </text>
+      </g>
+
+      {/* chips: EN -> core -> AR on top lane, AR -> core -> EN below */}
+      <Chip text="Thanks" path={up} begin={0} />
+      <Chip text="Welcome" path={up} begin={1.2} />
+      <Chip text="Peace" path={up} begin={2.4} />
+      <Chip text="شُكراً" ar path={upR} begin={1.44} />
+      <Chip text="أهلاً" ar path={upR} begin={2.64} />
+      <Chip text="سَلام" ar path={upR} begin={3.84} />
+      <Chip text="كيف الحال" ar path={dn} begin={0.6} />
+      <Chip text="How are you" path={dnL} begin={2.04} />
+
+      <path d="M30 188 H370" stroke="currentColor" strokeWidth="1" opacity=".2" strokeDasharray="2 6" />
+      <text x="30" y="212" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
         TRANSLATION CORE
       </text>
-      <path d="M40 172 H360" stroke="currentColor" strokeWidth="1" opacity=".18" strokeDasharray="2 6" />
-      <text x="360" y="214" textAnchor="end" fontSize="10" fill={CORAL} className="font-ar" fontWeight="700">
-        لغة واحدة، فهم واحد
+      <text x="370" y="214" textAnchor="end" fontSize="13" fill={CORAL} className="font-ar-display" fontWeight="700">
+        لُغة واحدة، فَهم واحد
       </text>
     </svg>
   )
@@ -94,9 +119,9 @@ export function FigBridge() {
 export function FigAcademy() {
   const mono = "var(--font-geist-mono), monospace"
   const steps = [
-    { x: 34, y: 150, h: 46, n: "01", en: "BASICS", ar: "الأساس" },
-    { x: 138, y: 112, h: 84, n: "02", en: "PRACTICE", ar: "التطبيق" },
-    { x: 242, y: 74, h: 122, n: "03", en: "BUILD", ar: "الإتقان" },
+    { x: 34, y: 150, h: 46, n: "01", en: "BASICS", ar: "الأَساس" },
+    { x: 138, y: 112, h: 84, n: "02", en: "PRACTICE", ar: "التَطبيق" },
+    { x: 242, y: 74, h: 122, n: "03", en: "BUILD", ar: "الإتْقان" },
   ]
   const climb = "M34 150 H138 V112 H242 V74 H346"
   return (

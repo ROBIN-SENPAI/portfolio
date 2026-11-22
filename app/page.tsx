@@ -129,7 +129,7 @@ const links = [
   ["TRYHACKME", "ROBiN", "https://tryhackme.com/p/ROBiN"],
 ]
 
-const marquee = ["AI", "ذكاء اصطناعي", "LLMs", "Android", "تطبيقات", "Voice AI", "LLM Security", "أمن", "Red Teaming", "Active Directory", "Arabic-first", "تعليم", "Education"]
+const marquee = ["AI", "ذَكاء اصطناعي", "LLMs", "Android", "تَطبيقات", "Voice AI", "LLM Security", "أمْن", "Red Teaming", "Active Directory", "Arabic-first", "تَعليم", "Education"]
 
 function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -373,9 +373,9 @@ export default function V2() {
                   </div>
                   <div className="p-7 md:p-8">
                     <div className="relative text-center">
-                      <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسم / NAME</p>
+                      <p className="font-mono text-[10px] tracking-[0.25em] opacity-50">الاسْم / NAME</p>
                       <p dir="rtl" lang="ar" className="font-ar-display mt-3 text-5xl font-bold leading-tight md:text-6xl" style={{ color: CORAL }}>
-                        محمد باقر
+                        مُحَمَّد باقِر
                       </p>
                       <p className="mt-1 font-[family-name:var(--font-serif)] text-3xl italic opacity-80">Mohammed Baqir</p>
                     </div>
@@ -420,14 +420,14 @@ export default function V2() {
             <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
               <span>01 / ABOUT</span>
               <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
-                نبذة
+                نَبذة
               </span>
             </p>
             <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
               Make technology speak <It>our language.</It>
             </h2>
             <p dir="ltr" lang="ar" className="font-ar-display mt-4 text-xl font-bold md:text-2xl" style={{ color: CORAL }}>
-              لتتكلّم التقنية لغتنا
+              لتتكلَّم التقنيةُ لغتنا
             </p>
             <Frame className="mt-10" caption="FIG. 1 — ENGLISH ⇄ ARABIC">
               <FigBridge />
@@ -440,9 +440,9 @@ export default function V2() {
             </p>
             <div className="mt-8" style={{ borderTop: `1px solid ${INK}33` }}>
               {[
-                ["01", "Build", "بناء", "AI-powered apps, LLM applications and intelligent agents — plus model training and evaluation."],
-                ["02", "Secure", "حماية", "A cybersecurity background — Active Directory and LLM security — so what I build is made to hold."],
-                ["03", "Teach", "تعليم", "Technical writing, research and Arabic educational platforms that make hard topics approachable."],
+                ["01", "Build", "بِناء", "AI-powered apps, LLM applications and intelligent agents — plus model training and evaluation."],
+                ["02", "Secure", "حِماية", "A cybersecurity background — Active Directory and LLM security — so what I build is made to hold."],
+                ["03", "Teach", "تَعليم", "Technical writing, research and Arabic educational platforms that make hard topics approachable."],
               ].map(([no, en, ar, body]) => (
                 <div key={no} className="grid grid-cols-[48px_1fr] gap-4 py-7 md:grid-cols-[48px_220px_1fr] md:items-baseline md:gap-8" style={{ borderBottom: `1px solid ${INK}33` }}>
                   <span className="font-mono text-xs" style={{ color: CORAL }}>
@@ -494,7 +494,7 @@ export default function V2() {
           <Head
             no="02"
             label="CAPABILITIES"
-            ar="المجالات"
+            ar="المَجالات"
             title={
               <>
                 Three disciplines. <It>One standard.</It>
@@ -541,7 +541,7 @@ export default function V2() {
       {/* WORK */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="03" label="SELECTED WORK" ar="الأعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
+          <Head no="03" label="SELECTED WORK" ar="الأَعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
 
           <div className="space-y-6">
             {work.map((w) => (
@@ -652,14 +652,14 @@ export default function V2() {
             <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
               <span>04 / FOUNDER</span>
               <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
-                أكاديمية سينباي
+                أَكاديمية سينباي
               </span>
             </p>
             <h2 className="mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-7xl">
               Senpai <It>Academy.</It>
             </h2>
             <p dir="ltr" lang="ar" className="font-ar-display mt-4 text-2xl font-bold md:text-3xl" style={{ color: CORAL }}>
-              من الفهم إلى التطبيق
+              من الفَهم إلى التَطبيق
             </p>
             <p className="mt-6 max-w-xl text-lg leading-relaxed opacity-75">
               An Arabic educational initiative focused on cybersecurity, technical learning and developer resources — structured so
@@ -708,7 +708,7 @@ export default function V2() {
             <div className="pointer-events-none absolute -top-4 right-0 w-28 md:w-44">
               <FigSeal />
             </div>
-            <Head no="05" label="CREDENTIALS" ar="الشهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+            <Head no="05" label="CREDENTIALS" ar="الشَهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
           </div>
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
@@ -737,7 +737,7 @@ export default function V2() {
       {/* SKILLS */}
       <section id="skills" className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="06" label="TECHNICAL ARSENAL" ar="المهارات" title={<>Four domains. <It>One toolbox.</It></>} sub="Grouped by field instead of a long list." />
+          <Head no="06" label="TECHNICAL ARSENAL" ar="المَهارات" title={<>Four domains. <It>One toolbox.</It></>} sub="Grouped by field instead of a long list." />
           <div style={{ borderTop: `1px solid ${INK}33` }}>
             {[
               ["Artificial Intelligence", ["LLMs", "Transformers", "Model Training", "Model Evaluation", "AI Agents"]],
@@ -770,7 +770,7 @@ export default function V2() {
       {/* STORY */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="07" label="STORY" ar="القصة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
+          <Head no="07" label="STORY" ar="القِصّة" title={<>Learned by <It>building.</It></>} sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>
             {story.map(([n, t, b], i) => (
               <Reveal key={n} delay={i * 0.08}>
@@ -798,7 +798,7 @@ export default function V2() {
               <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
                 <span>08 / CONTACT</span>
                 <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
-                  تواصل معي
+                  تَواصل معي
                 </span>
               </p>
               <h2 className="mt-5 text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl lg:text-8xl">

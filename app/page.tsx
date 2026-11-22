@@ -146,12 +146,23 @@ export default function V2() {
   const [epoch, setEpoch] = useState(0)
 
   useEffect(() => {
+    let seen = false
+    try {
+      seen = sessionStorage.getItem("mbf-intro") === "1" || window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    } catch {}
+    if (seen) {
+      setLoaded(true)
+      return
+    }
     let n = 0
     const id = setInterval(() => {
       n += 4 + Math.random() * 6
       if (n >= 100) {
         n = 100
         clearInterval(id)
+        try {
+          sessionStorage.setItem("mbf-intro", "1")
+        } catch {}
         setTimeout(() => setLoaded(true), 250)
       }
       setCount(Math.round(n))
@@ -169,7 +180,7 @@ export default function V2() {
       className="relative min-h-screen overflow-x-hidden font-[family-name:var(--font-v2)]"
       style={{ background: PAPER, color: INK, scrollBehavior: "smooth" }}
     >
-      <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff}`}</style>
+      <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff} a:focus-visible,button:focus-visible{outline:2px solid ${CORAL};outline-offset:4px} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important}}`}</style>
 
       <AnimatePresence>
         {!loaded && (
@@ -328,7 +339,7 @@ export default function V2() {
                     </p>
                     <h3 className="mt-4 flex flex-wrap items-baseline gap-x-4 text-5xl font-bold tracking-tight md:text-7xl">
                       {w.name}
-                      <span className="text-3xl font-medium opacity-50 md:text-4xl" dir="rtl">
+                      <span className="font-[family-name:var(--font-ar)] text-3xl font-extrabold opacity-60 md:text-5xl" dir="rtl">
                         {w.ar}
                       </span>
                     </h3>

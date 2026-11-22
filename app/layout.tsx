@@ -1,12 +1,13 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Playfair_Display, Geist_Mono, Inter } from "next/font/google"
+import { Cairo, Geist_Mono, Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+const cairo = Cairo({
+  subsets: ["arabic", "latin"],
+  weight: ["600", "800"],
+  variable: "--font-ar",
 })
 
 const inter = Inter({
@@ -24,6 +25,21 @@ export const metadata: Metadata = {
   description:
     "AI builder and cybersecurity practitioner — building AI-powered apps and Arabic educational platforms, with a focus on LLM security.",
   generator: "v0.app",
+  metadataBase: new URL("https://robin-senpai.github.io"),
+  openGraph: {
+    title: "M. Baqir Firas — AI, Apps & Security",
+    description: "AI-powered Arabic apps, LLM security and educational platforms. Founder of Senpai Academy.",
+    url: "/portfolio/",
+    siteName: "M. Baqir Firas",
+    type: "website",
+    images: [{ url: "/portfolio/og.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "M. Baqir Firas — AI, Apps & Security",
+    description: "AI-powered Arabic apps, LLM security and educational platforms.",
+    images: ["/portfolio/og.png"],
+  },
   icons: {
     icon: "/portfolio/badge.svg",
   },
@@ -39,7 +55,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${geistMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${cairo.variable} ${geistMono.variable} ${inter.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

@@ -207,7 +207,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className={`${D} text-[22vw] leading-[0.82] sm:text-[17vw] md:text-[13vw]`}
+            className={`${D} text-[19.5vw] leading-[0.85] sm:text-[17vw] md:text-[13vw]`}
           >
             Mohammed
             <br />

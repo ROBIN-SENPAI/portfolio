@@ -290,8 +290,8 @@ function Nav() {
     else el.scrollIntoView({ behavior: "smooth" })
   }
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-4 md:px-10">
-      <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ mixBlendMode: "difference", color: "#fff" }}>
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ background: `${PAPER}e6`, borderBottom: `1px solid ${INK}12` }}>
+      <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ color: INK }}>
         MBF<span style={{ color: CORAL }}>.</span>
       </a>
       <nav className="pointer-events-auto hidden items-center gap-1 rounded-full px-2 py-1.5 backdrop-blur-md md:flex" style={{ background: `${PAPER}d9`, border: `1px solid ${INK}22`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
@@ -397,8 +397,8 @@ export default function V2() {
       <section className="px-5 pb-24 pt-10 md:px-12 md:pb-36">
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-12 md:grid-cols-[1.5fr_1fr] md:items-end">
-            <Reveal>
-              <h1 className="text-5xl font-bold leading-[1.02] tracking-tight md:text-8xl">
+            <Reveal className="min-w-0">
+              <h1 className="text-[2.6rem] font-bold leading-[1.02] tracking-tight sm:text-5xl md:text-8xl">
                 Hi, I&apos;m <It>Mohammed</It>
                 <span style={{ color: CORAL }}>.</span>
               </h1>
@@ -414,7 +414,7 @@ export default function V2() {
                 ]}
               />
             </Reveal>
-            <Reveal delay={0.15} className="relative">
+            <Reveal delay={0.15} className="relative min-w-0">
               <Note arrow="down" className="absolute -top-14 left-2 z-10 hidden md:flex">
                 that&apos;s me!
               </Note>

@@ -1,10 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
 import { ParticleName } from "./particles"
-import { GuardrailLab } from "./guardrail-lab"
 
 const INK = "#14213d"
 const PAPER = "#f1ece1"
@@ -141,42 +140,6 @@ function Tag({ children }: { children: React.ReactNode }) {
   )
 }
 
-const navLinks = [
-  ["Mission", "#mission"],
-  ["Work", "#work"],
-  ["Lab", "#lab"],
-  ["Credentials", "#credentials"],
-  ["Contact", "#contact"],
-]
-
-function Nav() {
-  const { scrollYProgress } = useScroll()
-  const w = useSpring(scrollYProgress, { stiffness: 120, damping: 30 })
-  return (
-    <>
-      <motion.div className="fixed left-0 top-0 z-[60] h-[3px] origin-left" style={{ scaleX: w, background: CORAL, width: "100%" }} />
-      <nav
-        className="fixed inset-x-0 top-[3px] z-50 flex items-center justify-between px-5 py-4 backdrop-blur-md md:px-10"
-        style={{ background: `${PAPER}cc`, borderBottom: `1px solid ${INK}15` }}
-      >
-        <a href="#" className="font-mono text-xs font-bold tracking-[0.25em]">
-          MBF<span style={{ color: CORAL }}>.</span>
-        </a>
-        <div className="hidden gap-8 font-mono text-[11px] tracking-[0.2em] md:flex">
-          {navLinks.map(([l, h]) => (
-            <a key={l} href={h} className="uppercase opacity-70 transition-opacity hover:opacity-100">
-              {l}
-            </a>
-          ))}
-        </div>
-        <a href="#contact" className="rounded-full px-4 py-2 font-mono text-[11px] tracking-[0.2em]" style={{ background: INK, color: PAPER }}>
-          SAY HI
-        </a>
-      </nav>
-    </>
-  )
-}
-
 export default function V2() {
   const [loaded, setLoaded] = useState(false)
   const [count, setCount] = useState(0)
@@ -206,8 +169,7 @@ export default function V2() {
       className="relative min-h-screen overflow-x-hidden font-[family-name:var(--font-v2)]"
       style={{ background: PAPER, color: INK, scrollBehavior: "smooth" }}
     >
-      <style>{`html{scroll-behavior:smooth} section[id]{scroll-margin-top:64px} ::selection{background:${CORAL};color:#fff}`}</style>
-      <Nav />
+      <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff}`}</style>
 
       <AnimatePresence>
         {!loaded && (
@@ -226,6 +188,10 @@ export default function V2() {
       {/* HERO */}
       <header className="relative h-[100svh] min-h-[560px]">
         <ParticleName text="BAQIR" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
+          <span>MBF / PORTFOLIO</span>
+          <span>STATUS: LEARNING AI</span>
+        </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between p-5 md:p-8">
           <div className="font-mono text-[10px] tracking-[0.2em] md:text-[11px]">
             <p>
@@ -263,7 +229,7 @@ export default function V2() {
       </section>
 
       {/* MISSION */}
-      <section id="mission" className="px-5 py-20 md:px-12 md:py-32" style={{ borderTop: `1px solid ${INK}22` }}>
+      <section className="px-5 py-20 md:px-12 md:py-32" style={{ borderTop: `1px solid ${INK}22` }}>
         <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[1fr_1.4fr]">
           <Reveal>
             <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">01 / MISSION</p>
@@ -342,7 +308,7 @@ export default function V2() {
       </div>
 
       {/* WORK */}
-      <section id="work" className="px-5 py-20 md:px-12 md:py-32">
+      <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Head no="03" label="SELECTED WORK" title="Things I've built." sub="Two Android apps and the platforms behind the academy." />
 
@@ -362,7 +328,7 @@ export default function V2() {
                     </p>
                     <h3 className="mt-4 flex flex-wrap items-baseline gap-x-4 text-5xl font-bold tracking-tight md:text-7xl">
                       {w.name}
-                      <span className="font-[family-name:var(--font-ar)] text-3xl font-extrabold opacity-60 md:text-5xl" dir="rtl">
+                      <span className="text-3xl font-medium opacity-50 md:text-4xl" dir="rtl">
                         {w.ar}
                       </span>
                     </h3>
@@ -415,23 +381,9 @@ export default function V2() {
       </section>
 
       {/* CREDENTIALS */}
-      <section id="lab" className="px-5 py-20 md:px-12 md:py-32">
+      <section className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
         <div className="mx-auto max-w-6xl">
-          <Head
-            no="04"
-            label="LAB"
-            title="Try to break a model."
-            sub="A small interactive demo from my LLM-security studies: write a prompt and watch a guardrail judge it, rule by rule."
-          />
-          <Reveal>
-            <GuardrailLab />
-          </Reveal>
-        </div>
-      </section>
-
-      <section id="credentials" className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
-        <div className="mx-auto max-w-6xl">
-          <Head no="05" label="CREDENTIALS" title="Verified, not just claimed." sub="Ten certifications — each one links to its verification page." />
+          <Head no="04" label="CREDENTIALS" title="Verified, not just claimed." sub="Ten certifications — each one links to its verification page." />
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
               <Reveal key={ac} delay={Math.min(i, 5) * 0.03}>
@@ -459,7 +411,7 @@ export default function V2() {
       {/* STORY */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="06" label="STORY" title="Learned by building." sub="Security first, then teaching, then shipping — now AI." />
+          <Head no="05" label="STORY" title="Learned by building." sub="Security first, then teaching, then shipping — now AI." />
           <div className="grid gap-px sm:grid-cols-2 md:grid-cols-4" style={{ background: `${INK}22` }}>
             {story.map(([n, t, b], i) => (
               <Reveal key={n} delay={i * 0.08}>
@@ -477,10 +429,10 @@ export default function V2() {
       </section>
 
       {/* CONTACT */}
-      <footer id="contact" className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
+      <footer className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">07 / CONTACT</p>
+            <p className="font-mono text-[11px] tracking-[0.25em] opacity-60">06 / CONTACT</p>
             <h2 className="mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-8xl">
               Let&apos;s build something that matters<span style={{ color: CORAL }}>.</span>
             </h2>

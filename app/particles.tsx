@@ -33,7 +33,7 @@ export function ParticleName({ text }: { text: string }) {
       off.width = w
       off.height = h
       const o = off.getContext("2d")!
-      let size = Math.min(w * 0.5, h * 0.55)
+      let size = Math.min(w * 0.3, h * 0.5)
       o.font = `800 ${size}px Inter, system-ui, sans-serif`
       while (o.measureText(text).width > w * 0.9 && size > 20) {
         size -= 4
@@ -43,7 +43,7 @@ export function ParticleName({ text }: { text: string }) {
       o.textBaseline = "middle"
       o.fillText(text, w / 2, h * 0.46)
       const data = o.getImageData(0, 0, w, h).data
-      const gap = w < 600 ? 4 : 6
+      const gap = w < 600 ? 5 : 6
       const targets: [number, number][] = []
       for (let y = 0; y < h; y += gap) {
         for (let x = 0; x < w; x += gap) {
@@ -58,7 +58,7 @@ export function ParticleName({ text }: { text: string }) {
         vx: 0,
         vy: 0,
         c: i % 9 === 0 ? "#e4572e" : "#14213d",
-        r: w < 600 ? 1.1 : 1.7,
+        r: w < 600 ? 1.3 : 1.7,
       }))
     }
 

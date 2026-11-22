@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Instrument_Serif, Geist_Mono, Inter } from "next/font/google"
+import { Instrument_Serif, Geist_Mono, Inter, Caveat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -14,6 +14,12 @@ const serif = Instrument_Serif({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-v2",
+})
+
+const hand = Caveat({
+  subsets: ["latin"],
+  weight: ["600"],
+  variable: "--font-hand",
 })
 
 const geistMono = Geist_Mono({
@@ -56,7 +62,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${serif.variable} ${geistMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${serif.variable} ${hand.variable} ${geistMono.variable} ${inter.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

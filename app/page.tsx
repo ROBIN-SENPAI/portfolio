@@ -5,6 +5,8 @@ import { motion, AnimatePresence, useScroll, useSpring, useTransform, useInView,
 import { ArrowUpRight } from "lucide-react"
 import { ReactLenis } from "lenis/react"
 import { ParticleName } from "./particles"
+import { DustCanvas } from "./dust"
+import { Note, Sticker, Wavy, GuideLines, CursorRing } from "./extras"
 import { Github, Send, ShieldCheck } from "lucide-react"
 import { Frame, FigDial, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
 
@@ -304,6 +306,8 @@ export default function V2() {
     >
       <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff} a:focus-visible,button:focus-visible{outline:2px solid ${CORAL};outline-offset:4px} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important}}`}</style>
 
+      <CursorRing />
+      <GuideLines />
       <motion.div className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left" style={{ scaleX: bar, background: CORAL }} />
 
       <AnimatePresence>
@@ -364,7 +368,10 @@ export default function V2() {
                 ]}
               />
             </Reveal>
-            <Reveal delay={0.15}>
+            <Reveal delay={0.15} className="relative">
+              <Note arrow="down" className="absolute -top-14 left-2 z-10 hidden md:flex">
+                that&apos;s me!
+              </Note>
               <Tilt>
                 <div className="relative overflow-hidden rounded-3xl" style={{ background: "#fffaf0", border: `1px solid ${INK}22`, boxShadow: `0 30px 60px -40px ${INK}66` }}>
                   <div className="flex items-center justify-between px-7 py-3 font-mono text-[10px] tracking-[0.25em]" style={{ background: INK, color: PAPER }}>
@@ -541,7 +548,23 @@ export default function V2() {
       {/* WORK */}
       <section className="px-5 py-20 md:px-12 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <Head no="03" label="SELECTED WORK" ar="الأَعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
+          <div className="relative">
+            <Head no="03" label="SELECTED WORK" ar="الأَعمال" title={<>Things I&apos;ve <It>built.</It></>} sub="Two Android apps and the platforms behind the academy." />
+            <div className="absolute -top-8 right-0 hidden h-[260px] w-[46%] md:block">
+              <DustCanvas kind="text" text="تُرجُمَان" />
+            </div>
+            <Sticker className="absolute -bottom-2 right-6 hidden md:block" rotate={3}>
+              <p className="font-ar-display text-3xl font-bold" style={{ color: CORAL }} dir="rtl">
+                تُرجُمَان
+              </p>
+              <p className="mt-1 font-[family-name:var(--font-hand)] text-xl" style={{ color: INK }}>
+                live voice translation
+              </p>
+            </Sticker>
+            <Note arrow="down" className="absolute -bottom-10 left-0 hidden md:flex">
+              tap a card to open it
+            </Note>
+          </div>
 
           <div className="space-y-6">
             {work.map((w) => (
@@ -704,11 +727,19 @@ export default function V2() {
       {/* CREDENTIALS */}
       <section className="px-5 py-20 md:px-12 md:py-32" style={{ background: "#e9e2d2" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="relative">
-            <div className="pointer-events-none absolute -top-4 right-0 w-28 md:w-44">
-              <FigSeal />
+          <Head no="05" label="CREDENTIALS" ar="الشَهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+          <div className="relative mb-16 grid items-center gap-6 md:grid-cols-[1.1fr_1fr]">
+            <div>
+              <p className="font-[family-name:var(--font-serif)] text-[10rem] leading-[0.85] tracking-tight sm:text-[14rem] md:text-[19rem]">10</p>
+              <Wavy className="mt-3 h-4" />
+              <p className="mt-3 font-mono text-[11px] tracking-[0.2em] opacity-70">CERTIFICATIONS · RED TEAM LEADERS &amp; HACKVISER</p>
+              <Note arrow="up" className="mt-6">
+                each one is verifiable
+              </Note>
             </div>
-            <Head no="05" label="CREDENTIALS" ar="الشَهادات" title={<>Verified, <It>not just claimed.</It></>} sub="Ten certifications — each one links to its verification page." />
+            <div className="h-[280px] md:h-[360px]">
+              <DustCanvas kind="shield" />
+            </div>
           </div>
           <div>
             {certs.map(([ac, title, issuer, href], i) => (
@@ -807,12 +838,15 @@ export default function V2() {
               </h2>
               <p className="mt-6 max-w-xl text-lg opacity-70">Have an idea, a project or a question about AI, apps or security? Reach out.</p>
             </Reveal>
-            <Reveal delay={0.1} className="mx-auto w-full max-w-[280px] md:max-w-[340px]">
-              <FigRipple />
+            <Reveal delay={0.1} className="mx-auto aspect-square w-full max-w-[300px] md:max-w-[400px]">
+              <DustCanvas kind="knot" dark />
             </Reveal>
           </div>
 
-          <div className="mt-16" style={{ borderTop: `1px solid ${PAPER}33` }}>
+          <Note arrow="down" color="#e4572e" className="mt-10 ml-2">
+            say hi!
+          </Note>
+          <div className="mt-4" style={{ borderTop: `1px solid ${PAPER}33` }}>
             {[
               ["01", "GitHub", "@ROBIN-SENPAI", "https://github.com/ROBIN-SENPAI", Github],
               ["02", "Telegram", "Senpai Academy channel", "https://t.me/SENPAI_ACADMEY", Send],

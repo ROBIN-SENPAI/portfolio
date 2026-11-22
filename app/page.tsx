@@ -322,19 +322,43 @@ export default function V2() {
       {/* INTRO */}
       <section className="px-5 pb-24 pt-10 md:px-12 md:pb-36">
         <div className="mx-auto max-w-6xl">
-          <Reveal>
-            <h1 className="text-5xl font-bold leading-[1.02] tracking-tight md:text-8xl">
-              Hi, I&apos;m <It>Mohammed</It>
-              <span style={{ color: CORAL }}>.</span>
-            </h1>
-            <p className="font-ar-display mt-5 text-2xl font-bold md:text-4xl" dir="rtl" style={{ color: CORAL }}>
-              مرحباً، أنا محمد باقر
-            </p>
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75 md:text-2xl">
-              A developer building AI-powered <It>Arabic</It> apps and educational platforms — and learning how to keep
-              intelligent systems <It>secure.</It>
-            </p>
-          </Reveal>
+          <div className="grid gap-12 md:grid-cols-[1.5fr_1fr] md:items-end">
+            <Reveal>
+              <h1 className="text-5xl font-bold leading-[1.02] tracking-tight md:text-8xl">
+                Hi, I&apos;m <It>Mohammed</It>
+                <span style={{ color: CORAL }}>.</span>
+              </h1>
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed opacity-75 md:text-2xl">
+                A developer building AI-powered <It>Arabic</It> apps and educational platforms — and learning how to keep
+                intelligent systems <It>secure.</It>
+              </p>
+            </Reveal>
+            <Reveal delay={0.15}>
+              <div className="rounded-3xl p-7 md:p-8" style={{ background: "#fffaf0", border: `1px solid ${INK}22` }}>
+                <p className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em] opacity-60">
+                  <span>PROFILE</span>
+                  <span className="font-ar text-sm tracking-normal" dir="rtl">
+                    الملف
+                  </span>
+                </p>
+                <p dir="ltr" lang="ar" className="font-ar-display mt-5 text-4xl font-bold leading-tight md:text-5xl" style={{ color: CORAL }}>
+                  محمد باقر فراس
+                </p>
+                <dl className="mt-6 font-mono text-[11px] tracking-[0.15em]">
+                  {[
+                    ["ROLE", "Software developer"],
+                    ["FOUNDER", "Senpai Academy"],
+                    ["FOCUS", "AI · LLM security"],
+                  ].map(([k, v]) => (
+                    <div key={k} className="flex items-center justify-between gap-4 py-3" style={{ borderTop: `1px solid ${INK}22` }}>
+                      <dt className="opacity-50">{k}</dt>
+                      <dd className="text-right">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </Reveal>
+          </div>
           <Reveal delay={0.1} className="mt-10 flex flex-wrap gap-6 font-mono text-xs tracking-[0.2em] md:text-sm">
             {disciplines.map((d, i) => (
               <span key={d}>
@@ -358,7 +382,7 @@ export default function V2() {
             <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight md:text-6xl">
               Make technology speak <It>our language.</It>
             </h2>
-            <p className="font-ar-display mt-4 text-xl font-bold md:text-2xl" dir="rtl" style={{ color: CORAL }}>
+            <p dir="ltr" lang="ar" className="font-ar-display mt-4 text-xl font-bold md:text-2xl" style={{ color: CORAL }}>
               لتتكلّم التقنية لغتنا
             </p>
             <Frame className="mt-10" caption="FIG. 1 — ENGLISH ⇄ ARABIC">
@@ -579,49 +603,73 @@ export default function V2() {
       </section>
 
       {/* CONTACT */}
-      <footer className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
+      <footer id="contact" className="px-5 py-20 md:px-12 md:py-32" style={{ background: INK, color: PAPER }}>
         <div className="mx-auto max-w-6xl">
-          <Reveal className="relative">
-            <div className="pointer-events-none absolute -top-10 right-0 w-40 opacity-80 md:w-72">
+          <div className="grid items-center gap-12 md:grid-cols-[1.7fr_1fr]">
+            <Reveal>
+              <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
+                <span>06 / CONTACT</span>
+                <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
+                  تواصل معي
+                </span>
+              </p>
+              <h2 className="mt-5 text-5xl font-bold leading-[1.02] tracking-tight md:text-7xl lg:text-8xl">
+                Let&apos;s build something that <It>matters</It>
+                <span style={{ color: CORAL }}>.</span>
+              </h2>
+              <p className="mt-6 max-w-xl text-lg opacity-70">Have an idea, a project or a question about AI, apps or security? Reach out.</p>
+            </Reveal>
+            <Reveal delay={0.1} className="mx-auto w-full max-w-[280px] md:max-w-[340px]">
               <FigRipple />
-            </div>
-            <p className="flex items-center gap-3 font-mono text-[11px] tracking-[0.25em] opacity-60">
-              <span>06 / CONTACT</span>
-              <span className="font-ar text-sm font-medium tracking-normal" dir="rtl">
-                تواصل معي
-              </span>
-            </p>
-            <h2 className="relative mt-4 text-5xl font-bold leading-[1] tracking-tight md:text-8xl">
-              Let&apos;s build something that <It>matters</It>
-              <span style={{ color: CORAL }}>.</span>
-            </h2>
-            <p className="mt-6 max-w-xl text-lg opacity-70">Have an idea, a project or a question about AI, apps or security? Reach out.</p>
-          </Reveal>
-          <div className="mt-14">
+            </Reveal>
+          </div>
+
+          <div className="mt-16" style={{ borderTop: `1px solid ${PAPER}22` }}>
             {links.map(([k, v, href]) => (
               <a
                 key={k}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between gap-4 py-6"
-                style={{ borderTop: `1px solid ${PAPER}22` }}
+                className="group grid grid-cols-[96px_1fr_auto] items-center gap-4 py-7 transition-all duration-300 hover:bg-white/[0.04] md:grid-cols-[160px_1fr_auto] md:px-0 md:hover:px-5"
+                style={{ borderBottom: `1px solid ${PAPER}22` }}
               >
-                <span className="font-mono text-xs tracking-[0.25em] opacity-60">{k}</span>
-                <span className="text-xl font-medium transition-transform duration-300 group-hover:-translate-x-1 md:text-3xl">{v}</span>
-                <ArrowUpRight className="h-5 w-5" style={{ color: CORAL }} />
+                <span className="font-mono text-[11px] tracking-[0.25em] opacity-55 md:text-xs">{k}</span>
+                <span className="text-xl font-medium tracking-tight md:text-4xl">{v}</span>
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-full border transition-colors duration-300 group-hover:bg-[#e4572e] group-hover:text-[#14213d] md:h-12 md:w-12"
+                  style={{ borderColor: CORAL, color: CORAL }}
+                >
+                  <ArrowUpRight className="h-5 w-5" />
+                </span>
               </a>
             ))}
-            <div style={{ borderTop: `1px solid ${PAPER}22` }} />
-          </div>
-          <div className="mt-14 flex items-center justify-between font-mono text-[11px] tracking-[0.2em] opacity-60">
-            <span>© {new Date().getFullYear()} MOHAMMED BAQIR FIRAS</span>
-            <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }) }}>
-              ↑ TOP
-            </a>
           </div>
         </div>
       </footer>
+
+      {/* THE END — same particle treatment as the opening */}
+      <section aria-label="313" className="relative h-[80svh] min-h-[460px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
+        <ParticleName text="313" colors={[PAPER, CORAL]} />
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[10px] tracking-[0.2em] opacity-60 md:p-8 md:text-[11px]">
+          <span>MBF / END</span>
+          <span>TOUCH THE PARTICLES</span>
+        </div>
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[10px] tracking-[0.2em] md:p-8 md:text-[11px]">
+          <span className="opacity-60">© {new Date().getFullYear()} MOHAMMED BAQIR FIRAS</span>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault()
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }}
+            className="rounded-full border px-4 py-2 transition-colors hover:bg-[#e4572e] hover:text-[#14213d]"
+            style={{ borderColor: CORAL, color: CORAL }}
+          >
+            ↑ TOP
+          </a>
+        </div>
+      </section>
     </div>
     </ReactLenis>
   )

@@ -60,76 +60,121 @@ export function FigBridge() {
   )
 }
 
-/** AI apps: voice waveform becoming text tokens. */
+/** AI apps: a voice waveform becoming a live transcript. */
 export function FigApps() {
-  const bars = [30, 56, 80, 44, 96, 62, 36, 72, 50, 28]
+  const bars = [14, 26, 40, 58, 74, 52, 84, 60, 44, 66, 38, 24, 14]
   return (
-    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Voice waveform turning into text tokens">
-      <g transform="translate(24 110)">
+    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Voice waveform turning into a live transcript">
+      <g transform="translate(26 110)">
         {bars.map((h, i) => (
-          <rect key={i} x={i * 16} y={-h / 2} width="8" height={h} rx="4" fill={i % 3 === 0 ? CORAL : "currentColor"} className="fig-bar" style={{ animationDelay: `${i * 0.11}s` }} />
+          <rect key={i} x={i * 12} y={-h / 2} width="6" height={h} rx="3" fill={i === 6 ? CORAL : "currentColor"} opacity={i === 6 ? 1 : 0.85} className="fig-bar" style={{ animationDelay: `${i * 0.09}s` }} />
         ))}
       </g>
-      <path d="M200 110 H236" stroke="currentColor" strokeWidth="1.5" className="fig-dash" />
-      <path d="M232 102 L242 110 L232 118" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      {[0, 1, 2, 3].map((i) => (
-        <g key={i} className="fig-blink" style={{ animationDelay: `${i * 0.5}s` }}>
-          <rect x={256} y={58 + i * 34} width={[110, 84, 120, 66][i]} height="22" rx="11" fill="none" stroke="currentColor" strokeWidth="1.5" />
-          <circle cx={268} cy={69 + i * 34} r="3.5" fill={CORAL} />
-        </g>
-      ))}
+      <g stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M198 110 H232" className="fig-dash" />
+        <path d="M226 103 L233 110 L226 117" />
+      </g>
+      <rect x="248" y="50" width="130" height="120" rx="14" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
+      <g fill="currentColor">
+        <rect x="262" y="72" width="82" height="7" rx="3.5" opacity=".75" />
+        <rect x="262" y="90" width="102" height="7" rx="3.5" opacity=".5" />
+        <rect x="262" y="108" width="64" height="7" rx="3.5" opacity=".35" />
+      </g>
+      <rect x="262" y="130" width="10" height="16" rx="2" fill={CORAL} className="fig-blink" />
     </svg>
   )
 }
 
-/** LLM security: a shield scanning incoming prompts. */
+/** LLM security: a guardrail filtering prompts. */
 export function FigShield() {
+  const shield = "M200 34 L254 54 V108 C254 142 232 164 200 178 C168 164 146 142 146 108 V54 Z"
   return (
-    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Shield scanning incoming prompts">
-      <g fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M200 30 L262 52 V112 C262 152 234 178 200 192 C166 178 138 152 138 112 V52 Z" />
-        <path d="M176 110 L194 128 L228 90" stroke={CORAL} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-        {[70, 110, 150].map((y, i) => (
+    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="A guardrail blocking a malicious prompt and passing safe ones">
+      <defs>
+        <clipPath id="shield-clip">
+          <path d={shield} />
+        </clipPath>
+      </defs>
+      {/* incoming prompts */}
+      <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        {[
+          { y: 72, bad: false },
+          { y: 108, bad: true },
+          { y: 144, bad: false },
+        ].map(({ y, bad }) => (
           <g key={y}>
-            <path d={`M20 ${y} H112`} className="fig-dash" opacity=".7" />
-            <rect x="20" y={y - 7} width="30" height="14" rx="7" fill="currentColor" opacity=".12" />
-            {i === 1 && (
-              <g stroke={CORAL} strokeWidth="2.5" strokeLinecap="round">
-                <path d="M118 103 L132 117 M132 103 L118 117" />
-              </g>
-            )}
+            <rect x="18" y={y - 11} width="70" height="22" rx="11" stroke={bad ? CORAL : "currentColor"} opacity={bad ? 1 : 0.75} />
+            <path d={`M30 ${y} H66`} opacity=".5" />
+            <path d={`M92 ${y} H${bad ? 128 : 140}`} className="fig-dash" stroke={bad ? CORAL : "currentColor"} opacity=".8" />
+            {bad && <path d={`M130 ${y - 7} L144 ${y + 7} M144 ${y - 7} L130 ${y + 7}`} stroke={CORAL} strokeWidth="2.5" />}
           </g>
         ))}
-        <path d="M288 90 H380 M288 110 H360 M288 130 H372" opacity=".5" strokeLinecap="round" />
+        {/* clean outputs */}
+        {[72, 144].map((y) => (
+          <g key={y}>
+            <path d={`M260 ${y} H300`} className="fig-dash" opacity=".8" />
+            <rect x="304" y={y - 11} width="78" height="22" rx="11" opacity=".75" />
+            <circle cx="318" cy={y} r="3.5" fill={CORAL} stroke="none" />
+            <path d={`M328 ${y} H368`} opacity=".4" />
+          </g>
+        ))}
       </g>
-      <g className="fig-scan">
-        <rect x="140" y="106" width="120" height="3" fill={CORAL} opacity=".7" />
+      {/* shield */}
+      <path d={shield} fill="none" stroke="currentColor" strokeWidth="1.8" />
+      <g clipPath="url(#shield-clip)">
+        <rect x="140" y="40" width="120" height="26" fill={CORAL} opacity=".18" className="fig-scan2" />
+        <rect x="140" y="40" width="120" height="2" fill={CORAL} className="fig-scan2" />
       </g>
+      <path d="M180 108 L195 123 L222 90" fill="none" stroke={CORAL} strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
-/** Security base: a directory graph. */
+/** Security base: a directory graph with traveling signals. */
 export function FigGraph() {
-  const nodes: [number, number][] = [
-    [90, 60], [310, 60], [60, 140], [340, 140], [150, 190], [260, 190],
+  const c: [number, number] = [200, 110]
+  const nodes: { p: [number, number]; l: string }[] = [
+    { p: [86, 56], l: "USR" },
+    { p: [314, 56], l: "SRV" },
+    { p: [52, 140], l: "GPO" },
+    { p: [348, 140], l: "DNS" },
+    { p: [140, 190], l: "SVC" },
+    { p: [260, 190], l: "KRB" },
   ]
+  const R = 15
+  const short = (a: [number, number], b: [number, number], r1: number, r2: number) => {
+    const dx = b[0] - a[0]
+    const dy = b[1] - a[1]
+    const d = Math.hypot(dx, dy)
+    return { x1: a[0] + (dx / d) * r1, y1: a[1] + (dy / d) * r1, x2: b[0] - (dx / d) * r2, y2: b[1] - (dy / d) * r2 }
+  }
   return (
-    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Network graph with a central domain node">
-      <g stroke="currentColor" strokeWidth="1.2" opacity=".55">
-        {nodes.map(([x, y], i) => (
-          <line key={i} x1="200" y1="110" x2={x} y2={y} className="fig-dash" style={{ animationDelay: `${i * 0.2}s` }} />
-        ))}
-        <line x1="90" y1="60" x2="60" y2="140" />
-        <line x1="310" y1="60" x2="340" y2="140" />
-        <line x1="150" y1="190" x2="260" y2="190" />
+    <svg viewBox="0 0 400 220" className="block w-full" role="img" aria-label="Directory graph with a central domain node">
+      <g stroke="currentColor" strokeWidth="1.2" opacity=".5" fill="none">
+        {nodes.map((n, i) => {
+          const s = short(c, n.p, 22, R)
+          return <line key={n.l} {...s} className="fig-dash" style={{ animationDelay: `${i * 0.2}s` }} />
+        })}
+        <path d="M86 56 L52 140 M314 56 L348 140 M140 190 H260" strokeDasharray="2 5" opacity=".6" />
       </g>
-      {nodes.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r="9" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      {nodes.map((n, i) => (
+        <circle key={`d${n.l}`} r="3.5" fill={CORAL}>
+          <animateMotion dur={`${2.6 + i * 0.3}s`} begin={`${i * 0.4}s`} repeatCount="indefinite" path={`M${c[0]} ${c[1]} L${n.p[0]} ${n.p[1]}`} />
+        </circle>
       ))}
-      <circle cx="200" cy="110" r="14" fill={CORAL} />
-      <circle cx="200" cy="110" r="14" fill="none" stroke={CORAL} className="fig-pulse" strokeWidth="2" />
-      <circle cx="200" cy="110" r="14" fill="none" stroke={CORAL} className="fig-pulse" style={{ animationDelay: "1.3s" }} strokeWidth="2" />
+      {nodes.map((n) => (
+        <g key={n.l}>
+          <circle cx={n.p[0]} cy={n.p[1]} r={R} fill="none" stroke="currentColor" strokeWidth="1.5" />
+          <text x={n.p[0]} y={n.p[1] + 3.5} textAnchor="middle" fontSize="9" fontWeight="600" fill="currentColor" fontFamily="var(--font-geist-mono), monospace" letterSpacing="0.5">
+            {n.l}
+          </text>
+        </g>
+      ))}
+      <circle cx={c[0]} cy={c[1]} r="22" fill="none" stroke={CORAL} className="fig-pulse" strokeWidth="2" />
+      <circle cx={c[0]} cy={c[1]} r="22" fill={CORAL} />
+      <text x={c[0]} y={c[1] + 5} textAnchor="middle" fontSize="14" fontWeight="800" fill="#fff" fontFamily="var(--font-geist-mono), monospace">
+        AD
+      </text>
     </svg>
   )
 }
@@ -211,15 +256,18 @@ export function FigSeal() {
   return (
     <svg viewBox="0 0 200 200" className="block w-full" role="img" aria-label="Verified seal">
       <defs>
-        <path id="seal-circle" d="M100 100 m-72 0 a72 72 0 1 1 144 0 a72 72 0 1 1 -144 0" />
+        <path id="seal-circle" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0" />
       </defs>
+      <circle cx="100" cy="100" r="97" fill="none" stroke="currentColor" strokeWidth="1" opacity=".25" />
+      <circle cx="100" cy="100" r="56" fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".45" />
       <g className="fig-spin">
-        <text fontSize="13" letterSpacing="5" fill="currentColor" fontFamily="var(--font-geist-mono), monospace">
-          <textPath href="#seal-circle">VERIFIED · CERTIFIED · VERIFIED · CERTIFIED · </textPath>
+        <text fontSize="11" fontWeight="600" fill="currentColor" fontFamily="var(--font-geist-mono), monospace">
+          <textPath href="#seal-circle" textLength="456" lengthAdjust="spacing">
+            VERIFIED · CERTIFIED · VERIFIED · CERTIFIED ·
+          </textPath>
         </text>
       </g>
-      <circle cx="100" cy="100" r="44" fill="none" stroke="currentColor" strokeWidth="1.5" opacity=".5" />
-      <motion.path d="M78 102 L94 118 L124 82" fill="none" stroke={CORAL} strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" {...draw} />
+      <motion.path d="M76 102 L94 120 L126 80" fill="none" stroke={CORAL} strokeWidth="7" strokeLinecap="round" strokeLinejoin="round" {...draw} />
     </svg>
   )
 }

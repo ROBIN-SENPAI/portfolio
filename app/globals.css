@@ -221,3 +221,6 @@
 .fig-blink { animation: fig-blink 2.4s ease-in-out infinite; }
 .fig-float { animation: fig-float 3.4s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { [class*="fig-"] { animation: none !important; } }
+
+@keyframes fig-scan2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(128px); } }
+.fig-scan2 { animation: fig-scan2 3.4s ease-in-out infinite; }

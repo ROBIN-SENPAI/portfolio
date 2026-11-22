@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 
 type P = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; c: string; r: number }
 
-export function ParticleName({ text }: { text: string }) {
+export function ParticleName({ text, colors = ["#14213d", "#e4572e"] }: { text: string; colors?: [string, string] }) {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export function ParticleName({ text }: { text: string }) {
         ty,
         vx: 0,
         vy: 0,
-        c: i % 9 === 0 ? "#e4572e" : "#14213d",
+        c: i % 9 === 0 ? colors[1] : colors[0],
         r: w < 600 ? 1.1 : 1.7,
       }))
     }
@@ -124,7 +124,7 @@ export function ParticleName({ text }: { text: string }) {
       canvas.removeEventListener("pointerleave", leave)
       canvas.removeEventListener("pointerup", leave)
     }
-  }, [text])
+  }, [text, colors[0], colors[1]])
 
   return <canvas ref={ref} className="absolute inset-0 h-full w-full touch-pan-y" aria-label={text} />
 }

@@ -22,8 +22,8 @@ export function ParticleName({ text }: { text: string }) {
 
     const build = () => {
       const rect = canvas.getBoundingClientRect()
-      w = rect.width
-      h = rect.height
+      w = Math.floor(rect.width)
+      h = Math.floor(rect.height)
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)

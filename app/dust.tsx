@@ -88,6 +88,14 @@ export function DustCanvas({
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      try {
+        buildShape()
+      } catch {
+        pts = []
+      }
+    }
+
+    const buildShape = () => {
       if (kind === "knot") buildKnot()
       else if (kind === "chat")
         buildRaster((o) => {

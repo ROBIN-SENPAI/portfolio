@@ -46,6 +46,7 @@ export function ParticleName({
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
     const sample = (str: string): [number, number][] => {
+      if (w < 10 || h < 10) return []
       const off = document.createElement("canvas")
       off.width = w
       off.height = h
@@ -86,16 +87,25 @@ export function ParticleName({
       const rect = canvas.getBoundingClientRect()
       w = Math.floor(rect.width)
       h = Math.floor(rect.height)
+      if (w < 10 || h < 10) {
+        particles = []
+        return
+      }
       canvas.width = w * dpr
       canvas.height = h * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      particles = sample(list[idx]).map(([tx, ty], i) => make(tx, ty, i))
+      try {
+        particles = sample(list[idx]).map(([tx, ty], i) => make(tx, ty, i))
+      } catch {
+        particles = []
+      }
     }
 
     const retarget = () => {
       if (!visible || document.hidden) return
       idx = (idx + 1) % list.length
       const targets = sample(list[idx])
+      if (!targets.length) return
       for (let i = targets.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1))
         ;[targets[i], targets[j]] = [targets[j], targets[i]]

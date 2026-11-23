@@ -341,7 +341,7 @@ function Nav() {
     <>
     <AnimatePresence>
       {open && (
-        <motion.div key="menu" initial={{ clipPath: "circle(0% at calc(100% - 4rem) 2.5rem)" }} animate={{ clipPath: "circle(150% at calc(100% - 4rem) 2.5rem)" }} exit={{ clipPath: "circle(0% at calc(100% - 4rem) 2.5rem)" }} transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-[85] flex flex-col justify-center overflow-y-auto px-6 py-24 md:px-16" style={{ background: INK, color: PAPER }}>
+        <motion.div key="menu" initial={{ clipPath: "circle(0% at 50% 2.4rem)" }} animate={{ clipPath: "circle(150% at 50% 2.4rem)" }} exit={{ clipPath: "circle(0% at 50% 2.4rem)" }} transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-[85] flex flex-col justify-center overflow-y-auto px-6 py-24 md:px-16" style={{ background: INK, color: PAPER }}>
           <ul className="mx-auto w-full max-w-5xl">
             {menuItems.map(([label, id, ar], i) => (
               <motion.li key={id} initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.25 + i * 0.05, duration: 0.5, ease: "easeOut" }} style={{ borderBottom: `1px solid ${PAPER}22` }}>
@@ -357,20 +357,17 @@ function Nav() {
         </motion.div>
       )}
     </AnimatePresence>
-    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ zIndex: open ? 90 : 80, ...(open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : {}),  background: `${PAPER}e6`, borderBottom: `1px solid ${INK}12` }}>
-      <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ color: INK }}>
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ zIndex: open ? 90 : 80, background: open ? "transparent" : `${PAPER}e6`, borderBottom: `1px solid ${open ? "transparent" : INK + "12"}` }}>
+      <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xl font-bold tracking-[0.25em] transition-colors" style={{ color: open ? PAPER : INK }}>
         MBF<span style={{ color: CORAL }}>.</span>
       </a>
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Menu" className="pointer-events-auto group relative z-[90] flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-sm font-medium backdrop-blur-md transition-transform hover:scale-[1.03]" style={{ background: open ? CORAL : `${PAPER}d9`, color: open ? "#fff" : INK, border: `1px solid ${open ? CORAL : INK + "22"}`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Menu" className="pointer-events-auto group absolute left-1/2 top-3 z-[90] flex -translate-x-1/2 items-center gap-3 md:top-4 rounded-full py-2 pl-4 pr-2 text-sm font-medium backdrop-blur-md transition-transform hover:scale-[1.03]" style={{ background: open ? CORAL : `${PAPER}d9`, color: open ? "#fff" : INK, border: `1px solid ${open ? CORAL : INK + "22"}`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
         <span className="font-mono text-[11px] tracking-[0.14em]">{open ? "CLOSE" : `0${cur + 1} / ${navLinks[cur][0].toUpperCase()}`}</span>
         <span className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] rounded-full" style={{ background: open ? "#fff" : INK }}>
           <span className="h-[2px] w-3 rounded transition-transform" style={{ background: open ? CORAL : PAPER, transform: open ? "translateY(3.5px) rotate(45deg)" : "none" }} />
           <span className="h-[2px] w-3 rounded transition-transform" style={{ background: open ? CORAL : PAPER, transform: open ? "translateY(-3.5px) rotate(-45deg)" : "none" }} />
         </span>
       </button>
-      <a href="#contact" onClick={go("contact")} className="pointer-events-auto rounded-full px-5 py-2.5 text-sm font-semibold transition-transform hover:scale-105" style={{ background: INK, color: PAPER, boxShadow: `0 10px 24px -14px ${INK}` }}>
-        Let&apos;s talk
-      </a>
     </header>
     </>
   )

@@ -357,7 +357,7 @@ function Nav() {
         </motion.div>
       )}
     </AnimatePresence>
-    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ background: `${PAPER}e6`, borderBottom: `1px solid ${INK}12` }}>
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ zIndex: open ? 90 : 80, ...(open ? { background: "transparent", borderColor: "transparent", backdropFilter: "none" } : {}),  background: `${PAPER}e6`, borderBottom: `1px solid ${INK}12` }}>
       <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ color: INK }}>
         MBF<span style={{ color: CORAL }}>.</span>
       </a>

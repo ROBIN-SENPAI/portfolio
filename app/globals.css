@@ -127,6 +127,8 @@
 
 /* Noise texture overlay */
 .noise-overlay {
+  will-change: transform;
+  contain: strict;
   position: fixed;
   top: 0;
   left: 0;
@@ -224,3 +226,12 @@
 
 @keyframes fig-scan2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(128px); } }
 .fig-scan2 { animation: fig-scan2 3.4s ease-in-out infinite; }
+
+/* Smooth scrolling (Lenis) */
+html { scrollbar-gutter: stable; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+img, canvas, svg { -webkit-user-drag: none; }

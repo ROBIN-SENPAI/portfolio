@@ -302,11 +302,16 @@ function Nav() {
   }, [])
   const [pos, setPos] = useState(0)
   useEffect(() => {
-    const calc = () => {
-      const tops = navLinks.map(([, id]) => {
+    let tops: number[] = []
+    let raf = 0
+    const measure = () => {
+      tops = navLinks.map(([, id]) => {
         const el = document.getElementById(id)
         return el ? el.getBoundingClientRect().top + window.scrollY : Infinity
       })
+    }
+    const calc = () => {
+      raf = 0
       const y = window.scrollY + window.innerHeight * 0.4
       let v = 0
       for (let i = 0; i < tops.length; i++) {
@@ -315,14 +320,28 @@ function Nav() {
           v = i + (next && isFinite(next) ? Math.min(1, (y - tops[i]) / (next - tops[i])) : 0)
         }
       }
-      setPos(Math.max(0, Math.min(navLinks.length - 1, v)))
+      const next = Math.round(Math.max(0, Math.min(navLinks.length - 1, v)) * 50) / 50
+      setPos((prev) => (prev === next ? prev : next))
     }
-    calc()
-    window.addEventListener("scroll", calc, { passive: true })
-    window.addEventListener("resize", calc)
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(calc)
+    }
+    const remeasure = () => {
+      measure()
+      onScroll()
+    }
+    remeasure()
+    const t = setTimeout(remeasure, 1500)
+    const ro = new ResizeObserver(remeasure)
+    ro.observe(document.body)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", remeasure)
     return () => {
-      window.removeEventListener("scroll", calc)
-      window.removeEventListener("resize", calc)
+      clearTimeout(t)
+      ro.disconnect()
+      cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", remeasure)
     }
   }, [])
   const cur = Math.round(pos)
@@ -383,7 +402,6 @@ function Nav() {
           <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full" style={{ background: CORAL }} />
           BAGHDAD {time}
         </p>
-        <p className="mt-1 text-right opacity-55">AI · APPS · SECURITY</p>
       </div>
     </header>
     </>
@@ -430,7 +448,7 @@ export default function V2() {
   }, [])
 
   return (
-    <ReactLenis root options={{ lerp: 0.09, wheelMultiplier: 0.95 }}>
+    <ReactLenis root options={{ lerp: 0.085, wheelMultiplier: 0.9, smoothWheel: true, syncTouch: false }}>
     <div
       className="relative min-h-screen overflow-x-hidden font-[family-name:var(--font-v2)]"
       style={{ background: PAPER, color: INK, scrollBehavior: "smooth" }}

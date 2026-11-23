@@ -103,16 +103,23 @@ export function CursorRing() {
       scale = t?.closest("a, button, textarea, input") ? 1.9 : 1
     }
     const tick = () => {
-      rx += (x - rx) * 0.16
-      ry += (y - ry) * 0.16
-      if (dot.current) dot.current.style.transform = `translate(${x - 3}px, ${y - 3}px)`
-      if (ring.current) ring.current.style.transform = `translate(${rx - 16}px, ${ry - 16}px) scale(${scale})`
-      raf = requestAnimationFrame(tick)
+      rx += (x - rx) * 0.2
+      ry += (y - ry) * 0.2
+      if (dot.current) dot.current.style.transform = `translate3d(${x - 3}px, ${y - 3}px, 0)`
+      if (ring.current) ring.current.style.transform = `translate3d(${rx - 16}px, ${ry - 16}px, 0) scale(${scale})`
+      raf = Math.abs(x - rx) + Math.abs(y - ry) > 0.2 ? requestAnimationFrame(tick) : 0
     }
-    window.addEventListener("pointermove", move)
+    const wake = () => {
+      if (!raf) raf = requestAnimationFrame(tick)
+    }
+    const onMove = (e: PointerEvent) => {
+      move(e)
+      wake()
+    }
+    window.addEventListener("pointermove", onMove, { passive: true })
     raf = requestAnimationFrame(tick)
     return () => {
-      window.removeEventListener("pointermove", move)
+      window.removeEventListener("pointermove", onMove)
       cancelAnimationFrame(raf)
     }
   }, [])

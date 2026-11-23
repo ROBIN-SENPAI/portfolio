@@ -28,13 +28,13 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "M. Baqir Firas — AI, Apps & Security",
+  title: "MBF Portfolio",
   description:
     "Building with AI. Securing what it builds. Software developer, cybersecurity researcher and founder of Senpai Academy.",
   generator: "v0.app",
   metadataBase: new URL("https://robin-senpai.github.io"),
   openGraph: {
-    title: "M. Baqir Firas — AI, Apps & Security",
+    title: "MBF Portfolio — M. Baqir Firas",
     description: "AI-powered Arabic apps, LLM security and educational platforms. Founder of Senpai Academy.",
     url: "/portfolio/",
     siteName: "M. Baqir Firas",
@@ -43,12 +43,16 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "M. Baqir Firas — AI, Apps & Security",
+    title: "MBF Portfolio — M. Baqir Firas",
     description: "AI-powered Arabic apps, LLM security and educational platforms.",
     images: ["/portfolio/og.png"],
   },
   icons: {
-    icon: "/portfolio/badge.svg",
+    icon: [
+      { url: "/portfolio/badge.svg", type: "image/svg+xml" },
+      { url: "/portfolio/icon-light-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/portfolio/apple-icon.png",
   },
 }
 

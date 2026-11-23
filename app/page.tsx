@@ -268,7 +268,18 @@ const navLinks = [
   ["Story", "story"],
 ]
 
+const menuItems = [
+  ["About", "about", "عني"],
+  ["Work", "work", "الأعمال"],
+  ["Academy", "academy", "الأكاديمية"],
+  ["Credentials", "credentials", "الشهادات"],
+  ["Skills", "skills", "المهارات"],
+  ["Story", "story", "قصتي"],
+  ["Contact", "contact", "تواصل"],
+]
+
 function Nav() {
+  const [open, setOpen] = useState(false)
   const lenis = useLenis()
   const [active, setActive] = useState("")
   useEffect(() => {
@@ -308,41 +319,60 @@ function Nav() {
     }
   }, [])
   const cur = Math.round(pos)
+  useEffect(() => {
+    if (!open) return
+    lenis?.stop()
+    const k = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false)
+    window.addEventListener("keydown", k)
+    return () => {
+      lenis?.start()
+      window.removeEventListener("keydown", k)
+    }
+  }, [open, lenis])
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault()
     const el = document.getElementById(id)
     if (!el) return
-    if (lenis) lenis.scrollTo(el, { offset: -64, duration: 1.4 })
+    setOpen(false)
+    if (lenis) lenis.scrollTo(el, { offset: -64, duration: 1.4, immediate: false })
     else el.scrollIntoView({ behavior: "smooth" })
   }
   return (
+    <>
+    <AnimatePresence>
+      {open && (
+        <motion.div key="menu" initial={{ clipPath: "circle(0% at calc(100% - 4rem) 2.5rem)" }} animate={{ clipPath: "circle(150% at calc(100% - 4rem) 2.5rem)" }} exit={{ clipPath: "circle(0% at calc(100% - 4rem) 2.5rem)" }} transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }} className="fixed inset-0 z-[85] flex flex-col justify-center overflow-y-auto px-6 py-24 md:px-16" style={{ background: INK, color: PAPER }}>
+          <ul className="mx-auto w-full max-w-5xl">
+            {menuItems.map(([label, id, ar], i) => (
+              <motion.li key={id} initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.25 + i * 0.05, duration: 0.5, ease: "easeOut" }} style={{ borderBottom: `1px solid ${PAPER}22` }}>
+                <a href={`#${id}`} onClick={go(id)} className="group flex items-baseline gap-4 py-2 md:gap-8 md:py-3">
+                  <span className="w-8 font-mono text-xs md:w-12" style={{ color: CORAL }}>0{i + 1}</span>
+                  <span className="font-[family-name:var(--font-serif)] text-4xl italic transition-transform duration-300 group-hover:translate-x-3 md:text-7xl" style={{ color: i === cur ? CORAL : PAPER }}>{label}</span>
+                  <span className="font-ar-display ml-auto text-xl opacity-60 transition-opacity group-hover:opacity-100 md:text-3xl" dir="rtl">{ar}</span>
+                </a>
+              </motion.li>
+            ))}
+          </ul>
+          <p className="mx-auto mt-8 w-full max-w-5xl font-mono text-[11px] tracking-[0.2em] opacity-50">M. BAQIR FIRAS — AI, APPS AND SECURITY</p>
+        </motion.div>
+      )}
+    </AnimatePresence>
     <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] flex items-center justify-between px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ background: `${PAPER}e6`, borderBottom: `1px solid ${INK}12` }}>
       <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto font-mono text-xs font-bold tracking-[0.25em]" style={{ color: INK }}>
         MBF<span style={{ color: CORAL }}>.</span>
       </a>
-      <nav aria-label="Sections" className="pointer-events-auto relative hidden h-[72px] w-[500px] rounded-2xl backdrop-blur-md md:block" style={{ background: `${PAPER}d9`, border: `1px solid ${INK}22`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
-        <div className="absolute inset-x-8 inset-y-0">
-          <div className="absolute inset-x-0 top-[38px] h-2.5" style={{ background: `repeating-linear-gradient(90deg, ${INK}40 0 1px, transparent 1px 8px)` }} />
-          <div className="absolute left-0 top-[35px] h-[3px]" style={{ width: `${pos * 20}%`, background: CORAL, transition: "width .25s ease-out" }} />
-          {navLinks.map(([label, id], i) => (
-            <a key={id} href={`#${id}`} onClick={go(id)} aria-label={label} className="group absolute top-0 h-full w-10 -translate-x-1/2" style={{ left: `${i * 20}%` }}>
-              <span className="absolute left-1/2 top-[30px] w-[2px] -translate-x-1/2 transition-all duration-200 group-hover:top-[26px] group-hover:h-[26px]" style={{ height: 20, background: i === cur ? CORAL : INK }} />
-              <span className="absolute left-1/2 top-[54px] -translate-x-1/2 font-mono text-[10px] tracking-[0.12em] transition-colors" style={{ color: i === cur ? CORAL : `${INK}99` }}>
-                {label.toUpperCase()}
-              </span>
-            </a>
-          ))}
-          <div className="pointer-events-none absolute top-[6px] -translate-x-1/2 whitespace-nowrap rounded-md px-2.5 py-1 text-xs font-medium" style={{ left: `${pos * 20}%`, background: INK, color: PAPER, transition: "left .25s ease-out" }}>
-            0{cur + 1} · {navLinks[cur][0]}
-            <span className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45" style={{ background: INK }} />
-          </div>
-          <div className="pointer-events-none absolute top-[34px] h-[11px] w-[11px] -translate-x-1/2 rounded-full" style={{ left: `${pos * 20}%`, background: CORAL, boxShadow: `0 0 0 3px ${PAPER}`, transition: "left .25s ease-out" }} />
-        </div>
-      </nav>
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Menu" className="pointer-events-auto group relative z-[90] flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-sm font-medium backdrop-blur-md transition-transform hover:scale-[1.03]" style={{ background: open ? CORAL : `${PAPER}d9`, color: open ? "#fff" : INK, border: `1px solid ${open ? CORAL : INK + "22"}`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
+        <span className="font-mono text-[11px] tracking-[0.14em]">{open ? "CLOSE" : `0${cur + 1} / ${navLinks[cur][0].toUpperCase()}`}</span>
+        <span className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] rounded-full" style={{ background: open ? "#fff" : INK }}>
+          <span className="h-[2px] w-3 rounded transition-transform" style={{ background: open ? CORAL : PAPER, transform: open ? "translateY(3.5px) rotate(45deg)" : "none" }} />
+          <span className="h-[2px] w-3 rounded transition-transform" style={{ background: open ? CORAL : PAPER, transform: open ? "translateY(-3.5px) rotate(-45deg)" : "none" }} />
+        </span>
+      </button>
       <a href="#contact" onClick={go("contact")} className="pointer-events-auto rounded-full px-5 py-2.5 text-sm font-semibold transition-transform hover:scale-105" style={{ background: INK, color: PAPER, boxShadow: `0 10px 24px -14px ${INK}` }}>
         Let&apos;s talk
       </a>
     </header>
+    </>
   )
 }
 

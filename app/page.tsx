@@ -418,6 +418,25 @@ export default function V2() {
   const [epoch, setEpoch] = useState(0)
 
   useEffect(() => {
+    // Pause every figure animation (CSS + SMIL) while it is off screen
+    const svgs = Array.from(document.querySelectorAll<SVGSVGElement>("figure svg, svg.fig-root"))
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const el = e.target as SVGSVGElement
+          el.toggleAttribute("data-offscreen", !e.isIntersecting)
+          try {
+            e.isIntersecting ? el.unpauseAnimations() : el.pauseAnimations()
+          } catch {}
+        }
+      },
+      { rootMargin: "80px" },
+    )
+    svgs.forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [loaded])
+
+  useEffect(() => {
     let seen = false
     try {
       seen = sessionStorage.getItem("mbf-intro") === "1" || window.matchMedia("(prefers-reduced-motion: reduce)").matches

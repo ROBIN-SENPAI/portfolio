@@ -235,3 +235,11 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-stopped { overflow: clip; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 img, canvas, svg { -webkit-user-drag: none; }
+
+/* Figure animations: paused off screen, lighter on, never blocking scroll */
+svg[data-offscreen] *, svg[data-offscreen] { animation-play-state: paused !important; }
+.fig-dash { animation-duration: 2.4s; }
+.fig-spin { animation-duration: 40s; }
+.fig-pulse { animation-duration: 3.6s; }
+[class*="fig-"] { will-change: auto; }
+@media (max-width: 767px) { .fig-dash, .fig-blink, .fig-float { animation: none !important; } }

@@ -119,57 +119,64 @@ export function FigBridge() {
 /** Academy card: knowledge rising from an open book into a network. */
 export function FigBook() {
   const mono = "var(--font-geist-mono), monospace"
-  const nodes: [number, number][] = [
-    [120, 26],
-    [200, 14],
-    [280, 26],
-    [160, 44],
-    [240, 44],
-  ]
   return (
-    <svg viewBox="0 0 400 210" className="block w-full" role="img" aria-label="An open book sending knowledge up into a network">
-      {/* rising lines */}
-      <g stroke="currentColor" strokeWidth="1.1" opacity=".5" fill="none">
-        {nodes.map(([x, y], i) => (
-          <path key={i} d={`M200 92 L${x} ${y}`} className="fig-dash" style={{ animationDelay: `${i * 0.25}s` }} />
-        ))}
-        <path d="M120 26 L160 44 L200 14 L240 44 L280 26" opacity=".6" />
+    <svg viewBox="0 0 400 210" className="block w-full" role="img" aria-label="A learning terminal topped with a graduation cap and a security shield">
+      {/* soft backdrop rings */}
+      <g fill="none" stroke="currentColor" strokeWidth="1" opacity=".18">
+        <circle cx="200" cy="112" r="92" />
+        <circle cx="200" cy="112" r="64" strokeDasharray="3 6" />
       </g>
-      {nodes.map(([x, y], i) => (
-        <g key={`n${i}`}>
-          <circle cx={x} cy={y} r={i === 1 ? 7 : 5} fill={i === 1 ? CORAL : "#f1ece1"} stroke={i === 1 ? CORAL : "currentColor"} strokeWidth="1.4" />
-          <circle r="2.6" fill={CORAL}>
-            <animateMotion dur={`${2.4 + i * 0.35}s`} begin={`${i * 0.5}s`} repeatCount="indefinite" path={`M200 92 L${x} ${y}`} />
-          </circle>
+
+      {/* terminal window */}
+      <g>
+        <rect x="46" y="68" width="250" height="122" rx="13" fill="#f1ece1" stroke="currentColor" strokeWidth="1.7" />
+        <path d="M46 94 H296" stroke="currentColor" strokeWidth="1.2" opacity=".35" />
+        <circle cx="62" cy="81" r="3.6" fill={CORAL} />
+        <circle cx="76" cy="81" r="3.6" fill="none" stroke="currentColor" strokeWidth="1.2" />
+        <circle cx="90" cy="81" r="3.6" fill="none" stroke="currentColor" strokeWidth="1.2" />
+        <text x="280" y="85" textAnchor="end" fontSize="9" letterSpacing="2" fill="currentColor" opacity=".5" fontFamily={mono}>
+          SENPAI
+        </text>
+        <text x="62" y="116" fontSize="12" fontWeight="700" fill="currentColor" fontFamily={mono}>
+          <tspan fill={CORAL}>$</tspan> learn --security
+        </text>
+        <rect x="194" y="106" width="7" height="13" fill={CORAL} className="fig-blink" />
+        <text x="280" y="140" textAnchor="end" fontSize="15" fill={CORAL} className="font-ar-display" fontWeight="700">
+          تعلّم الأمن السيبراني
+        </text>
+        <rect x="62" y="156" width="170" height="7" rx="3.5" fill="none" stroke="currentColor" strokeWidth="1.2" opacity=".5" />
+        <rect x="63.5" y="157.5" width="40" height="4" rx="2" fill={CORAL}>
+          <animate attributeName="width" values="30;122;122;30" keyTimes="0;0.55;0.9;1" dur="5s" repeatCount="indefinite" />
+        </rect>
+        <text x="242" y="163" fontSize="10" fontWeight="700" fill="currentColor" fontFamily={mono}>
+          72%
+        </text>
+      </g>
+
+      {/* graduation cap */}
+      <g>
+        <path d="M133 36 V54 C133 63 213 63 213 54 V36" fill="#14213d" />
+        <polygon points="173,8 238,29 173,50 108,29" fill="#14213d" stroke="#14213d" strokeWidth="1.5" strokeLinejoin="round" />
+        <polygon points="173,13 224,29 173,45 122,29" fill="none" stroke="#f1ece1" strokeWidth="1" opacity=".35" />
+        <g>
+          <path d="M238 29 V54" stroke={CORAL} strokeWidth="2" strokeLinecap="round" />
+          <path d="M238 52 l-3 10 h6 z" fill={CORAL} />
+          <animateTransform attributeName="transform" type="rotate" values="-7 238 29;7 238 29;-7 238 29" dur="3.4s" repeatCount="indefinite" />
         </g>
-      ))}
-
-      {/* open book */}
-      <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinejoin="round">
-        <path d="M200 176 C 160 160, 104 160, 62 174 V 98 C 104 84, 160 84, 200 100 Z" fill="#f1ece1" />
-        <path d="M200 176 C 240 160, 296 160, 338 174 V 98 C 296 84, 240 84, 200 100 Z" fill="#f1ece1" />
-        <path d="M62 174 C 104 160, 160 160, 200 176 C 240 160, 296 160, 338 174" opacity=".5" transform="translate(0 7)" />
       </g>
-      <path d="M200 100 V176" stroke="currentColor" strokeWidth="1.4" />
-      <path d="M190 100 V128 L196 122 L202 128 V100" fill={CORAL} stroke={CORAL} strokeWidth="1" />
 
-      {/* left page: Arabic lines */}
-      <g fill="currentColor" opacity=".7">
-        <rect x="116" y="112" width="64" height="5" rx="2.5" />
-        <rect x="100" y="124" width="80" height="5" rx="2.5" />
-        <rect x="124" y="136" width="56" height="5" rx="2.5" />
+      {/* security shield */}
+      <g className="fig-float">
+        <path d="M332 104 l30 11 v24 c0 21 -13 35 -30 43 c-17 -8 -30 -22 -30 -43 v-24 z" fill={CORAL} />
+        <path d="M332 112 l22 8 v19 c0 15 -9 26 -22 32" fill="none" stroke="#f1ece1" strokeWidth="1.2" opacity=".35" />
+        <path d="M319 144 l9 9 l17 -19" fill="none" stroke="#f1ece1" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
       </g>
-      <text x="168" y="158" textAnchor="end" fontSize="15" fill={CORAL} className="font-ar-display" fontWeight="700">
-        عِلم
-      </text>
-      {/* right page: code */}
-      <text x="222" y="125" fontSize="13" fontWeight="700" fill={CORAL} fontFamily={mono}>
-        {"</>"}
-      </text>
-      <g fill="currentColor" opacity=".7">
-        <rect x="222" y="134" width="70" height="5" rx="2.5" />
-        <rect x="222" y="146" width="48" height="5" rx="2.5" />
-        <rect x="222" y="158" width="62" height="5" rx="2.5" />
+
+      {/* sparks */}
+      <g fill={CORAL}>
+        <circle cx="352" cy="82" r="2.4" className="fig-blink" />
+        <circle cx="28" cy="120" r="2.4" className="fig-blink" style={{ animationDelay: ".8s" }} />
+        <circle cx="318" cy="60" r="1.8" className="fig-blink" style={{ animationDelay: "1.4s" }} />
       </g>
     </svg>
   )

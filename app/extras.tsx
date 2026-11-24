@@ -127,117 +127,27 @@ export function CursorRing() {
   const base = "pointer-events-none fixed left-0 top-0 z-[200] hidden [@media(pointer:fine)]:block"
   return (
     <>
-      <div ref={ring} className={`${base} h-8 w-8 rounded-full border transition-[scale] duration-200`} style={{ borderColor: "#fff", mixBlendMode: "difference" }} aria-hidden="true" />
-      <div ref={dot} className={`${base} h-[6px] w-[6px] rounded-full`} style={{ background: "#fff", mixBlendMode: "difference" }} aria-hidden="true" />
+      <div ref={ring} className={`${base} h-8 w-8 rounded-full border transition-[scale] duration-200`} style={{ borderColor: CORAL }} aria-hidden="true" />
+      <div ref={dot} className={`${base} h-[6px] w-[6px] rounded-full`} style={{ background: CORAL }} aria-hidden="true" />
     </>
   )
 }
 
 export { INK }
 
-/** Little touches of magic: a sparkle trail, a soft spotlight and magnetic buttons (mouse devices only). */
+/** Magnetic round buttons (mouse devices only) — lightweight, no canvas, no blending. */
 export function Magic() {
-  const cvs = useRef<HTMLCanvasElement>(null)
-  const glow = useRef<HTMLDivElement>(null)
-
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
-    const canvas = cvs.current
-    const ctx = canvas?.getContext("2d")
-    if (!canvas || !ctx) return
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const fit = () => {
-      canvas.width = window.innerWidth * dpr
-      canvas.height = window.innerHeight * dpr
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-    fit()
-    window.addEventListener("resize", fit)
-
-    type P = { x: number; y: number; vx: number; vy: number; life: number; max: number; s: number; c: string; r: number; vr: number }
-    const ps: P[] = []
-    const colors = [CORAL, "#f4a259", "#ffd9a8"]
-    let lx = -999
-    let ly = -999
-    let raf = 0
-    let gx = -999
-    let gy = -999
-    let tx = -999
-    let ty = -999
-
-    const star = (x: number, y: number, r: number, rot: number) => {
-      ctx.save()
-      ctx.translate(x, y)
-      ctx.rotate(rot)
-      ctx.beginPath()
-      for (let i = 0; i < 8; i++) {
-        const rad = i % 2 === 0 ? r : r * 0.28
-        const a = (Math.PI / 4) * i
-        ctx.lineTo(Math.cos(a) * rad, Math.sin(a) * rad)
-      }
-      ctx.closePath()
-      ctx.fill()
-      ctx.restore()
-    }
-
-    const frame = () => {
-      raf = 0
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-      for (let i = ps.length - 1; i >= 0; i--) {
-        const p = ps[i]
-        p.life++
-        if (p.life >= p.max) {
-          ps.splice(i, 1)
-          continue
-        }
-        p.x += p.vx
-        p.y += p.vy
-        p.vy += 0.03
-        p.r += p.vr
-        const k = 1 - p.life / p.max
-        ctx.globalAlpha = k
-        ctx.fillStyle = p.c
-        star(p.x, p.y, p.s * (0.4 + k * 0.6), p.r)
-      }
-      ctx.globalAlpha = 1
-      gx += (tx - gx) * 0.12
-      gy += (ty - gy) * 0.12
-      if (glow.current) glow.current.style.transform = `translate3d(${gx - 260}px, ${gy - 260}px, 0)`
-      if (ps.length || Math.abs(tx - gx) + Math.abs(ty - gy) > 0.5) raf = requestAnimationFrame(frame)
-    }
-    const wake = () => {
-      if (!raf) raf = requestAnimationFrame(frame)
-    }
-
     let magnet: HTMLElement | null = null
     const move = (e: PointerEvent) => {
-      tx = e.clientX
-      ty = e.clientY
-      if (gx < -500) {
-        gx = tx
-        gy = ty
-      }
-      const d = Math.hypot(e.clientX - lx, e.clientY - ly)
-      if (d > 26) {
-        lx = e.clientX
-        ly = e.clientY
-        if (ps.length < 45) {
-          for (let i = 0; i < 2; i++) {
-            ps.push({ x: e.clientX + (Math.random() - 0.5) * 10, y: e.clientY + (Math.random() - 0.5) * 10, vx: (Math.random() - 0.5) * 0.9, vy: -0.2 - Math.random() * 0.6, life: 0, max: 34 + Math.random() * 24, s: 3 + Math.random() * 4.5, c: colors[(Math.random() * colors.length) | 0], r: Math.random() * 3, vr: (Math.random() - 0.5) * 0.12 })
-          }
-        }
-      }
       const el = (e.target as HTMLElement | null)?.closest?.("a.rounded-full, button.rounded-full") as HTMLElement | null
       if (magnet && magnet !== el) magnet.style.translate = ""
       magnet = el
       if (el) {
         const r = el.getBoundingClientRect()
-        const mx = (e.clientX - (r.left + r.width / 2)) * 0.28
-        const my = (e.clientY - (r.top + r.height / 2)) * 0.28
-        el.style.translate = `${mx}px ${my}px`
-        el.style.transition = "translate .18s ease-out"
+        el.style.translate = `${(e.clientX - (r.left + r.width / 2)) * 0.22}px ${(e.clientY - (r.top + r.height / 2)) * 0.22}px`
       }
-      wake()
     }
     const leave = () => {
       if (magnet) magnet.style.translate = ""
@@ -246,17 +156,9 @@ export function Magic() {
     window.addEventListener("pointermove", move, { passive: true })
     document.addEventListener("pointerleave", leave)
     return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener("resize", fit)
       window.removeEventListener("pointermove", move)
       document.removeEventListener("pointerleave", leave)
     }
   }, [])
-
-  return (
-    <>
-      <div ref={glow} aria-hidden="true" className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-[520px] w-[520px] rounded-full [@media(pointer:fine)]:block" style={{ background: "radial-gradient(circle, rgba(228,87,46,.09) 0%, rgba(244,162,89,.05) 35%, transparent 68%)", transform: "translate3d(-999px,-999px,0)" }} />
-      <canvas ref={cvs} aria-hidden="true" className="pointer-events-none fixed inset-0 z-[199] hidden h-full w-full [@media(pointer:fine)]:block" />
-    </>
-  )
+  return null
 }

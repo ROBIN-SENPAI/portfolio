@@ -44,7 +44,7 @@ export function ParticleName({
     let visible = true
     let particles: P[] = []
     const pointer = { x: -9999, y: -9999, active: false }
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
 
     const sample = (str: string): [number, number][] => {

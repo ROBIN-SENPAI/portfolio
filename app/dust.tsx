@@ -33,7 +33,7 @@ export function DustCanvas({
     const ctx = canvas.getContext("2d")
     if (!ctx) return
     const palette = dark ? DARK : LIGHT
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const N = count ?? (kind === "knot" ? 9000 : 7000)
 

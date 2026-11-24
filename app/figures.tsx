@@ -185,73 +185,62 @@ export function FigBook() {
 /** Academy: from basics to building — a staircase with a climbing marker. */
 export function FigAcademy() {
   const mono = "var(--font-geist-mono), monospace"
-  const steps = [
-    { x: 34, y: 134, h: 64, n: "01", en: "BASICS", ar: "الأَساس", lit: "0;0.2;0.2;0.2" , kt: "0;0.05;0.95;1" },
-    { x: 138, y: 100, h: 98, n: "02", en: "PRACTICE", ar: "التَطبيق", lit: "0;0;0.2;0.2;0", kt: "0;0.38;0.46;0.96;1" },
-    { x: 242, y: 64, h: 134, n: "03", en: "BUILD", ar: "الإتْقان", lit: "0;0;0.28;0.28;0", kt: "0;0.72;0.8;0.96;1" },
+  const line = "M24 170 H80 Q100 170 100 150 V120 Q100 100 120 100 H200 Q220 100 220 80 V64 Q220 44 240 44 H368"
+  const D = "7s"
+  const stations = [
+    { x: 60, y: 170, t: 0.07, n: "01", en: "BASICS", ar: "الأَساس", lx: 60, ly: 194, anchor: "middle" as const },
+    { x: 160, y: 100, t: 0.36, n: "02", en: "PRACTICE", ar: "التَطبيق", lx: 160, ly: 124, anchor: "middle" as const },
+    { x: 300, y: 44, t: 0.7, n: "03", en: "BUILD", ar: "الإتْقان", lx: 300, ly: 68, anchor: "middle" as const },
   ]
-  const climb = "M34 134 H138 V100 H242 V64 H346"
   return (
-    <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="Learning path from basics to practice to building">
-      <defs>
-        <pattern id="acad-dots" width="14" height="14" patternUnits="userSpaceOnUse">
-          <circle cx="1.5" cy="1.5" r="1" fill="currentColor" />
-        </pattern>
-      </defs>
-      <rect x="0" y="0" width="400" height="230" fill="url(#acad-dots)" opacity=".12" />
-
+    <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="A roadmap line with three stations: basics, practice and build">
       {/* caption */}
-      <text x="34" y="30" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
-        LEARNING PATH
+      <text x="24" y="26" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+        ROADMAP
       </text>
-      <text x="34" y="52" fontSize="17" fill={CORAL} className="font-ar-display" fontWeight="700">
-        من الفهم إلى التطبيق
+      <text x="376" y="28" textAnchor="end" fontSize="14" fill={CORAL} className="font-ar-display" fontWeight="700">
+        خريطة الطريق
       </text>
 
-      {/* ground */}
-      <path d="M18 198 H382" stroke="currentColor" strokeWidth="1.2" opacity=".4" />
+      {/* track */}
+      <path d={line} fill="none" stroke="currentColor" strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" opacity=".12" />
+      <path d={line} fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="2 6" strokeLinecap="round" opacity=".5" />
+      <path d={line} fill="none" stroke={CORAL} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" pathLength="100" strokeDasharray="100" strokeDashoffset="100">
+        <animate attributeName="stroke-dashoffset" values="100;0;0" keyTimes="0;0.85;1" dur={D} repeatCount="indefinite" />
+      </path>
 
-      {steps.map((s, i) => (
+      {/* stations */}
+      {stations.map((s, i) => (
         <g key={s.n}>
-          <rect x={s.x} y={s.y} width="104" height={s.h} rx="7" fill="currentColor" fillOpacity=".05" stroke={i === 2 ? CORAL : "currentColor"} strokeWidth="1.5" />
-          <rect x={s.x} y={s.y} width="104" height={s.h} rx="7" fill={CORAL} fillOpacity="0">
-            <animate attributeName="fill-opacity" values={s.lit} keyTimes={s.kt} dur="6s" repeatCount="indefinite" />
-          </rect>
-          <text x={s.x + 12} y={s.y + 20} fontSize="11" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
+          <circle cx={s.x} cy={s.y} r={i === 2 ? 15 : 12} fill="#14213d" stroke="currentColor" strokeWidth="2" />
+          <circle cx={s.x} cy={s.y} r={i === 2 ? 15 : 12} fill={CORAL} opacity="0">
+            <animate attributeName="opacity" values={`0;0;1;1;0`} keyTimes={`0;${s.t};${s.t + 0.03};0.97;1`} dur={D} repeatCount="indefinite" />
+          </circle>
+          <text x={s.x} y={s.y + 4} textAnchor="middle" fontSize="11" fontWeight="700" fill="#f1ece1" fontFamily={mono}>
             {s.n}
           </text>
-          <text x={s.x + 92} y={s.y + 21} textAnchor="end" fontSize="12" fontWeight="700" fill={i === 2 ? CORAL : "currentColor"} opacity=".8" fontFamily={mono}>
-            {["Aa", ">_", "{ }"][i]}
-          </text>
-          <text x={s.x + 12} y={s.y + s.h - 27} fontSize="10" letterSpacing="2" fill="currentColor" opacity=".75" fontFamily={mono}>
+          <text x={s.lx} y={s.ly + 8} textAnchor={s.anchor} fontSize="9" letterSpacing="2.5" fill="currentColor" opacity=".7" fontFamily={mono}>
             {s.en}
           </text>
-          <text x={s.x + 12} y={s.y + s.h - 8} fontSize="16" fill="currentColor" className="font-ar" fontWeight="700">
+          <text x={s.lx} y={s.ly + 26} textAnchor={s.anchor} fontSize="16" fill="currentColor" className="font-ar" fontWeight="700">
             {s.ar}
           </text>
         </g>
       ))}
 
-      {/* path + climbing marker with trail */}
-      <path d={climb} fill="none" stroke={CORAL} strokeWidth="1.4" strokeDasharray="3 5" opacity=".7" />
-      <circle r="4" fill={CORAL} opacity=".35">
-        <animateMotion dur="6s" begin="-0.25s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
-      </circle>
-      <circle r="6.5" fill={CORAL} stroke="#14213d" strokeWidth="2">
-        <animateMotion dur="6s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
-      </circle>
-
-      {/* flag */}
-      <g transform="translate(346 64)">
-        <path d="M0 0 V-38" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-        <path fill={CORAL}>
-          <animate attributeName="d" dur="1.6s" repeatCount="indefinite" values="M0 -38 C8 -42 16 -34 26 -38 L26 -24 C16 -20 8 -28 0 -24 Z;M0 -38 C8 -34 16 -42 26 -38 L26 -24 C16 -28 8 -20 0 -24 Z;M0 -38 C8 -42 16 -34 26 -38 L26 -24 C16 -20 8 -28 0 -24 Z" />
-        </path>
+      {/* train */}
+      <g>
+        <rect x="-9" y="-5" width="18" height="10" rx="5" fill="#f1ece1" stroke="#14213d" strokeWidth="2" />
+        <circle cx="4" cy="0" r="2" fill={CORAL} />
+        <animateMotion dur={D} repeatCount="indefinite" path={line} rotate="auto" keyPoints="0;1;1" keyTimes="0;0.85;1" calcMode="linear" />
       </g>
-      <g fill={CORAL}>
-        <circle cx="372" cy="40" r="2.2" className="fig-blink" />
-        <circle cx="332" cy="22" r="1.8" className="fig-blink" style={{ animationDelay: ".7s" }} />
-        <circle cx="378" cy="70" r="1.6" className="fig-blink" style={{ animationDelay: "1.3s" }} />
+
+      {/* destination flag */}
+      <g transform="translate(368 44)">
+        <path d="M0 0 V-26" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path fill={CORAL}>
+          <animate attributeName="d" dur="1.6s" repeatCount="indefinite" values="M0 -26 C6 -29 12 -23 20 -26 L20 -14 C12 -11 6 -17 0 -14 Z;M0 -26 C6 -23 12 -29 20 -26 L20 -14 C12 -17 6 -11 0 -14 Z;M0 -26 C6 -29 12 -23 20 -26 L20 -14 C12 -11 6 -17 0 -14 Z" />
+        </path>
       </g>
     </svg>
   )

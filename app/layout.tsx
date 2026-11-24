@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Instrument_Serif, Geist_Mono, Inter, Caveat } from "next/font/google"
+import { Instrument_Serif, Geist_Mono, Instrument_Sans, Caveat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -11,8 +11,9 @@ const serif = Instrument_Serif({
   variable: "--font-serif",
 })
 
-const inter = Inter({
+const inter = Instrument_Sans({
   subsets: ["latin"],
+  display: "swap",
   variable: "--font-v2",
 })
 

@@ -186,34 +186,72 @@ export function FigBook() {
 export function FigAcademy() {
   const mono = "var(--font-geist-mono), monospace"
   const steps = [
-    { x: 34, y: 134, h: 64, n: "01", en: "BASICS", ar: "الأَساس" },
-    { x: 138, y: 100, h: 98, n: "02", en: "PRACTICE", ar: "التَطبيق" },
-    { x: 242, y: 64, h: 134, n: "03", en: "BUILD", ar: "الإتْقان" },
+    { x: 34, y: 134, h: 64, n: "01", en: "BASICS", ar: "الأَساس", lit: "0;0.2;0.2;0.2" , kt: "0;0.05;0.95;1" },
+    { x: 138, y: 100, h: 98, n: "02", en: "PRACTICE", ar: "التَطبيق", lit: "0;0;0.2;0.2;0", kt: "0;0.38;0.46;0.96;1" },
+    { x: 242, y: 64, h: 134, n: "03", en: "BUILD", ar: "الإتْقان", lit: "0;0;0.28;0.28;0", kt: "0;0.72;0.8;0.96;1" },
   ]
   const climb = "M34 134 H138 V100 H242 V64 H346"
   return (
     <svg viewBox="0 0 400 230" className="block w-full" role="img" aria-label="Learning path from basics to practice to building">
+      <defs>
+        <pattern id="acad-dots" width="14" height="14" patternUnits="userSpaceOnUse">
+          <circle cx="1.5" cy="1.5" r="1" fill="currentColor" />
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="400" height="230" fill="url(#acad-dots)" opacity=".12" />
+
+      {/* caption */}
+      <text x="34" y="30" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
+        LEARNING PATH
+      </text>
+      <text x="34" y="52" fontSize="17" fill={CORAL} className="font-ar-display" fontWeight="700">
+        من الفهم إلى التطبيق
+      </text>
+
+      {/* ground */}
+      <path d="M18 198 H382" stroke="currentColor" strokeWidth="1.2" opacity=".4" />
+
       {steps.map((s, i) => (
         <g key={s.n}>
-          <rect x={s.x} y={s.y} width="104" height={s.h} rx="6" fill={i === 2 ? CORAL : "none"} fillOpacity={i === 2 ? 0.14 : 0} stroke={i === 2 ? CORAL : "currentColor"} strokeWidth="1.5" />
-          <text x={s.x + 12} y={s.y + 20} fontSize="10" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
+          <rect x={s.x} y={s.y} width="104" height={s.h} rx="7" fill="currentColor" fillOpacity=".05" stroke={i === 2 ? CORAL : "currentColor"} strokeWidth="1.5" />
+          <rect x={s.x} y={s.y} width="104" height={s.h} rx="7" fill={CORAL} fillOpacity="0">
+            <animate attributeName="fill-opacity" values={s.lit} keyTimes={s.kt} dur="6s" repeatCount="indefinite" />
+          </rect>
+          <text x={s.x + 12} y={s.y + 20} fontSize="11" letterSpacing="2" fill={i === 2 ? CORAL : "currentColor"} fontFamily={mono} fontWeight="700">
             {s.n}
           </text>
-          <text x={s.x + 12} y={s.y + s.h - 26} fontSize="9" letterSpacing="2" fill="currentColor" opacity=".7" fontFamily={mono}>
+          <text x={s.x + 92} y={s.y + 21} textAnchor="end" fontSize="12" fontWeight="700" fill={i === 2 ? CORAL : "currentColor"} opacity=".8" fontFamily={mono}>
+            {["Aa", ">_", "{ }"][i]}
+          </text>
+          <text x={s.x + 12} y={s.y + s.h - 27} fontSize="10" letterSpacing="2" fill="currentColor" opacity=".75" fontFamily={mono}>
             {s.en}
           </text>
-          <text x={s.x + 12} y={s.y + s.h - 8} fontSize="14" fill="currentColor" className="font-ar" fontWeight="700">
+          <text x={s.x + 12} y={s.y + s.h - 8} fontSize="16" fill="currentColor" className="font-ar" fontWeight="700">
             {s.ar}
           </text>
         </g>
       ))}
-      <path d={climb} fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 5" opacity=".5" />
-      <circle r="6" fill={CORAL}>
+
+      {/* path + climbing marker with trail */}
+      <path d={climb} fill="none" stroke={CORAL} strokeWidth="1.4" strokeDasharray="3 5" opacity=".7" />
+      <circle r="4" fill={CORAL} opacity=".35">
+        <animateMotion dur="6s" begin="-0.25s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
+      </circle>
+      <circle r="6.5" fill={CORAL} stroke="#14213d" strokeWidth="2">
         <animateMotion dur="6s" repeatCount="indefinite" path={climb} keyPoints="0;1" keyTimes="0;1" calcMode="linear" />
       </circle>
+
+      {/* flag */}
       <g transform="translate(346 64)">
-        <path d="M0 0 V-30" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M0 -30 L22 -22 L0 -14 Z" fill={CORAL} />
+        <path d="M0 0 V-38" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+        <path fill={CORAL}>
+          <animate attributeName="d" dur="1.6s" repeatCount="indefinite" values="M0 -38 C8 -42 16 -34 26 -38 L26 -24 C16 -20 8 -28 0 -24 Z;M0 -38 C8 -34 16 -42 26 -38 L26 -24 C16 -28 8 -20 0 -24 Z;M0 -38 C8 -42 16 -34 26 -38 L26 -24 C16 -20 8 -28 0 -24 Z" />
+        </path>
+      </g>
+      <g fill={CORAL}>
+        <circle cx="372" cy="40" r="2.2" className="fig-blink" />
+        <circle cx="332" cy="22" r="1.8" className="fig-blink" style={{ animationDelay: ".7s" }} />
+        <circle cx="378" cy="70" r="1.6" className="fig-blink" style={{ animationDelay: "1.3s" }} />
       </g>
     </svg>
   )

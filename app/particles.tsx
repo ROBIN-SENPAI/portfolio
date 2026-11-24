@@ -16,12 +16,14 @@ export function ParticleName({
   interval = 5200,
   colors = ["#14213d", "#e4572e"],
   scale = 1,
+  cy = 0.46,
 }: {
   text?: string
   texts?: string[]
   interval?: number
   colors?: [string, string]
   scale?: number
+  cy?: number
 }) {
   const ref = useRef<HTMLCanvasElement>(null)
   const listKey = (texts ?? [text ?? ""]).join("|")
@@ -60,7 +62,7 @@ export function ParticleName({
       }
       o.textAlign = "center"
       o.textBaseline = "middle"
-      o.fillText(str, w / 2, h * 0.46)
+      o.fillText(str, w / 2, h * cy)
       const data = o.getImageData(0, 0, w, h).data
       const gap = w < 600 ? 4 : 6
       const out: [number, number][] = []
@@ -209,7 +211,7 @@ export function ParticleName({
       canvas.removeEventListener("click", click)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [listKey, colors[0], colors[1], interval, scale])
+  }, [listKey, colors[0], colors[1], interval, scale, cy])
 
   return <canvas ref={ref} className="absolute inset-0 h-full w-full touch-pan-y" aria-label={listKey.split("|")[0]} />
 }

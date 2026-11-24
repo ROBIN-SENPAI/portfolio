@@ -1053,21 +1053,40 @@ export default function V2() {
       </footer>
 
       {/* THE END — same particle treatment as the opening */}
-      <section aria-label="313" className="relative h-[88svh] min-h-[520px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-          <div className="w-[min(80svh,94vw)] opacity-80" style={{ color: PAPER }}>
+      <section aria-label="313" className="relative h-[100svh] min-h-[640px] overflow-hidden" style={{ background: INK, color: PAPER, borderTop: `1px solid ${PAPER}22` }}>
+        <div className="absolute left-1/2 top-[47%] aspect-square w-[min(66svh,88vw)] -translate-x-1/2 -translate-y-1/2">
+          <div className="pointer-events-none absolute inset-0 opacity-80" style={{ color: PAPER }}>
             <FigDial />
           </div>
+          <div className="absolute inset-0">
+            <ParticleName texts={["313", "٣١٣"]} colors={[PAPER, CORAL]} scale={0.6} cy={0.5} />
+          </div>
         </div>
-        <ParticleName texts={["313", "٣١٣"]} colors={[PAPER, CORAL]} scale={0.6} />
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[11px] tracking-[0.2em] opacity-60 md:p-8 md:text-[11px]">
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-between p-5 font-mono text-[11px] tracking-[0.2em] opacity-60 md:p-8">
           <span>MBF / END</span>
           <span>TOUCH · TAP TO SWITCH 313 ⇄ ٣١٣</span>
         </div>
-        <p className="pointer-events-none absolute inset-x-0 bottom-20 text-center font-[family-name:var(--font-serif)] text-2xl italic opacity-80 md:bottom-24 md:text-4xl">
+        <ul className="pointer-events-none absolute left-8 top-[47%] hidden -translate-y-1/2 space-y-5 font-mono text-[11px] tracking-[0.25em] lg:block xl:left-16">
+          {["BUILD", "SECURE", "TEACH"].map((w, i) => (
+            <li key={w} className="flex items-center gap-4">
+              <span style={{ color: CORAL }}>0{i + 1}</span>
+              <span className="h-px w-10" style={{ background: `${PAPER}55` }} />
+              <span className="opacity-80">{w}</span>
+            </li>
+          ))}
+        </ul>
+        <ul className="pointer-events-none absolute right-8 top-[47%] hidden -translate-y-1/2 space-y-3 text-right lg:block xl:right-16" dir="rtl">
+          {["ابنِ", "أمِّن", "علِّم"].map((w) => (
+            <li key={w} className="font-ar-display text-4xl font-bold opacity-90">
+              {w}
+              <span style={{ color: CORAL }}>.</span>
+            </li>
+          ))}
+        </ul>
+        <p className="pointer-events-none absolute inset-x-0 bottom-[11svh] text-center font-[family-name:var(--font-serif)] text-2xl italic opacity-90 md:text-4xl">
           build · secure · teach
         </p>
-        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[11px] tracking-[0.2em] md:p-8 md:text-[11px]">
+        <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-5 font-mono text-[11px] tracking-[0.2em] md:p-8">
           <span className="opacity-60">© {new Date().getFullYear()} MOHAMMED BAQIR FIRAS</span>
           <a
             href="#"

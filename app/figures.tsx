@@ -409,7 +409,7 @@ export function FigStudy() {
         <circle cx="318" cy="110" r="52" opacity=".25" />
         <motion.circle cx="318" cy="110" r="52" stroke={CORAL} strokeWidth="5" strokeLinecap="round" transform="rotate(-90 318 110)" initial={{ pathLength: 0 }} whileInView={{ pathLength: 0.7 }} viewport={{ once: true }} transition={{ duration: 1.6, ease: "easeOut" }} />
       </g>
-      <text x="318" y="118" textAnchor="middle" fontSize="24" fontWeight="700" fill="currentColor" fontFamily="Inter, sans-serif">
+      <text x="318" y="118" textAnchor="middle" fontSize="24" fontWeight="700" fill="currentColor" fontFamily="Thmanyah Sans, system-ui, sans-serif">
         25:00
       </text>
     </svg>

@@ -53,7 +53,7 @@ export function ParticleName({
       off.width = w
       off.height = h
       const o = off.getContext("2d")!
-      const family = ARABIC.test(str) ? '"Thmanyah Sans", Inter, system-ui, sans-serif' : "Inter, system-ui, sans-serif"
+      const family = '"Thmanyah Sans", system-ui, sans-serif'
       let size = Math.min(w * 0.5, h * 0.55) * scale
       o.font = `800 ${size}px ${family}`
       while (o.measureText(str).width > w * 0.9 && size > 20) {

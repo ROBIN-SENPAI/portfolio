@@ -76,7 +76,7 @@
 }
 
 @theme inline {
-  --font-sans: "Playfair Display", "Georgia", serif;
+  --font-sans: "Thmanyah Sans", system-ui, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -248,3 +248,8 @@ svg[data-offscreen] *, svg[data-offscreen] { animation-play-state: paused !impor
 ::selection { background: #e4572e; color: #f1ece1; }
 :focus-visible { outline: 2px solid #e4572e; outline-offset: 3px; border-radius: 6px; }
 
+
+/* One regular font for the whole site: Thmanyah Sans (Arabic + Latin) */
+:root { --font-v2: "Thmanyah Sans", system-ui, -apple-system, "Segoe UI", sans-serif; }
+html, body { font-family: var(--font-v2); }
+body { font-feature-settings: "kern", "liga"; text-rendering: optimizeLegibility; }

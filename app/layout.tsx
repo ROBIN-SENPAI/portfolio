@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Instrument_Serif, Geist_Mono, Instrument_Sans, Caveat } from "next/font/google"
+import { Instrument_Serif, Geist_Mono, Caveat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
@@ -9,12 +9,6 @@ const serif = Instrument_Serif({
   weight: "400",
   style: ["normal", "italic"],
   variable: "--font-serif",
-})
-
-const inter = Instrument_Sans({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-v2",
 })
 
 const hand = Caveat({
@@ -67,7 +61,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${serif.variable} ${hand.variable} ${geistMono.variable} ${inter.variable}`}>
+    <html lang="en" className={`${serif.variable} ${hand.variable} ${geistMono.variable}`}>
+      <head>
+        <link rel="preload" href="/portfolio/fonts/thmanyahsans-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/portfolio/fonts/thmanyahsans-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body className="font-sans antialiased overflow-x-hidden">
         <div className="noise-overlay" />
         {children}

@@ -127,9 +127,9 @@ export function DustCanvas({
           o.globalCompositeOperation = "destination-out"
           o.textAlign = "center"
           o.textBaseline = "middle"
-          o.font = '800 34px Inter, sans-serif'
+          o.font = '800 34px "Thmanyah Sans", system-ui, sans-serif'
           o.fillText("A", 33, 33)
-          o.font = '800 38px "Thmanyah Sans", Inter, sans-serif'
+          o.font = '800 38px "Thmanyah Sans", system-ui, sans-serif'
           o.fillText("ع", 67, 68)
         })
       else if (kind === "shield")
@@ -141,7 +141,7 @@ export function DustCanvas({
         })
       else
         buildRaster((o) => {
-          const family = ARABIC.test(text) ? '"Thmanyah Serif Display", "Thmanyah Sans", serif' : "Inter, sans-serif"
+          const family = ARABIC.test(text) ? '"Thmanyah Serif Display", "Thmanyah Sans", serif' : '"Thmanyah Sans", system-ui, sans-serif'
           let size = h * 0.7
           o.font = `800 ${size}px ${family}`
           while (o.measureText(text).width > w * 0.92 && size > 16) {

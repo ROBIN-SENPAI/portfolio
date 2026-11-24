@@ -35,7 +35,7 @@ export function DustCanvas({
     const palette = dark ? DARK : LIGHT
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const N = count ?? (kind === "knot" ? 9000 : 7000)
+    const N = count ?? (kind === "knot" ? 5000 : 4200)
 
     let w = 0
     let h = 0
@@ -208,9 +208,13 @@ export function DustCanvas({
       ctx.globalAlpha = 1
     }
 
+    let lastDraw = 0
     const loop = (ms: number) => {
       if (cancelled) return
-      if (visible) draw(ms)
+      if (visible && ms - lastDraw >= 33) {
+        lastDraw = ms
+        draw(ms)
+      }
       raf = requestAnimationFrame(loop)
     }
 

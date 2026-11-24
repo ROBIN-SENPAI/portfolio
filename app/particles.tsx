@@ -64,7 +64,7 @@ export function ParticleName({
       o.textBaseline = "middle"
       o.fillText(str, w / 2, h * cy)
       const data = o.getImageData(0, 0, w, h).data
-      const gap = w < 600 ? 4 : 6
+      const gap = w < 600 ? 5 : 7
       const out: [number, number][] = []
       for (let y = 0; y < h; y += gap) {
         for (let x = 0; x < w; x += gap) {
@@ -130,13 +130,14 @@ export function ParticleName({
       particles.length = targets.length
     }
 
+    let dirty = true
     const tick = () => {
       if (!visible) {
         raf = requestAnimationFrame(tick)
         return
       }
-      ctx.clearRect(0, 0, w, h)
       const radius = 90
+      let moving = false
       for (const p of particles) {
         const dx = p.x - pointer.x
         const dy = p.y - pointer.y
@@ -153,10 +154,17 @@ export function ParticleName({
         p.vy *= 0.84
         p.x += p.vx
         p.y += p.vy
-        ctx.fillStyle = p.c
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fill()
+        if (!moving && (Math.abs(p.vx) + Math.abs(p.vy) > 0.03 || Math.abs(p.tx - p.x) > 0.25 || Math.abs(p.ty - p.y) > 0.25)) moving = true
+      }
+      if (moving || dirty) {
+        ctx.clearRect(0, 0, w, h)
+        for (const col of colors) {
+          ctx.fillStyle = col
+          for (const p of particles) {
+            if (p.c === col) ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2)
+          }
+        }
+        dirty = moving
       }
       raf = requestAnimationFrame(tick)
     }

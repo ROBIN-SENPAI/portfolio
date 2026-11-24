@@ -67,7 +67,6 @@ export default function RootLayout({
         <link rel="preload" href="/portfolio/fonts/thmanyahsans-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="font-sans antialiased overflow-x-hidden">
-        <div className="noise-overlay" />
         {children}
         <Analytics />
       </body>

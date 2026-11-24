@@ -386,11 +386,11 @@ function Nav() {
         </motion.div>
       )}
     </AnimatePresence>
-    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] grid grid-cols-[1fr_auto_1fr] items-center px-5 py-3 backdrop-blur-md md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent md:backdrop-blur-none" style={{ zIndex: open ? 90 : 80, background: open ? "transparent" : `${PAPER}e6`, borderBottom: `1px solid ${open ? "transparent" : INK + "12"}` }}>
+    <header className="pointer-events-auto fixed inset-x-0 top-0 z-[80] grid grid-cols-[1fr_auto_1fr] items-center px-5 py-3 md:pointer-events-none md:py-4 md:px-10 md:!bg-transparent md:!border-transparent" style={{ zIndex: open ? 90 : 80, background: open ? "transparent" : `${PAPER}f5`, borderBottom: `1px solid ${open ? "transparent" : INK + "12"}` }}>
       <a href="#" onClick={(e) => { e.preventDefault(); lenis ? lenis.scrollTo(0, { duration: 1.4 }) : window.scrollTo({ top: 0, behavior: "smooth" }) }} className="pointer-events-auto justify-self-start font-mono text-xl font-bold tracking-[0.25em] transition-colors" style={{ color: open ? PAPER : INK }}>
         MBF<span style={{ color: CORAL }}>.</span>
       </a>
-      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Menu" className="pointer-events-auto group relative z-[90] flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-sm font-medium backdrop-blur-md transition-transform hover:scale-[1.03]" style={{ background: open ? CORAL : `${PAPER}d9`, color: open ? "#fff" : INK, border: `1px solid ${open ? CORAL : INK + "22"}`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
+      <button type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label="Menu" className="pointer-events-auto group relative z-[90] flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-sm font-medium transition-transform hover:scale-[1.03]" style={{ background: open ? CORAL : `${PAPER}f5`, color: open ? "#fff" : INK, border: `1px solid ${open ? CORAL : INK + "22"}`, boxShadow: `0 10px 30px -18px ${INK}88` }}>
         <span className="font-mono text-[11px] tracking-[0.14em]">{open ? "CLOSE" : `0${cur + 1} / ${navLinks[cur][0].toUpperCase()}`}</span>
         <span className="flex h-7 w-7 flex-col items-center justify-center gap-[5px] rounded-full" style={{ background: open ? "#fff" : INK }}>
           <span className="h-[2px] w-3 rounded transition-transform" style={{ background: open ? CORAL : PAPER, transform: open ? "translateY(3.5px) rotate(45deg)" : "none" }} />

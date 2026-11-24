@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react"
 import { ReactLenis, useLenis } from "lenis/react"
 import { ParticleName } from "./particles"
 import { DustCanvas } from "./dust"
-import { Note, Sticker, Wavy, CursorRing } from "./extras"
+import { Note, Sticker, Wavy, CursorRing, Magic } from "./extras"
 import { Github, Send, ShieldCheck } from "lucide-react"
 import { Frame, FigDial, FigBook, FigBridge, FigApps, FigShield, FigGraph, FigStudy, FigAcademy, FigKeys, FigSeal, StepIcon, FigRipple, FigTrain, FigTerm } from "./figures"
 
@@ -475,6 +475,7 @@ export default function V2() {
       <style>{`html{scroll-behavior:smooth} ::selection{background:${CORAL};color:#fff} a:focus-visible,button:focus-visible{outline:2px solid ${CORAL};outline-offset:4px} @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important}}`}</style>
 
       <CursorRing />
+      <Magic />
       <Nav />
       <motion.div className="fixed left-0 top-0 z-[90] h-[3px] w-full origin-left" style={{ scaleX: bar, background: CORAL }} />
 

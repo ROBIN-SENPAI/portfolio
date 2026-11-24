@@ -243,3 +243,8 @@ svg[data-offscreen] *, svg[data-offscreen] { animation-play-state: paused !impor
 .fig-pulse { animation-duration: 3.6s; }
 [class*="fig-"] { will-change: auto; }
 @media (max-width: 767px) { .fig-dash, .fig-blink, .fig-float { animation: none !important; } }
+
+/* Little magic */
+::selection { background: #e4572e; color: #f1ece1; }
+:focus-visible { outline: 2px solid #e4572e; outline-offset: 3px; border-radius: 6px; }
+a.rounded-full, button.rounded-full { will-change: translate; }

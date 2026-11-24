@@ -198,7 +198,7 @@ export function FigAcademy() {
       <text x="24" y="26" fontSize="9" letterSpacing="3" fill="currentColor" opacity=".55" fontFamily={mono}>
         ROADMAP
       </text>
-      <text x="376" y="28" textAnchor="end" fontSize="14" fill={CORAL} className="font-ar-display" fontWeight="700">
+      <text x="24" y="50" fontSize="16" fill={CORAL} className="font-ar-display" fontWeight="700">
         خريطة الطريق
       </text>
 
